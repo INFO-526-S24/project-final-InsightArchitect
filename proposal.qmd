@@ -2,7 +2,7 @@
 title: "Proposal title"
 subtitle: "Proposal"
 author: 
-  - name: "Team Name - Team member 1, Team member 2,..."
+  - name: "InsightArchitect - Ayesha Khatun, Team member 2,..."
     affiliations:
       - name: "School of Information, University of Arizona"
 description: "Project description"
@@ -29,16 +29,69 @@ library(tidyverse)
 ```{r}
 #| label: load-dataset
 #| message: false
+#| warning: false
+
+# Load the dataset
+pip_row_data <- read.csv('data/pip_dataset.csv')
+#head(pip_row_data, 10)
 ```
 
-A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
+## Introduction
 
-Make sure to load the data and use inline code for some of this information.
+## Why we are choosing this dataset?
 
-## Questions
+## Dataset Description
 
-The two questions you want to answer.
+### Dimension:
 
-## Analysis plan
+This `pip_dataset.csv` dataset contains 4,877 rows and 108 columns.
 
--   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
+### Provenance:
+
+The main dataset actually focusing on global poverty and inequality for research and development purpose. The Data source link is attached here:
+
+<https://ourworldindata.org/search?q=Poverty>
+
+### Code book Insights:
+
+As this dataset has about 10 columns but we will work on few columns, that is why we only provided the important data descriptions. Here is the Code book Insights:
+
++--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Index  | Column               | Description                                                                                                                                                                                               |
++========+======================+===========================================================================================================================================================================================================+
+| 1.     | country              | The name of the country to which the row relates.                                                                                                                                                         |
++--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 2.     | year                 | Year is the floor of Survey year (i.e. Survey year always rounded down).                                                                                                                                  |
++--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 3.     | reporting_level      | The reporting level of the survey. It can be national, urban or rural.                                                                                                                                    |
++--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 4.     | headcount_1000       | \% of population living in households with an income or expenditure per person below \$10 a day.                                                                                                          |
++--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 5.     | total_shortfall_1000 | The total shortfall from a poverty line of \$10 a day. This is the amount of money that would be theoretically needed to lift the incomes or expenditure of all people in poverty up to the poverty line. |
++--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 6.     | mean                 | The mean level of income or expenditure per day.                                                                                                                                                          |
++--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 7.     | decile1_thr          | The level of income or expenditure per day below which 10% of the population falls.                                                                                                                       |
++--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+## Questions 01: Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?
+
+### The Significance of the Question:
+
+Understanding the decline or persistence of extreme poverty—living on less than \$2.15 daily—across regions, reflects our global and local successes or failures in economic development, welfare policies, and equality measures. It's about gauging the effectiveness of our collective efforts to uplift the most vulnerable.
+
+The exploration of wealth distribution across societies facilitates the identification of the extent of inequality and its concentration across various income categories. This understanding is crucial for formulating targeted approaches to address inequality and foster economic equity, ensuring that the advantages of growth are distributed more equitably among the entire population.
+
+### Dependency Columns:
+
+For question 01 part 01 the dependent columns are **`country`**: To categorize data by world region, **`year`**: To analyze trends over time and **`headcount_ratio_international_povline`**: To identify the percentage of the population living below the international poverty line, indicative of extreme poverty levels.
+
+For question 01 part 02 the dependent columns are **`gini`**: A metric used to quantify the level of income inequality within a nation. **`palma_ratio`** is a metric that measures inequality by dividing the proportion of gross national income held by the wealthiest 10% of the population by the share held by the lowest 40%. It provides a more targeted perspective on inequality and **`s80_s20_ratio`** the ratio of income distribution between the top 20% and bottom 20%, emphasising the differences between the highest and lowest income categories.
+
+### Analysis Plan:
+
+To solve the question part 01 we will be used the time series visualization techniques by using ggplot2. These plots will help to understand the changing percentages of the populations in extreme proverty with respect to world regions, years.
+
+For the part 01 we will apply the ggridges package in R to generate a ridge plot. This methodology has the capability to visually represent the dispersion of the gini, palma_ratio, and s80_s20_ratio metrics among various income brackets, hence offering valuable insights on the distribution of wealth within societies. The application of the ridge plot facilitates the facilitation of comparing several distributions, rendering it well-suited for illustrating disparities in inequality.
+
+## References
