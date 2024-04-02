@@ -39,7 +39,15 @@ pip_row_data <- read.csv('data/pip_dataset.csv')
 
 ## Introduction
 
+In the global mission to tackle poverty, having thorough and trustworthy data is absolutely essential. Our proposal centers around a dataset sourced from Our World in Data, focusing on global poverty trends. With a vast array of indicators spanning income, education, inequality, and welfare policies, this dataset serves as a crucial resource for researchers and policymakers alike. It enables a deeper understanding of the dynamics of poverty across various regions and timeframes, offering insights into the effectiveness of interventions and the distribution of wealth among different income groups.
+
 ## Why we are choosing this dataset?
+
+This dataset stands out for its breadth and depth, encompassing a wide range of poverty-related metrics and variables. It addresses pertinent questions such as who is conquering extreme poverty across global regions and how education, income inequality, and economic dynamics interact over time. By providing insights into poverty metrics like headcount ratios, income gaps, and education levels, alongside economic indicators such as GDP per capita and remittances, this dataset facilitates a holistic understanding of poverty dynamics. Its accessibility, reliability, and relevance make it an invaluable tool for informing evidence-based interventions aimed at reducing global poverty and fostering inclusive growth.
+
+## Description of an Idea
+
+Building Interactive Dashboards in R. Creating dashboards in R offers a dynamic way to visualize data, utilizing libraries like Shiny and Plotly for interactivity. These dashboards enable users to explore trends and patterns efficiently, integrating advanced analyses for informed decision-making.
 
 ## Dataset Description
 
@@ -95,7 +103,6 @@ To solve the question part 01 we will be used the time series visualization tech
 
 For the part 01 we will apply the ggridges package in R to generate a ridge plot. This methodology has the capability to visually represent the dispersion of the gini, palma_ratio, and s80_s20_ratio metrics among various income brackets, hence offering valuable insights on the distribution of wealth within societies. The application of the ridge plot facilitates the facilitation of comparing several distributions, rendering it well-suited for illustrating disparities in inequality.
 
-
 ## Question 02: How do the education, income inequality, and economic dynamics interact across different geographical and temporal scales, influenced by welfare types, international poverty lines.
 
 ### The Significance of the Question:
@@ -104,17 +111,7 @@ This question explores poverty, inequality, and economic dynamics across regions
 
 ### Dependency Columns:
 
-country
-year
-poverty_headcount_ratio_international_povline
-income_gap_ratio_international_povline
-Gini_coefficient
-Palma_ratio
-GDP_per_capita_PPP
-remittances
-welfare_type
-reporting_level
-education_levels
+country year poverty_headcount_ratio_international_povline income_gap_ratio_international_povline Gini_coefficient Palma_ratio GDP_per_capita_PPP remittances welfare_type reporting_level education_levels
 
 ### Analysis Plan:
 
