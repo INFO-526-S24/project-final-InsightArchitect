@@ -22,7 +22,9 @@ execute:
 
 # Load packages here
 pacman::p_load(tidymodels,
-               tidyverse)
+               tidyverse,
+               broom,
+               palmerpenguins)
 
 ```
 

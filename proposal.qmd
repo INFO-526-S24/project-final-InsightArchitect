@@ -2,7 +2,7 @@
 title: "Global Poverty Trends: A Comprehensive Dataset for Research and Development"
 subtitle: "Proposal"
 author: 
-  - name: "InsightArchitect - Ayesha Khatun, Shreemithra Naveen, Anusha Nagaraja,Eeshaan Sourabh Reddy Mummil, Kaarthik Sai Patibandla, Amaan Mulla "
+  - name: "InsightArchitect - Ayesha, Shreemithra,Anusha,Eeshaan,Kaarthik,Amaan"
     affiliations:
       - name: "School of Information, University of Arizona"
 description: "Project description"
@@ -21,7 +21,8 @@ execute:
 ```{r}
 #| label: load-pkgs
 #| message: false
-library(tidyverse)
+library(tidyverse,
+        png)
 ```
 
 ## Dataset
@@ -94,24 +95,43 @@ To solve the question part 01 we will be used the time series visualization tech
 
 For the part 01 we will apply the ggridges package in R to generate a ridge plot. This methodology has the capability to visually represent the dispersion of the gini, palma_ratio, and s80_s20_ratio metrics among various income brackets, hence offering valuable insights on the distribution of wealth within societies. The application of the ridge plot facilitates the facilitation of comparing several distributions, rendering it well-suited for illustrating disparities in inequality.
 
-![Timeline of our project](images/Timeline - Insight Architech (1).jpg){fig-align="center" width="597"}
+```{r, results="asis", echo=FALSE}
+cat('<img src="images/timeline.jpg" alt="Timeline Image" width="650" height="550">')
+```
 
-### Workflow - Weekly Plan of Attack 
+```{r, fig.alt = "Timeline",echo = FALSE}
+library(jpeg) 
+image_data <- readJPEG("images/timeline.jpg")
 
-+-------------------------------------+---------+------------------------------+-----------+-----------+--------------------------+
-| Task Name                           | Status  | Assignee                     | Due       | Priority  | Summary                  |
-+=====================================+=========+==============================+===========+===========+==========================+
-| Dataset Description and Q1          | Done    | Ayesha                       | 04/01/24  | High      | To review the questions. |
-+-------------------------------------+---------+------------------------------+-----------+-----------+--------------------------+
-| Into, Motivation and Idea Analysis  | ongoing | Anusha                       |           | High      |                          |
-+-------------------------------------+---------+------------------------------+-----------+-----------+--------------------------+
-| Timeline and workflow               | Done    | Shreemithra                  | 04/01/24  | Medium    | Reviewed                 |
-+-------------------------------------+---------+------------------------------+-----------+-----------+--------------------------+
-| Analysis plan for Q2                | Ongoing | Kaarthik,Eeshaan and Amaan   | 04/05/24  | High      |                          |
-+-------------------------------------+---------+------------------------------+-----------+-----------+--------------------------+
-| Peer review                         |         | Everyone                     | 04/06/24  | High      |                          |
-+-------------------------------------+---------+------------------------------+-----------+-----------+--------------------------+
-| About.qmd file updating             |         | Amaan and Ayesha             | 04/10/24  | Low       |                          |
-+-------------------------------------+---------+------------------------------+-----------+-----------+--------------------------+
+# Define the size of the plotting window
+dev.new(width = 10, height = 8)  # Adjust the width and height as needed
+
+# Plot the image
+par(mar = rep(0, 4))  # Set margin to 0 to maximize the image size
+plot(1, type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n", 
+     xlim = c(0, ncol(image_data)), ylim = c(0, nrow(image_data)), asp = 1)
+
+# Draw the image
+rasterImage(image_data, 0, 0, ncol(image_data), nrow(image_data))
+
+```
+
+### Workflow - Weekly Plan of Attack
+
++------------------------------------+----------+----------------------------+----------+----------+--------------------------+
+| Task Name                          | Status   | Assignee                   | Due      | Priority | Summary                  |
++====================================+==========+============================+==========+==========+==========================+
+| Dataset Description and Q1         | Done     | Ayesha                     | 04/01/24 | High     | To review the questions. |
++------------------------------------+----------+----------------------------+----------+----------+--------------------------+
+| Into, Motivation and Idea Analysis | ongoing  | Anusha                     |          | High     |                          |
++------------------------------------+----------+----------------------------+----------+----------+--------------------------+
+| Timeline and workflow              | Done     | Shreemithra                | 04/01/24 | Medium   | Reviewed                 |
++------------------------------------+----------+----------------------------+----------+----------+--------------------------+
+| Analysis plan for Q2               | Ongoing  | Kaarthik,Eeshaan and Amaan | 04/05/24 | High     |                          |
++------------------------------------+----------+----------------------------+----------+----------+--------------------------+
+| Peer review                        |          | Everyone                   | 04/06/24 | High     |                          |
++------------------------------------+----------+----------------------------+----------+----------+--------------------------+
+| About.qmd file updating            |          | Amaan and Ayesha           | 04/10/24 | Low      |                          |
++------------------------------------+----------+----------------------------+----------+----------+--------------------------+
 
 ## References
