@@ -95,6 +95,33 @@ To solve the question part 01 we will be used the time series visualization tech
 
 For the part 01 we will apply the ggridges package in R to generate a ridge plot. This methodology has the capability to visually represent the dispersion of the gini, palma_ratio, and s80_s20_ratio metrics among various income brackets, hence offering valuable insights on the distribution of wealth within societies. The application of the ridge plot facilitates the facilitation of comparing several distributions, rendering it well-suited for illustrating disparities in inequality.
 
+
+## Question 02: How do the education, income inequality, and economic dynamics interact across different geographical and temporal scales, influenced by welfare types, international poverty lines.
+
+### The Significance of the Question:
+
+This question explores poverty, inequality, and economic dynamics across regions and timeframes, considering welfare types and education levels. By analyzing data on poverty metrics like headcount ratios and income gaps, alongside indicators such as GDP per capita and remittances, it seeks to understand the complex interplay of factors shaping global development. The inclusion of education levels adds to the analysis, highlighting the role of human capital in poverty alleviation. Through interactive visualizations and data-driven insights, this inquiry aims to inform targeted policies and interventions, ultimately fostering inclusive growth and improving well-being on a global scale.
+
+### Dependency Columns:
+
+country
+year
+poverty_headcount_ratio_international_povline
+income_gap_ratio_international_povline
+Gini_coefficient
+Palma_ratio
+GDP_per_capita_PPP
+remittances
+welfare_type
+reporting_level
+education_levels
+
+### Analysis Plan:
+
+The proposed analysis setup provides a comprehensive framework for exploring the complex interplay between poverty, inequality, and economic dynamics at both global and temporal scales. By leveraging interactive visualizations and advanced data querying capabilities, users can gain deep insights into the factors driving poverty and inequality trends, as well as assess the effectiveness of different welfare policies and international poverty interventions.
+
+Visualizations: A dynamic 3D globe and Parallel Coordinates Plot (PCP) showcase poverty, inequality, and economic indicators across countries and time. Interactivity: Time-lapse controls and dynamic selection tools allow users to explore data trends and outliers. Insights: Users can uncover complex relationships and simulate scenarios to understand the impact of economic changes and policies on poverty and inequality.
+
 ```{r, results="asis", echo=FALSE}
 cat('<img src="images/timeline.jpg" alt="Timeline Image" width="650" height="550">')
 ```
