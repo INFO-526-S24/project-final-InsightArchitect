@@ -1,8 +1,8 @@
 ---
-title: "Proposal title"
+title: "Global Poverty Trends: A Comprehensive Dataset for Research and Development"
 subtitle: "Proposal"
 author: 
-  - name: "InsightArchitect - Ayesha Khatun, Team member 2,..."
+  - name: "InsightArchitect - Ayesha Khatun, Shreemithra Naveen, Anusha Nagaraja,Eeshaan Sourabh Reddy Mummil, Kaarthik Sai Patibandla, Amaan Mulla "
     affiliations:
       - name: "School of Information, University of Arizona"
 description: "Project description"
@@ -93,5 +93,25 @@ For question 01 part 02 the dependent columns are **`gini`**: A metric used to q
 To solve the question part 01 we will be used the time series visualization techniques by using ggplot2. These plots will help to understand the changing percentages of the populations in extreme proverty with respect to world regions, years.
 
 For the part 01 we will apply the ggridges package in R to generate a ridge plot. This methodology has the capability to visually represent the dispersion of the gini, palma_ratio, and s80_s20_ratio metrics among various income brackets, hence offering valuable insights on the distribution of wealth within societies. The application of the ridge plot facilitates the facilitation of comparing several distributions, rendering it well-suited for illustrating disparities in inequality.
+
+![Timeline of our project](images/Timeline - Insight Architech (1).jpg){fig-align="center" width="597"}
+
+### Workflow - Weekly Plan of Attack 
+
++-------------------------------------+---------+------------------------------+-----------+-----------+--------------------------+
+| Task Name                           | Status  | Assignee                     | Due       | Priority  | Summary                  |
++=====================================+=========+==============================+===========+===========+==========================+
+| Dataset Description and Q1          | Done    | Ayesha                       | 04/01/24  | High      | To review the questions. |
++-------------------------------------+---------+------------------------------+-----------+-----------+--------------------------+
+| Into, Motivation and Idea Analysis  | ongoing | Anusha                       |           | High      |                          |
++-------------------------------------+---------+------------------------------+-----------+-----------+--------------------------+
+| Timeline and workflow               | Done    | Shreemithra                  | 04/01/24  | Medium    | Reviewed                 |
++-------------------------------------+---------+------------------------------+-----------+-----------+--------------------------+
+| Analysis plan for Q2                | Ongoing | Kaarthik,Eeshaan and Amaan   | 04/05/24  | High      |                          |
++-------------------------------------+---------+------------------------------+-----------+-----------+--------------------------+
+| Peer review                         |         | Everyone                     | 04/06/24  | High      |                          |
++-------------------------------------+---------+------------------------------+-----------+-----------+--------------------------+
+| About.qmd file updating             |         | Amaan and Ayesha             | 04/10/24  | Low       |                          |
++-------------------------------------+---------+------------------------------+-----------+-----------+--------------------------+
 
 ## References
