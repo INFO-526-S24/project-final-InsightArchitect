@@ -2,7 +2,7 @@
 title: "Global Poverty Trends: A Comprehensive Dataset for Research and Development"
 subtitle: "Proposal"
 author: 
-  - name: "InsightArchitect - Ayesha, Shreemithra,Anusha,Eeshaan,Kaarthik,Amaan"
+  - name: "InsightArchitect - Ayesha, Shreemithra, Anusha, Eeshaan, Kaarthik, Amaan"
     affiliations:
       - name: "School of Information, University of Arizona"
 description: "Project description"
@@ -21,16 +21,16 @@ execute:
 ```{r}
 #| label: load-pkgs
 #| message: false
+#| echo: false
 library(tidyverse,
         png)
 ```
-
-## Dataset
 
 ```{r}
 #| label: load-dataset
 #| message: false
 #| warning: false
+#| echo: false
 
 # Load the dataset
 pip_row_data <- read.csv('data/pip_dataset.csv')
@@ -39,7 +39,7 @@ pip_row_data <- read.csv('data/pip_dataset.csv')
 
 ## Introduction
 
-In the global mission to tackle poverty, having thorough and trustworthy data is absolutely essential. Our proposal centers around a dataset sourced from Our World in Data, focusing on global poverty trends. With a vast array of indicators spanning income, education, inequality, and welfare policies, this dataset serves as a crucial resource for researchers and policymakers alike. It enables a deeper understanding of the dynamics of poverty across various regions and timeframes, offering insights into the effectiveness of interventions and the distribution of wealth among different income groups.
+In the global mission to tackle poverty, having thorough and trustworthy data is absolutely essential. Our proposal centers around a dataset sourced from Our World in Data, focusing on global poverty trends. With a vast array of indicators spanning income, education, inequality, and welfare policies, this dataset serves as a crucial resource for researchers and policymakers alike. It enables a deeper understanding of the dynamics of poverty across various regions and time-frames, offering insights into the effectiveness of interventions and the distribution of wealth among different income groups.
 
 ## Why we are choosing this dataset?
 
@@ -47,7 +47,7 @@ This dataset stands out for its breadth and depth, encompassing a wide range of 
 
 ## Description of an Idea
 
-Building Interactive Dashboards in R. Creating dashboards in R offers a dynamic way to visualize data, utilizing libraries like Shiny and Plotly for interactivity. These dashboards enable users to explore trends and patterns efficiently, integrating advanced analyses for informed decision-making.
+Building Interactive Dashboards in R. Creating dashboards in R offers a dynamic way to visualize data, utilizing libraries like Shiny and Plot for interactivity. These dashboards enable users to explore trends and patterns efficiently, integrating advanced analyses for informed decision-making.
 
 ## Dataset Description
 
@@ -63,25 +63,25 @@ The main dataset actually focusing on global poverty and inequality for research
 
 ### Code book Insights:
 
-As this dataset has about 10 columns but we will work on few columns, that is why we only provided the important data descriptions. Here is the Code book Insights:
+As this dataset has about 108 columns but we will work on few columns, that is why we only provided the important data descriptions. Here is the Code book Insights:
 
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Index  | Column               | Description                                                                                                                                                                                               |
-+========+======================+===========================================================================================================================================================================================================+
-| 1.     | country              | The name of the country to which the row relates.                                                                                                                                                         |
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2.     | year                 | Year is the floor of Survey year (i.e. Survey year always rounded down).                                                                                                                                  |
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 3.     | reporting_level      | The reporting level of the survey. It can be national, urban or rural.                                                                                                                                    |
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 4.     | headcount_1000       | \% of population living in households with an income or expenditure per person below \$10 a day.                                                                                                          |
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 5.     | total_shortfall_1000 | The total shortfall from a poverty line of \$10 a day. This is the amount of money that would be theoretically needed to lift the incomes or expenditure of all people in poverty up to the poverty line. |
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 6.     | mean                 | The mean level of income or expenditure per day.                                                                                                                                                          |
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 7.     | decile1_thr          | The level of income or expenditure per day below which 10% of the population falls.                                                                                                                       |
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++-------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Index | Column               | Description                                                                                                                                                                                               |
++=======+======================+===========================================================================================================================================================================================================+
+| 1.    | country              | The name of the country to which the row relates.                                                                                                                                                         |
++-------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 2.    | year                 | Year is the floor of Survey year (i.e. Survey year always rounded down).                                                                                                                                  |
++-------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 3.    | reporting_level      | The reporting level of the survey. It can be national, urban or rural.                                                                                                                                    |
++-------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 4.    | headcount_1000       | \% of population living in households with an income or expenditure per person below \$10 a day.                                                                                                          |
++-------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 5.    | total_shortfall_1000 | The total shortfall from a poverty line of \$10 a day. This is the amount of money that would be theoretically needed to lift the incomes or expenditure of all people in poverty up to the poverty line. |
++-------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 6.    | mean                 | The mean level of income or expenditure per day.                                                                                                                                                          |
++-------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 7.    | decile1_thr          | The level of income or expenditure per day below which 10% of the population falls.                                                                                                                       |
++-------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 ## Questions 01: Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?
 
