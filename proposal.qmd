@@ -2,7 +2,7 @@
 title: "Global Poverty Trends: A Comprehensive Dataset for Research and Development"
 subtitle: "Proposal"
 author: 
-  - name: "InsightArchitect - Ayesha, Shreemithra,Anusha,Eeshaan,Kaarthik,Amaan"
+  - name: "InsightArchitect - Ayesha, Shreemithra, Anusha, Eeshaan, Kaarthik, Amaan"
     affiliations:
       - name: "School of Information, University of Arizona"
 description: "Project description"
@@ -21,16 +21,16 @@ execute:
 ```{r}
 #| label: load-pkgs
 #| message: false
+#| echo: false
 library(tidyverse,
         png)
 ```
-
-## Dataset
 
 ```{r}
 #| label: load-dataset
 #| message: false
 #| warning: false
+#| echo: false
 
 # Load the dataset
 pip_row_data <- read.csv('data/pip_dataset.csv')
@@ -39,7 +39,15 @@ pip_row_data <- read.csv('data/pip_dataset.csv')
 
 ## Introduction
 
+In the global mission to tackle poverty, having thorough and trustworthy data is absolutely essential. Our proposal centers around a dataset sourced from Our World in Data, focusing on global poverty trends. With a vast array of indicators spanning income, education, inequality, and welfare policies, this dataset serves as a crucial resource for researchers and policymakers alike. It enables a deeper understanding of the dynamics of poverty across various regions and time-frames, offering insights into the effectiveness of interventions and the distribution of wealth among different income groups.
+
 ## Why we are choosing this dataset?
+
+This dataset stands out for its breadth and depth, encompassing a wide range of poverty-related metrics and variables. It addresses pertinent questions such as who is conquering extreme poverty across global regions and how education, income inequality, and economic dynamics interact over time. By providing insights into poverty metrics like headcount ratios, income gaps, and education levels, alongside economic indicators such as GDP per capita and remittances, this dataset facilitates a holistic understanding of poverty dynamics. Its accessibility, reliability, and relevance make it an invaluable tool for informing evidence-based interventions aimed at reducing global poverty and fostering inclusive growth.
+
+## Description of an Idea
+
+Building Interactive Dashboards in R. Creating dashboards in R offers a dynamic way to visualize data, utilizing libraries like Shiny and Plot for interactivity. These dashboards enable users to explore trends and patterns efficiently, integrating advanced analyses for informed decision-making.
 
 ## Dataset Description
 
@@ -55,46 +63,62 @@ The main dataset actually focusing on global poverty and inequality for research
 
 ### Code book Insights:
 
-As this dataset has about 10 columns but we will work on few columns, that is why we only provided the important data descriptions. Here is the Code book Insights:
+As this dataset has about 108 columns but we will work on few columns, that is why we only provided the important data descriptions. Here is the Code book Insights:
 
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Index  | Column               | Description                                                                                                                                                                                               |
-+========+======================+===========================================================================================================================================================================================================+
-| 1.     | country              | The name of the country to which the row relates.                                                                                                                                                         |
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2.     | year                 | Year is the floor of Survey year (i.e. Survey year always rounded down).                                                                                                                                  |
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 3.     | reporting_level      | The reporting level of the survey. It can be national, urban or rural.                                                                                                                                    |
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 4.     | headcount_1000       | \% of population living in households with an income or expenditure per person below \$10 a day.                                                                                                          |
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 5.     | total_shortfall_1000 | The total shortfall from a poverty line of \$10 a day. This is the amount of money that would be theoretically needed to lift the incomes or expenditure of all people in poverty up to the poverty line. |
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 6.     | mean                 | The mean level of income or expenditure per day.                                                                                                                                                          |
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 7.     | decile1_thr          | The level of income or expenditure per day below which 10% of the population falls.                                                                                                                       |
-+--------+----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| Index  | Column                                | Data Type | Description                                                                                                                                         |
++========+=======================================+===========+=====================================================================================================================================================+
+| 1.     | country                               | string    | The name of the country to which the row relates.                                                                                                   |
++--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| 2.     | year                                  | integer   | Year is the floor of Survey year (i.e. Survey year always rounded down).                                                                            |
++--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| 3.     | reporting_level                       | string    | The reporting level of the survey. It can be national, urban or rural.                                                                              |
++--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| 4.     | headcount_ratio_international_povline | double    | \% of population living in households with an income or expenditure per person below the International Poverty Line: \$1.90 a day                   |
++--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| 5.     | gini                                  | double    | The Gini coefficient measures inequality on a scale between 0 and 1, where higher values indicate greater inequality.                               |
++--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| 6.     | mean                                  | double    | The mean level of income or expenditure per day.                                                                                                    |
++--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| 7.     | palma_ratio                           | double    | The Palma ratio is a measure of inequality: it is the share of total income (or expenditure) of the top 10% divided by the share of the bottom 40%. |
++--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| 8.     | s80_s20_ratio                         | double    | The share of total income (or expenditure) of the top 20% divided by the share of the bottom 20%.                                                   |
++--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
 
 ## Questions 01: Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?
 
-### The Significance of the Question:
+### The Significance of the Question
 
 Understanding the decline or persistence of extreme poverty—living on less than \$2.15 daily—across regions, reflects our global and local successes or failures in economic development, welfare policies, and equality measures. It's about gauging the effectiveness of our collective efforts to uplift the most vulnerable.
 
 The exploration of wealth distribution across societies facilitates the identification of the extent of inequality and its concentration across various income categories. This understanding is crucial for formulating targeted approaches to address inequality and foster economic equity, ensuring that the advantages of growth are distributed more equitably among the entire population.
 
-### Dependency Columns:
+### Analysis Plan
 
-For question 01 part 01 the dependent columns are **`country`**: To categorize data by world region, **`year`**: To analyze trends over time and **`headcount_ratio_international_povline`**: To identify the percentage of the population living below the international poverty line, indicative of extreme poverty levels.
+#### Plot 01 : Stacked Area Chart to know Poverty Trends:
 
-For question 01 part 02 the dependent columns are **`gini`**: A metric used to quantify the level of income inequality within a nation. **`palma_ratio`** is a metric that measures inequality by dividing the proportion of gross national income held by the wealthiest 10% of the population by the share held by the lowest 40%. It provides a more targeted perspective on inequality and **`s80_s20_ratio`** the ratio of income distribution between the top 20% and bottom 20%, emphasising the differences between the highest and lowest income categories.
+A stacked area chart is an inventive method that may be used. This kind of graphic can show the `headcount_ratio_international_povline` over time for different areas as components of a whole. The data from each region is layered on top of one another, making it possible to see clearly how each region's proportion of the world's total headcount of extreme poverty has changed over time.
 
-### Analysis Plan:
+**Dependency Columns:**
 
-To solve the question part 01 we will be used the time series visualization techniques by using ggplot2. These plots will help to understand the changing percentages of the populations in extreme proverty with respect to world regions, years.
+For Plot 01 the dependent columns are **`country`**, **`year`** and **`headcount_ratio_international_povline`**.
 
-For the part 01 we will apply the ggridges package in R to generate a ridge plot. This methodology has the capability to visually represent the dispersion of the gini, palma_ratio, and s80_s20_ratio metrics among various income brackets, hence offering valuable insights on the distribution of wealth within societies. The application of the ridge plot facilitates the facilitation of comparing several distributions, rendering it well-suited for illustrating disparities in inequality.
+**Visualization Descriptions:**
 
+The cumulative percentage of the world's population living in extreme poverty would be represented by the y-axis, while time (years) would be represented by the x-axis. To facilitate easy differentiation, each region in the stack would be represented by a distinct color or pattern.With the help of this representation, we will be able to observe not only the general downward trend in extreme poverty over time, but also the contributions of various regions to these changes. For example, a region's area diminishing over time would be indicative of effective measures to reduce poverty in that region. With the use of the chart, policy measures can be focused and focused on reducing poverty by recognizing both global patterns and regional contributions to these trends.
+
+#### Plot 02 : Ridge Plot for Wealth Distribution Analysis:
+
+A 'Ridge Plot' is a great tool to compare the distribution of a continuous variable between groups; in this case, the distribution of wealth as determined by `s80_s20_ratio`, `gini`, and `palma_ratio` among different income groups. "Ridge plots" are just a set of vertically arranged, slightly overlapped density charts for every group. It is simpler to compare the distributions and see trends or outlines with this setup in place.
+
+**Dependency Columns:**
+
+For Plot 02 dependent columns are **`gini`**, **`palma_ratio`** and **`s80_s20_ratio`**
+
+**Visualization Descriptions:**
+
+Each ridge (or line) in the figure would indicate the distribution of one of the inequality metrics.\
+Each ridge would be labeled with the income group it represents, and the metric value would be represented by the x-axis. It would be simpler to determine which income groups face the greatest inequality if we could see the distribution and central tendency of inequality metrics within each income group. We may determine whether higher income groups likely to have more or less inequality in comparison to lower income groups by analyzing the shapes and peaks of the ridges. A higher peak in the ridge for the top 20% of incomes than for the lowest 20%, for instance, would point to a larger concentration of wealth among the highest earners. The ridge plot can be used to guide policy toward more equitable economic distribution by illuminating the distribution of wealth and assisting in the understanding of not just the degree of inequality within each income group but also how these levels compare across groups.
 
 ## Question 02: How do the education, income inequality, and economic dynamics interact across different geographical and temporal scales, influenced by welfare types, international poverty lines.
 
@@ -104,12 +128,17 @@ This question explores poverty, inequality, and economic dynamics across regions
 
 ### Dependency Columns:
 
+<<<<<<< HEAD
 These columns include 'country', 'year', 'poverty_headcount_ratio_international_povline', 'income_gap_ratio_international_povline', 'Gini_coefficient', 'Palma_ratio', 'GDP_per_capita_PPP', 'remittances', 'welfare_type', 'reporting_level', and 'education_levels'. By examining these variables, the analysis aims to shed light on how different factors such as welfare policies, economic performance, and educational attainment interact to shape the global landscape of poverty and economic inequality.
+=======
+country year poverty_headcount_ratio_international_povline income_gap_ratio_international_povline Gini_coefficient Palma_ratio GDP_per_capita_PPP remittances welfare_type reporting_level education_levels
+>>>>>>> b8aee794874d6bcd1344b50b8492fdead0e3633a
 
 ### Analysis Plan:
 
 The proposed analysis setup provides a comprehensive framework for exploring the complex interplay between poverty, inequality, and economic dynamics at both global and temporal scales. By leveraging interactive visualizations and advanced data querying capabilities, users can gain deep insights into the factors driving poverty and inequality trends, as well as assess the effectiveness of different welfare policies and international poverty interventions.
 
+<<<<<<< HEAD
 For the Visualization part of the analysis, the plan includes:
 
 1. A dynamic 3D globe that visually represents poverty, inequality, and economic indicators across countries and over time, providing a global perspective on the data.
@@ -119,6 +148,9 @@ For the Visualization part of the analysis, the plan includes:
 3. Interactivity features such as time-lapse controls and dynamic selection tools, which enable users to explore data trends, identify outliers, and understand the evolution of poverty and inequality over time.
 
 4. Insightful analyses and scenario simulations, helping users to uncover complex relationships between variables and assess the potential impact of economic changes, policy interventions, and educational improvements on poverty and inequality levels.
+=======
+**Visualizations:** A dynamic 3D globe and Parallel Coordinates Plot (PCP) showcase poverty, inequality, and economic indicators across countries and time. Interactivity: Time-lapse controls and dynamic selection tools allow users to explore data trends and outliers. Insights: Users can uncover complex relationships and simulate scenarios to understand the impact of economic changes and policies on poverty and inequality.
+>>>>>>> b8aee794874d6bcd1344b50b8492fdead0e3633a
 
 ```{r, results="asis", echo=FALSE}
 cat('<img src="images/timeline.jpg" alt="Timeline Image" width="650" height="550">')
@@ -154,9 +186,13 @@ rasterImage(image_data, 0, 0, ncol(image_data), nrow(image_data))
 +------------------------------------+----------+----------------------------+----------+----------+--------------------------+
 | Analysis plan for Q2               | Ongoing  | Kaarthik,Eeshaan and Amaan | 04/05/24 | High     |                          |
 +------------------------------------+----------+----------------------------+----------+----------+--------------------------+
-| Peer review                        |          | Everyone                   | 04/06/24 | High     |                          |
+| Peer review                        | Done     | Everyone                   | 04/06/24 | High     |                          |
 +------------------------------------+----------+----------------------------+----------+----------+--------------------------+
-| About.qmd file updating            |          | Amaan and Ayesha           | 04/10/24 | Low      |                          |
+| About.qmd file updating            | Pending  | Amaan and Ayesha           | 04/10/24 | Low      |                          |
 +------------------------------------+----------+----------------------------+----------+----------+--------------------------+
 
 ## References
+
+\[1\] Data source link: <https://ourworldindata.org/search?q=Poverty>
+
+\[2\] Github Link: <https://github.com/owid/poverty-data/tree/main/datasets>
