@@ -104,23 +104,21 @@ This question explores poverty, inequality, and economic dynamics across regions
 
 ### Dependency Columns:
 
-country
-year
-poverty_headcount_ratio_international_povline
-income_gap_ratio_international_povline
-Gini_coefficient
-Palma_ratio
-GDP_per_capita_PPP
-remittances
-welfare_type
-reporting_level
-education_levels
+These columns include 'country', 'year', 'poverty_headcount_ratio_international_povline', 'income_gap_ratio_international_povline', 'Gini_coefficient', 'Palma_ratio', 'GDP_per_capita_PPP', 'remittances', 'welfare_type', 'reporting_level', and 'education_levels'. By examining these variables, the analysis aims to shed light on how different factors such as welfare policies, economic performance, and educational attainment interact to shape the global landscape of poverty and economic inequality.
 
 ### Analysis Plan:
 
 The proposed analysis setup provides a comprehensive framework for exploring the complex interplay between poverty, inequality, and economic dynamics at both global and temporal scales. By leveraging interactive visualizations and advanced data querying capabilities, users can gain deep insights into the factors driving poverty and inequality trends, as well as assess the effectiveness of different welfare policies and international poverty interventions.
 
-Visualizations: A dynamic 3D globe and Parallel Coordinates Plot (PCP) showcase poverty, inequality, and economic indicators across countries and time. Interactivity: Time-lapse controls and dynamic selection tools allow users to explore data trends and outliers. Insights: Users can uncover complex relationships and simulate scenarios to understand the impact of economic changes and policies on poverty and inequality.
+For the Visualization part of the analysis, the plan includes:
+
+1. A dynamic 3D globe that visually represents poverty, inequality, and economic indicators across countries and over time, providing a global perspective on the data.
+
+2. Parallel Coordinates Plot (PCP) to showcase the complex relationships between different variables such as poverty rates, Gini coefficient, GDP per capita, and more, allowing for detailed analysis of trends and disparities.
+
+3. Interactivity features such as time-lapse controls and dynamic selection tools, which enable users to explore data trends, identify outliers, and understand the evolution of poverty and inequality over time.
+
+4. Insightful analyses and scenario simulations, helping users to uncover complex relationships between variables and assess the potential impact of economic changes, policy interventions, and educational improvements on poverty and inequality levels.
 
 ```{r, results="asis", echo=FALSE}
 cat('<img src="images/timeline.jpg" alt="Timeline Image" width="650" height="550">')
