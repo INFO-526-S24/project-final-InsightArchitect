@@ -28,13 +28,16 @@ Add project abstract here.
 ```{r}
 library(shiny)
 library(globe4r)
+library(countrycode)
+library(dplyr)
+library(maps)
 
 # display globe
-create_globe()
+#create_globe()
 
 # The package makes use of coords (coordiantes) which behaves like the aes function in ggplot2.
 
-create_globe() %>% 
+globe_sample2 <- create_globe() %>% 
   globe_pov(-21, 179) %>% # position camera
   globe_bars(
     coords(lat, long), 
@@ -73,4 +76,13 @@ server <- function(input, output) {
 
 # running the UI
 shinyApp(ui = ui, server = server)
+```
+
+```{r}
+
+
+
+```
+```{r}
+summary(my_data)
 ```
