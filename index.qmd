@@ -20,3 +20,56 @@ execute:
 ## Abstract
 
 Add project abstract here.
+
+```{r}
+library(shiny)
+library(globe4r)
+library(countrycode)
+library(dplyr)
+library(maps)
+
+# display globe
+#create_globe()
+
+# The package makes use of coords (coordiantes) which behaves like the aes function in ggplot2.
+
+globe_sample2 <- create_globe() %>% 
+  globe_pov(-21, 179) %>% # position camera
+  globe_bars(
+    coords(lat, long), 
+    data = quakes
+  )
+
+## Implement Shiny (samole)
+# Define UI
+ui <- fluidPage(
+  titlePanel("Globe4r in Shiny"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("magnitude", "Minimum Magnitude", min = 0, max = 6, value = 4.5)
+    ),
+    mainPanel(
+      globeOutput("earthquakeGlobe")
+    )
+  )
+)
+
+# Define server logic
+server <- function(input, output) {
+  output$earthquakeGlobe <- renderGlobe({
+    # Filter quakes based on the magnitude input
+    filtered_quakes <- quakes[quakes$mag > input$magnitude, ]
+    
+    create_globe() %>%
+      globe_pov(-21, 179) %>%
+      globe_bars(
+        coords(lat, long, mag), 
+        data = filtered_quakes,
+        color = "red"
+      )
+  })
+}
+
+# running the UI
+shinyApp(ui = ui, server = server)
+```
