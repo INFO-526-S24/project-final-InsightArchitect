@@ -150,7 +150,7 @@ cat('<img src="images/timeline.jpg" alt="Timeline Image" width="650" height="550
 
 ```{r, fig.alt = "Timeline",echo = FALSE}
 library(jpeg) 
-image_data <- readJPEG("images/timeline.jpg")
+image_data <- readJPEG("images/Timeline_Insight_Architech.jpg")
 
 # Define the size of the plotting window
 dev.new(width = 10, height = 8)  # Adjust the width and height as needed
