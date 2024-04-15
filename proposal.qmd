@@ -145,7 +145,7 @@ For the Visualization part of the analysis, the plan includes:
 4.  Insightful analyses and scenario simulations, helping users to uncover complex relationships between variables and assess the potential impact of economic changes, policy interventions, and educational improvements on poverty and inequality levels.
 
 ```{r, results="asis", echo=FALSE}
-cat('<img src="images/timeline.jpg" alt="Timeline Image" width="650" height="550">')
+cat('<img src="images/Timeline_Insight_Architech.jpg" alt="Timeline Image" width="650" height="550">')
 ```
 
 ```{r, fig.alt = "Timeline",echo = FALSE}
@@ -172,15 +172,19 @@ rasterImage(image_data, 0, 0, ncol(image_data), nrow(image_data))
 +====================================+==========+============================+==========+==========+==========================+
 | Dataset Description and Q1         | Done     | Ayesha                     | 04/01/24 | High     | To review the questions. |
 +------------------------------------+----------+----------------------------+----------+----------+--------------------------+
-| Into, Motivation and Idea Analysis | ongoing  | Anusha                     |          | High     |                          |
+| Into, Motivation and Idea Analysis | Done     | Anusha                     |          | High     | Reviewed by All          |
 +------------------------------------+----------+----------------------------+----------+----------+--------------------------+
 | Timeline and workflow              | Done     | Shreemithra                | 04/01/24 | Medium   | Reviewed                 |
 +------------------------------------+----------+----------------------------+----------+----------+--------------------------+
-| Analysis plan for Q2               | Ongoing  | Kaarthik,Eeshaan and Amaan | 04/05/24 | High     |                          |
+| Analysis plan for Q2               | Done     | Kaarthik,Eeshaan and Amaan | 04/05/24 | High     | Reviewed by All          |
 +------------------------------------+----------+----------------------------+----------+----------+--------------------------+
 | Peer review                        | Done     | Everyone                   | 04/06/24 | High     |                          |
 +------------------------------------+----------+----------------------------+----------+----------+--------------------------+
-| About.qmd file updating            | Pending  | Amaan and Ayesha           | 04/10/24 | Low      |                          |
+| About.qmd file updating            | Done     | Amaan and Ayesha           | 04/10/24 | Low      |                          |
++------------------------------------+----------+----------------------------+----------+----------+--------------------------+
+| Q2 - Analytical                    | Done     | Eeshaan                    | 04/14/24 | High     | Reviewed and pushed      |
++------------------------------------+----------+----------------------------+----------+----------+--------------------------+
+|                                    |          |                            |          |          |                          |
 +------------------------------------+----------+----------------------------+----------+----------+--------------------------+
 
 ## References
