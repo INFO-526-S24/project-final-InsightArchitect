@@ -51,19 +51,15 @@ ex_pro_data <- read.csv('data/globalextremepovertyrate_world-bank2020.csv')
 
 ## Questions 01: Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?
 
-### The Significance of the Question
+### Visualization
 
-Understanding the decline or persistence of extreme poverty—living on less than \$2.15 daily—across regions, reflects our global and local successes or failures in economic development, welfare policies, and equality measures. It's about gauging the effectiveness of our collective efforts to uplift the most vulnerable.
-
-The exploration of wealth distribution across societies facilitates the identification of the extent of inequality and its concentration across various income categories. This understanding is crucial for formulating targeted approaches to address inequality and foster economic equity, ensuring that the advantages of growth are distributed more equitably among the entire population.
-
-### Analysis Plan
+#### Plot 01 : Stacked Bar Chart to know Poverty Trends over the year
 
 ```{r}
 #| label: stacked-bar-chart
 #| message: false
 #| warning: false
-#| echo: true
+#| echo: false
 
 # Filter the data to include only specified years
 years_to_include <- c(1820, 1850, 1870, 1890, 1910, 1929, 1950, 1960, 1970, 1980:2017)
@@ -121,17 +117,10 @@ animated_plot <- stacked_absolute_bar_chart +
 
 <img src="images/animated_stacked_bar_chart02.gif" alt="Stacked Bar Chart of Population by Poverty Status" width="100%"/>
 
-#### Plot 01 : Stacked Area Chart to know Poverty Trends:
-
-A stacked area chart is an inventive method that may be used. This kind of graphic can show the `headcount_ratio_international_povline` over time for different areas as components of a whole. The data from each region is layered on top of one another, making it possible to see clearly how each region's proportion of the world's total headcount of extreme poverty has changed over time.
-
-**Dependency Columns:**
-
-For Plot 01 the dependent columns are **`country`**, **`year`** and **`headcount_ratio_international_povline`**.
 
 **Visualization Descriptions:**
 
-The cumulative percentage of the world's population living in extreme poverty would be represented by the y-axis, while time (years) would be represented by the x-axis. To facilitate easy differentiation, each region in the stack would be represented by a distinct color or pattern.With the help of this representation, we will be able to observe not only the general downward trend in extreme poverty over time, but also the contributions of various regions to these changes. For example, a region's area diminishing over time would be indicative of effective measures to reduce poverty in that region. With the use of the chart, policy measures can be focused and focused on reducing poverty by recognizing both global patterns and regional contributions to these trends.
+
 
 #### Plot 02 : Ridge Plot for Wealth Distribution Analysis:
 
@@ -143,6 +132,6 @@ For Plot 02 dependent columns are **`gini`**, **`palma_ratio`** and **`s80_s20_r
 
 **Visualization Descriptions:**
 
-Each ridge (or line) in the figure would indicate the distribution of one of the inequality metrics.\
-Each ridge would be labeled with the income group it represents, and the metric value would be represented by the x-axis. It would be simpler to determine which income groups face the greatest inequality if we could see the distribution and central tendency of inequality metrics within each income group. We may determine whether higher income groups likely to have more or less inequality in comparison to lower income groups by analyzing the shapes and peaks of the ridges. A higher peak in the ridge for the top 20% of incomes than for the lowest 20%, for instance, would point to a larger concentration of wealth among the highest earners. The ridge plot can be used to guide policy toward more equitable economic distribution by illuminating the distribution of wealth and assisting in the understanding of not just the degree of inequality within each income group but also how these levels compare across groups. \## Visualization \## Discussion Add project abstract here.
+
+## Discussion 
 

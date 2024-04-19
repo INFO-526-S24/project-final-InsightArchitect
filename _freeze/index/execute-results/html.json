@@ -1,0 +1,15 @@
+{
+  "hash": "1c9a6c8663aaade2f1145950e7291816",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Global Poverty Trends: A Comprehensive Dataset for Research and Development\"\nsubtitle: \"INFO 526 - Project Final\"\nauthor: \n  - name: \"InsightArchitect - Ayesha, Shreemithra, Anusha, Eeshaan, Kaarthik, Amaan\"\n    affiliations:\n      - name: \"School of Information, University of Arizona\"\ndescription: \"Project description\"\nformat:\n   html:\n    code-tools: true\n    code-overflow: wrap\n    embed-resources: true\neditor: visual\nexecute:\n  warning: false\n  echo: false\n---\n\n\n## Abstract\n\n## Introduction\n\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n\n## Justification of approach\n\n## Questions 01: Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?\n\n### Visualization\n\n#### Plot 01 : Stacked Bar Chart to know Poverty Trends over the year\n\n\n::: {.cell}\n\n:::\n\n\n<img src=\"images/animated_stacked_bar_chart02.gif\" alt=\"Stacked Bar Chart of Population by Poverty Status\" width=\"100%\"/>\n\n\n**Visualization Descriptions:**\n\n\n\n#### Plot 02 : Ridge Plot for Wealth Distribution Analysis:\n\nA 'Ridge Plot' is a great tool to compare the distribution of a continuous variable between groups; in this case, the distribution of wealth as determined by `s80_s20_ratio`, `gini`, and `palma_ratio` among different income groups. \"Ridge plots\" are just a set of vertically arranged, slightly overlapped density charts for every group. It is simpler to compare the distributions and see trends or outlines with this setup in place.\n\n**Dependency Columns:**\n\nFor Plot 02 dependent columns are **`gini`**, **`palma_ratio`** and **`s80_s20_ratio`**\n\n**Visualization Descriptions:**\n\n\n## Discussion \n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
