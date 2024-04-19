@@ -146,4 +146,55 @@ For Plot 02 dependent columns are **`gini`**, **`palma_ratio`** and **`s80_s20_r
 Each ridge (or line) in the figure would indicate the distribution of one of the inequality metrics.\
 Each ridge would be labeled with the income group it represents, and the metric value would be represented by the x-axis. It would be simpler to determine which income groups face the greatest inequality if we could see the distribution and central tendency of inequality metrics within each income group. We may determine whether higher income groups likely to have more or less inequality in comparison to lower income groups by analyzing the shapes and peaks of the ridges. A higher peak in the ridge for the top 20% of incomes than for the lowest 20%, for instance, would point to a larger concentration of wealth among the highest earners. The ridge plot can be used to guide policy toward more equitable economic distribution by illuminating the distribution of wealth and assisting in the understanding of not just the degree of inequality within each income group but also how these levels compare across groups. \## Visualization \## Discussion Add project abstract here.
 
+```{r}
+library(shiny)
+library(globe4r)
+library(countrycode)
+library(dplyr)
+library(maps)
 
+# display globe
+#create_globe()
+
+# The package makes use of coords (coordiantes) which behaves like the aes function in ggplot2.
+
+globe_sample2 <- create_globe() %>% 
+  globe_pov(-21, 179) %>% # position camera
+  globe_bars(
+    coords(lat, long), 
+    data = quakes
+  )
+
+## Implement Shiny (samole)
+# Define UI
+ui <- fluidPage(
+  titlePanel("Globe4r in Shiny"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("magnitude", "Minimum Magnitude", min = 0, max = 6, value = 4.5)
+    ),
+    mainPanel(
+      globeOutput("earthquakeGlobe")
+    )
+  )
+)
+
+# Define server logic
+server <- function(input, output) {
+  output$earthquakeGlobe <- renderGlobe({
+    # Filter quakes based on the magnitude input
+    filtered_quakes <- quakes[quakes$mag > input$magnitude, ]
+    
+    create_globe() %>%
+      globe_pov(-21, 179) %>%
+      globe_bars(
+        coords(lat, long, mag), 
+        data = filtered_quakes,
+        color = "red"
+      )
+  })
+}
+
+# running the UI
+shinyApp(ui = ui, server = server)
+```
