@@ -114,7 +114,7 @@ animated_plot <- stacked_absolute_bar_chart +
   ease_aes('linear')     # Smooth linear transition
 
 # Render the animation
-anim_save("images/animated_stacked_bar_chart02.gif", animated_plot, width = 1200, height = 600, fps = 10, duration = 20)
+#anim_save("images/animated_stacked_bar_chart02.gif", animated_plot, width = 1200, height = 600, fps = 10, duration = 20)
 
 
 ```
