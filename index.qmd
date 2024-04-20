@@ -25,7 +25,6 @@ execute:
 #| label: load-pkgs
 #| message: false
 #| echo: false
-
 library(tidyverse,
         png)
 library(ggplot2)
@@ -42,7 +41,6 @@ library(gganimate)
 #| message: false
 #| warning: false
 #| echo: false
-
 pip_row_data <- read.csv('data/pip_dataset.csv')
 ex_pro_data <- read.csv('data/globalextremepovertyrate_world-bank2020.csv')
 ```
@@ -53,7 +51,7 @@ ex_pro_data <- read.csv('data/globalextremepovertyrate_world-bank2020.csv')
 
 ### Visualization
 
-#### Plot 01 : Stacked Bar Chart to know Poverty Trends over the year
+#### Plot 01 : Stacked Bar Chart to know Poverty Trends over the year in the World
 
 ```{r}
 #| label: stacked-bar-chart
@@ -62,65 +60,96 @@ ex_pro_data <- read.csv('data/globalextremepovertyrate_world-bank2020.csv')
 #| echo: false
 
 # Filter the data to include only specified years
-years_to_include <- c(1820, 1850, 1870, 1890, 1910, 1929, 1950, 1960, 1970, 1980:2017)
+years_to_include <- c(1820, 
+                      1850, 
+                      1870, 
+                      1890, 
+                      1910, 
+                      1929, 
+                      1950, 
+                      1960, 
+                      1970, 
+                      1980:2017)
 ex_pro_data_filtered <- ex_pro_data %>%
   filter(Year %in% years_to_include) %>%
-  mutate(Year = factor(Year, levels = years_to_include))  # Convert Year to a factor
+  mutate(Year = factor(Year, 
+                       levels = years_to_include))  
 
 # Transform data for plotting in a long format suitable for ggplot2
 ex_pro_data_long <- pivot_longer(
   ex_pro_data_filtered,
-  cols = c( "Number.of.people.living.in.extreme.poverty", "Number.of.people.not.living.in.extreme.poverty"),
+  cols = c( "Number.of.people.living.in.extreme.poverty", 
+            "Number.of.people.not.living.in.extreme.poverty"),
   names_to = "Status",
   values_to = "Count"
 ) %>%
-    mutate(Count = Count / 1e9,  # Convert to billions
+    mutate(Count = Count / 1e9,  
          Status = recode(Status,
-                         "Number.of.people.living.in.extreme.poverty" = "In Extreme Poverty",
-                         "Number.of.people.not.living.in.extreme.poverty" = "Not in Extreme Poverty"))
+                         "Number.of.people.living.in.extreme.poverty" = "Population Live In Extreme Poverty",
+                         "Number.of.people.not.living.in.extreme.poverty" = "Population Live Not in Extreme Poverty"))
 
 # Stacked Bar Chart with counts on bars
-stacked_absolute_bar_chart <- ggplot(ex_pro_data_long, aes(x = Year, y = Count, fill = Status)) +
+stacked_absolute_bar_chart <- ggplot(ex_pro_data_long, 
+                                     aes(x = Year, 
+                                         y = Count, 
+                                         fill = Status)) +
   geom_bar(stat = "identity") +
   geom_text(
-    aes(label = scales::comma(Count, accuracy = 0.1), group = Status),
-    position = position_stack(vjust = 0.5),  # Adjust vertical position to be inside the bar
-    color = "black",  # Choose a text color that stands out
-    size = 4  # Adjust text size for visibility
+    aes(label = scales::comma(Count, 
+                              accuracy = 0.1), 
+        group = Status),
+    position = position_stack(vjust = 0.5),  
+    color = "black",  
+    size = 4  
   ) +
-  labs(title = "Stacked Bar Chart of Population by Poverty Status",
-       x = "Year", y = "Count (Billions)",
+  labs(title = "Polulation Living in Extreme Poverty Level Around the World",
+       subtitle = "Year: (1820-2017)",
+        caption ="Data source: Ravallion (2016) updated with World Bank (2019) \nLink: OurWorldInData.org/poverty",
+       x = "Year", 
+       y = "Number of Population (Billions)",
        fill = "Status") +
   theme_minimal() +
-  theme(legend.position = "bottom")  # Positioning the legend at the bottom
+  theme(legend.position = "bottom",
+         plot.title = element_text(size = 20, 
+                              face = "bold", 
+                              hjust = 0.5),
+         plot.subtitle = element_text(size = 18, 
+                                 face = "bold", 
+                                 hjust = 0.5),
+         plot.caption = element_text(size = 10, 
+                                 hjust = 1))  
 
 # save the plots
-ggsave("images/stacked_absolute_bar_chart.png", stacked_absolute_bar_chart, width = 18, height = 8, bg="white")
+ggsave("images/stacked_absolute_bar_chart.png", 
+       stacked_absolute_bar_chart, 
+       width = 17, 
+       height = 8, 
+       bg="white")
 
 # Animated Plot
 animated_plot <- stacked_absolute_bar_chart +
   transition_layers(
-    layer_length = 1,    # Duration each layer is static
-    transition_length = 1,  # Duration of the transition between layers
-    keep_layers = FALSE   # Whether to keep previous layers visible
+    layer_length = 1,    
+    transition_length = 2,  
+    keep_layers = TRUE  
   ) +
-  enter_fade() +         # Layers fade in
-  enter_drift(x_mod = 0, y_mod = -10) +  # Drift effect from below
-  exit_fade() +          # Layers fade out
-  ease_aes('linear')     # Smooth linear transition
+  enter_fade() +         
+  enter_drift(x_mod = 1, y_mod = -1) +  
+  exit_fade() +          
+  ease_aes('linear')    
 
 # Render the animation
-#anim_save("images/animated_stacked_bar_chart02.gif", animated_plot, width = 1200, height = 600, fps = 10, duration = 20)
-
-
+#anim_save("images/animated_stacked_bar_chart02.gif", 
+#          animated_plot, 
+#          width = 1100, 
+#          height = 600, 
+#         fps = 10, 
+#          duration = 15)
 ```
 
 <img src="images/animated_stacked_bar_chart02.gif" alt="Stacked Bar Chart of Population by Poverty Status" width="100%"/>
 
-
 **Visualization Descriptions:**
-
-
 
 #### Plot 02 : Ridge Plot for Wealth Distribution Analysis:
 
@@ -132,6 +161,8 @@ For Plot 02 dependent columns are **`gini`**, **`palma_ratio`** and **`s80_s20_r
 
 **Visualization Descriptions:**
 
+## Discussion
 
-## Discussion 
+## References
 
+\[1\] Source Data link : https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015
