@@ -163,7 +163,7 @@ The global population's historical data, from 1820 to 2017, is visualized as a b
 For Plot 02 dependent columns are `"gini"`, `"palma_ratio"`, `"s80_s20_ratio"`, `"p90_p10_ratio"`, `"p90_p50_ratio"`, `"p50_p10_ratio"` and `"mld"`
 
 ```{r}
-#| label: load-dataset
+#| label: 3D Illustration
 #| message: false
 #| warning: false
 #| echo: false
@@ -172,9 +172,6 @@ library(ggplot2)
 library(ggridges) 
 library(dplyr)
 library(viridis)  
-
-# Load the dataset
-pip_row_data <- read.csv('data/pip_dataset.csv')
 
 # Transforming the data into a long format suitable for ridge plots
 pip_data_long <- pip_row_data %>%
