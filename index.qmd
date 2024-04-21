@@ -39,6 +39,7 @@ library(scales)
 library(tidyr)
 #install.packages("gganimate")
 install.packages("globe4r")
+install.packages("remotes")
 library(gganimate)
 
 ```
@@ -337,8 +338,8 @@ data_2000 <- data.frame(
   survey_year = 2000.21,
   survey_comparability = 0,
   headcount_international_povline = 5963769,
-  country_lat = 56.1304,  # Fixed latitude for Angola
-  country_long = 106.3468  # Fixed longitude for Angola
+  country_lat = -21,   # Fixed latitude for Angola
+  country_long = 179  # Fixed longitude for Angola
 )
 
 # Scaling the headcount_international_povline for visualization
@@ -361,5 +362,15 @@ create_globe() %>%
   scale_bars_color() %>%
   scale_bars_altitude()
 
+data_2000
+
+```
+```{r}
+create_globe() %>% 
+  globe_pov(-21, 179) %>% # position camera
+  globe_bars(
+    coords(country_lat, country_long), 
+    data = data_2000
+  )
 ```
 
