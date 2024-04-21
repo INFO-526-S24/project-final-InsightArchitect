@@ -23,14 +23,6 @@ execute:
 Add project abstract here.
 
 ------------------------------------------------------------------------
-
-### Question 2
-
-```{r}
-library(globe4r)
-library(dplyr)
-```
-
 =======
 ## Introduction
 
@@ -46,6 +38,7 @@ library(dplyr)
 library(scales)  
 library(tidyr)
 #install.packages("gganimate")
+install.packages("globe4r")
 library(gganimate)
 
 ```
@@ -289,7 +282,7 @@ Less inequality is often suggested by higher values in the context of metrics su
 
 ```{r}
 
-## Implement Shiny (samole)
+## Implement Shiny (sample)
 # Define UI
 #ui <- fluidPage(
  # titlePanel("Globe4r in Shiny"),
