@@ -65,25 +65,25 @@ The main dataset actually focusing on global poverty and inequality for research
 
 As this dataset has about 108 columns but we will work on few columns, that is why we only provided the important data descriptions. Here is the Code book Insights:
 
-+--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
-| Index  | Column                                | Data Type | Description                                                                                                                                         |
-+========+=======================================+===========+=====================================================================================================================================================+
-| 1.     | country                               | string    | The name of the country to which the row relates.                                                                                                   |
-+--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2.     | year                                  | integer   | Year is the floor of Survey year (i.e. Survey year always rounded down).                                                                            |
-+--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
-| 3.     | reporting_level                       | string    | The reporting level of the survey. It can be national, urban or rural.                                                                              |
-+--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
-| 4.     | headcount_ratio_international_povline | double    | \% of population living in households with an income or expenditure per person below the International Poverty Line: \$1.90 a day                   |
-+--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
-| 5.     | gini                                  | double    | The Gini coefficient measures inequality on a scale between 0 and 1, where higher values indicate greater inequality.                               |
-+--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
-| 6.     | mean                                  | double    | The mean level of income or expenditure per day.                                                                                                    |
-+--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
-| 7.     | palma_ratio                           | double    | The Palma ratio is a measure of inequality: it is the share of total income (or expenditure) of the top 10% divided by the share of the bottom 40%. |
-+--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
-| 8.     | s80_s20_ratio                         | double    | The share of total income (or expenditure) of the top 20% divided by the share of the bottom 20%.                                                   |
-+--------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
++-------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| Index | Column                                | Data Type | Description                                                                                                                                         |
++=======+=======================================+===========+=====================================================================================================================================================+
+| 1.    | country                               | string    | The name of the country to which the row relates.                                                                                                   |
++-------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| 2.    | year                                  | integer   | Year is the floor of Survey year (i.e. Survey year always rounded down).                                                                            |
++-------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| 3.    | reporting_level                       | string    | The reporting level of the survey. It can be national, urban or rural.                                                                              |
++-------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| 4.    | headcount_ratio_international_povline | double    | \% of population living in households with an income or expenditure per person below the International Poverty Line: \$1.90 a day                   |
++-------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| 5.    | gini                                  | double    | The Gini coefficient measures inequality on a scale between 0 and 1, where higher values indicate greater inequality.                               |
++-------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| 6.    | mean                                  | double    | The mean level of income or expenditure per day.                                                                                                    |
++-------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| 7.    | palma_ratio                           | double    | The Palma ratio is a measure of inequality: it is the share of total income (or expenditure) of the top 10% divided by the share of the bottom 40%. |
++-------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| 8.    | s80_s20_ratio                         | double    | The share of total income (or expenditure) of the top 20% divided by the share of the bottom 20%.                                                   |
++-------+---------------------------------------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
 
 ## Questions 01: Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?
 
@@ -130,21 +130,19 @@ This question explores poverty, inequality, and economic dynamics across regions
 
 These columns include 'country', 'year', 'poverty_headcount_ratio_international_povline', 'income_gap_ratio_international_povline', 'Gini_coefficient', 'Palma_ratio', 'GDP_per_capita_PPP', 'remittances', 'welfare_type', 'reporting_level', and 'education_levels'. By examining these variables, the analysis aims to shed light on how different factors such as welfare policies, economic performance, and educational attainment interact to shape the global landscape of poverty and economic inequality.
 
-
 ### Analysis Plan:
 
 The proposed analysis setup provides a comprehensive framework for exploring the complex interplay between poverty, inequality, and economic dynamics at both global and temporal scales. By leveraging interactive visualizations and advanced data querying capabilities, users can gain deep insights into the factors driving poverty and inequality trends, as well as assess the effectiveness of different welfare policies and international poverty interventions.
 
 For the Visualization part of the analysis, the plan includes:
 
-1. A dynamic 3D globe that visually represents poverty, inequality, and economic indicators across countries and over time, providing a global perspective on the data.
+1.  A dynamic 3D globe that visually represents poverty, inequality, and economic indicators across countries and over time, providing a global perspective on the data.
 
-2. Parallel Coordinates Plot (PCP) to showcase the complex relationships between different variables such as poverty rates, Gini coefficient, GDP per capita, and more, allowing for detailed analysis of trends and disparities.
+2.  Parallel Coordinates Plot (PCP) to showcase the complex relationships between different variables such as poverty rates, Gini coefficient, GDP per capita, and more, allowing for detailed analysis of trends and disparities.
 
-3. Interactivity features such as time-lapse controls and dynamic selection tools, which enable users to explore data trends, identify outliers, and understand the evolution of poverty and inequality over time.
+3.  Interactivity features such as time-lapse controls and dynamic selection tools, which enable users to explore data trends, identify outliers, and understand the evolution of poverty and inequality over time.
 
-4. Insightful analyses and scenario simulations, helping users to uncover complex relationships between variables and assess the potential impact of economic changes, policy interventions, and educational improvements on poverty and inequality levels.
-
+4.  Insightful analyses and scenario simulations, helping users to uncover complex relationships between variables and assess the potential impact of economic changes, policy interventions, and educational improvements on poverty and inequality levels.
 
 ```{r, results="asis", echo=FALSE}
 cat('<img src="images/timeline.jpg" alt="Timeline Image" width="650" height="550">')
@@ -169,21 +167,14 @@ rasterImage(image_data, 0, 0, ncol(image_data), nrow(image_data))
 
 ### Workflow - Weekly Plan of Attack
 
-+------------------------------------+----------+----------------------------+----------+----------+--------------------------+
-| Task Name                          | Status   | Assignee                   | Due      | Priority | Summary                  |
-+====================================+==========+============================+==========+==========+==========================+
-| Dataset Description and Q1         | Done     | Ayesha                     | 04/01/24 | High     | To review the questions. |
-+------------------------------------+----------+----------------------------+----------+----------+--------------------------+
-| Into, Motivation and Idea Analysis | ongoing  | Anusha                     |          | High     |                          |
-+------------------------------------+----------+----------------------------+----------+----------+--------------------------+
-| Timeline and workflow              | Done     | Shreemithra                | 04/01/24 | Medium   | Reviewed                 |
-+------------------------------------+----------+----------------------------+----------+----------+--------------------------+
-| Analysis plan for Q2               | Ongoing  | Kaarthik,Eeshaan and Amaan | 04/05/24 | High     |                          |
-+------------------------------------+----------+----------------------------+----------+----------+--------------------------+
-| Peer review                        | Done     | Everyone                   | 04/06/24 | High     |                          |
-+------------------------------------+----------+----------------------------+----------+----------+--------------------------+
-| About.qmd file updating            | Pending  | Amaan and Ayesha           | 04/10/24 | Low      |                          |
-+------------------------------------+----------+----------------------------+----------+----------+--------------------------+
+| Task Name                          | Status  | Assignee                   | Due      | Priority | Summary                  |
+|------------------------------------|---------|----------------------------|----------|----------|--------------------------|
+| Dataset Description and Q1         | Done    | Ayesha                     | 04/01/24 | High     | To review the questions. |
+| Into, Motivation and Idea Analysis | ongoing | Anusha                     |          | High     |                          |
+| Timeline and workflow              | Done    | Shreemithra                | 04/01/24 | Medium   | Reviewed                 |
+| Analysis plan for Q2               | Ongoing | Kaarthik,Eeshaan and Amaan | 04/05/24 | High     |                          |
+| Peer review                        | Done    | Everyone                   | 04/06/24 | High     |                          |
+| About.qmd file updating            | Pending | Amaan and Ayesha           | 04/10/24 | Low      |                          |
 
 ## References
 
