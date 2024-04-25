@@ -120,15 +120,24 @@ For Plot 02 dependent columns are **`gini`**, **`palma_ratio`** and **`s80_s20_r
 Each ridge (or line) in the figure would indicate the distribution of one of the inequality metrics.\
 Each ridge would be labeled with the income group it represents, and the metric value would be represented by the x-axis. It would be simpler to determine which income groups face the greatest inequality if we could see the distribution and central tendency of inequality metrics within each income group. We may determine whether higher income groups likely to have more or less inequality in comparison to lower income groups by analyzing the shapes and peaks of the ridges. A higher peak in the ridge for the top 20% of incomes than for the lowest 20%, for instance, would point to a larger concentration of wealth among the highest earners. The ridge plot can be used to guide policy toward more equitable economic distribution by illuminating the distribution of wealth and assisting in the understanding of not just the degree of inequality within each income group but also how these levels compare across groups.
 
-## Question 02: How do the education, income inequality, and economic dynamics interact across different geographical and temporal scales, influenced by welfare types, international poverty lines.
+## Question 02: How do welfare regimes and economic growth rates influence income inequality and poverty dynamics across different countries and continents over the last three decades, influenced by varying welfare types and international poverty lines, and what implications do these interactions have for future global poverty reduction strategies?
 
 ### The Significance of the Question:
 
-This question explores poverty, inequality, and economic dynamics across regions and timeframes, considering welfare types and education levels. By analyzing data on poverty metrics like headcount ratios and income gaps, alongside indicators such as GDP per capita and remittances, it seeks to understand the complex interplay of factors shaping global development. The inclusion of education levels adds to the analysis, highlighting the role of human capital in poverty alleviation. Through interactive visualizations and data-driven insights, this inquiry aims to inform targeted policies and interventions, ultimately fostering inclusive growth and improving well-being on a global scale.
+Welfare Regimes and Economic Growth: This question focuses on the impact of different welfare types and economic growth on income inequality and poverty. It explores how these factors interact within different national and regional contexts.
+
+Geographical and Temporal Scales: The question retains its emphasis on exploring changes across different countries and continents over the past thirty years, providing a long-term perspective on trends and patterns.
+
+Influence of Welfare Types and International Poverty Lines: By including welfare types and considering the role of international poverty lines (as standards for measuring poverty), this question aims to examine how different thresholds and welfare systems impact poverty measurements and perceptions.
+
+Implications for Poverty Reduction: It seeks to understand the effectiveness of various welfare and economic strategies in reducing poverty, aiming to inform future policy decisions.
 
 ### Dependency Columns:
 
-These columns include 'country', 'year', 'poverty_headcount_ratio_international_povline', 'income_gap_ratio_international_povline', 'Gini_coefficient', 'Palma_ratio', 'GDP_per_capita_PPP', 'remittances', 'welfare_type', 'reporting_level', and 'education_levels'. By examining these variables, the analysis aims to shed light on how different factors such as welfare policies, economic performance, and educational attainment interact to shape the global landscape of poverty and economic inequality.
+These columns include country, year: These attributes are foundational for any analysis that involves temporal and geographical comparisons.
+welfare_type: Differentiates the types of welfare systems, which can have varying impacts on economic well-being and inequality.
+ppp_version: Ensures that income and poverty metrics are comparable across different economic conditions globally.
+Gini index, Palma ratio, S80/S20 ratio, P90/P10 ratio, P90/P50 ratio, P50/P10 ratio: These are critical for analyzing the extent and changes in income inequality.
 
 ### Analysis Plan:
 
@@ -136,13 +145,15 @@ The proposed analysis setup provides a comprehensive framework for exploring the
 
 For the Visualization part of the analysis, the plan includes:
 
-1.  A dynamic 3D globe that visually represents poverty, inequality, and economic indicators across countries and over time, providing a global perspective on the data.
+A dynamic 3D globe that visually represents poverty, inequality, and economic indicators across countries and over time, providing a global perspective on the data.
 
-2.  Parallel Coordinates Plot (PCP) to showcase the complex relationships between different variables such as poverty rates, Gini coefficient, GDP per capita, and more, allowing for detailed analysis of trends and disparities.
+Visualization for Interpretation and Presentation:
 
-3.  Interactivity features such as time-lapse controls and dynamic selection tools, which enable users to explore data trends, identify outliers, and understand the evolution of poverty and inequality over time.
+Geographical Visualization: Use tools like Globe4r or rl package to create interactive maps that highlight income inequality and welfare types by location.
 
-4.  Insightful analyses and scenario simulations, helping users to uncover complex relationships between variables and assess the potential impact of economic changes, policy interventions, and educational improvements on poverty and inequality levels.
+Interactive Dashboards: Develop a Shiny app or use similar tools to create interactive visualizations that allow users to explore different dimensions of the data, such as toggling between different welfare regimes or time periods.
+
+Dynamic Time-Series Visualizations: Implement line graphs that evolve over time to show trends in inequality indices for different countries or continents.
 
 ```{r, results="asis", echo=FALSE}
 cat('<img src="images/Timeline_Insight_Architech.jpg" alt="Timeline Image" width="650" height="550">')
