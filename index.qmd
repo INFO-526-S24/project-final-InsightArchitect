@@ -38,8 +38,8 @@ library(dplyr)
 library(scales)  
 library(tidyr)
 #install.packages("gganimate")
-install.packages("globe4r")
-install.packages("remotes")
+#install.packages("globe4r")
+#install.packages("remotes")
 library(gganimate)
 
 ```
@@ -312,59 +312,146 @@ Less inequality is often suggested by higher values in the context of metrics su
     #  )
   #})
 #}
+```
 
+```{r}
 # running the UI
 #shinyApp(ui = ui, server = server)
-
-library(globe4r)
+library(ggplot2)
+library(sf)
 library(dplyr)
+library(rnaturalearth)
+library(rnaturalearthdata)
 # Read the CSV file into a data frame
 my_data <- read.csv("data/pip_dataset.csv")
 country_lat_long <- read.csv("data/country_pin.csv")
+```
+
+```{r}
+# Load country shapes
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Prepare your data
+# Assuming 'my_data' is already loaded and contains the necessary metrics
+# Filter data for the year 2006
+my_data_2006 <- my_data %>%
+  filter(year == 2006) %>%
+  group_by(country) %>%
+  summarise(avg_gini = mean(gini, na.rm = TRUE)) # Replace 'gini' with your metric, ensure the name matches your column
+
+# Merge with spatial data
+world_data <- world %>%
+  left_join(my_data_2006, by = c("name" = "country"))
+
+# Plot
+ggplot(data = world_data) +
+  geom_sf(aes(fill = avg_gini), color = "white", size = 0.1) +
+  scale_fill_viridis_c(option = "plasma", na.value = "grey", name = "Avg Gini Index") +
+  labs(title = "Average Gini Index by Country for the Year 2006", 
+       subtitle = "Data aggregated from individual records") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+```{r}
+# Load country shapes
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Prepare your data
+# Assuming 'my_data' is already loaded and contains the necessary metrics
+# Filter data for the year 2000 and for headcount_ratio_international_povline
+my_data_2000 <- my_data %>%
+  filter(year == 2006) %>%
+  group_by(country) %>%
+  summarise(headcount_int_povline = mean(headcount_ratio_international_povline, na.rm = TRUE))
+
+# Merge with spatial data
+world_data <- world %>%
+  left_join(my_data_2000, by = c("name" = "country"))
+
+# Plot
+ggplot(data = world_data) +
+  geom_sf(aes(fill = headcount_int_povline), color = "white", size = 0.1) +
+  scale_fill_viridis_c(option = "plasma", na.value = "grey", name = "Headcount Ratio Intl. Pov. Line") +
+  labs(title = "Headcount Ratio at International Poverty Line by Country for the Year 2000", 
+       subtitle = "Data aggregated from individual records") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+```
+```{r}
+
+# Load country shapes from Natural Earth
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Assuming 'my_data' is already loaded and contains the necessary metrics
+# Filter data for the year 2000 and for income_gap_ratio_international_povline
+my_data_2000 <- my_data %>%
+  filter(year == 2006) %>%
+  group_by(country) %>%
+  summarise(income_gap_int_povline = mean(income_gap_ratio_international_povline, na.rm = TRUE))
+
+# Merge with spatial data
+world_data <- world %>%
+  left_join(my_data_2000, by = c("name" = "country"))
+
+# Plot
+ggplot(data = world_data) +
+  geom_sf(aes(fill = income_gap_int_povline), color = "white", size = 0.1) +
+  scale_fill_viridis_c(option = "plasma", na.value = "grey", name = "Income Gap Ratio Intl. Pov. Line") +
+  labs(title = "Income Gap Ratio at International Poverty Line by Country for the Year 2000", 
+       subtitle = "Data aggregated from individual records") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+```
+
+```{r}
 
 # Join and select necessary columns
-my_data_with_coords <- my_data %>%
-  left_join(country_lat_long, by = "country") %>%
-  rename(country_lat = latitude, country_long = longitude) %>%
-  select(names(my_data), country_lat, country_long)
+#my_data_with_coords <- my_data %>%
+#  left_join(country_lat_long, by = "country") %>%
+  #rename(country_lat = latitude, country_long = longitude) %>%
+ # select(names(my_data), country_lat, country_long)
 
 # Manually creating the data based on the provided row
-data_2000 <- data.frame(
-  country = "Angola",
-  year = 2000,
-  reporting_level = "national",
-  welfare_type = "consumption",
-  ppp_version = 2011,
-  survey_year = 2000.21,
-  survey_comparability = 0,
-  headcount_international_povline = 5963769,
-  country_lat = -21,   # Fixed latitude for Angola
-  country_long = 179  # Fixed longitude for Angola
-)
+#data_2000 <- data.frame(
+ # country = "Angola",
+#  year = 2000,
+  #reporting_level = "national",
+ # welfare_type = "consumption",
+#  ppp_version = 2011,
+  #survey_year = 2000.21,
+ # survey_comparability = 0,
+#  headcount_international_povline = 5963769,
+ # country_lat = -21,   # Fixed latitude for Angola
+#  country_long = 179  # Fixed longitude for Angola
+#)
 
 # Scaling the headcount_international_povline for visualization
 # This scaling factor is arbitrary and may need adjustment based on your full dataset
-data_2000$altitude_scaled <- data_2000$headcount_international_povline / 1e6  # Scaling down for visualization
+#data_2000$altitude_scaled <- data_2000$headcount_international_povline / 1e6  # Scaling down for visualization
 
 # Visualization with globe4r
-create_globe() %>% 
-  globe_pov(-11.2027, 17.8739) %>%  # Centering on Angola
-  globe_bars(
-    coords(
-      lat = country_lat,
-      long = country_long,
-      altitude = altitude_scaled,  # Using the scaled headcount value
-      color = altitude_scaled,  # Coloring based on the scaled value
-      label = country  # Label with the country name
-    ), 
-    data = data_2000
-  ) %>% 
-  scale_bars_color() %>%
-  scale_bars_altitude()
+#create_globe() %>% 
+#  globe_pov(-11.2027, 17.8739) %>%  # Centering on Angola
+#  globe_bars(
+  #  coords(
+    #  lat = country_lat,
+     # long = country_long,
+    #  altitude = altitude_scaled,  # Using the scaled headcount value
+   #   color = altitude_scaled,  # Coloring based on the scaled value
+  #    label = country  # Label with the country name
+ #   ), 
+#    data = data_2000
+#  ) %>% 
+  #scale_bars_color() %>%
+ # scale_bars_altitude()
 
-data_2000
+#data_2000
 
 ```
+
 ```{r}
 create_globe() %>% 
   globe_pov(-21, 179) %>% # position camera
