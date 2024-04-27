@@ -285,33 +285,33 @@ Less inequality is often suggested by higher values in the context of metrics su
 
 ## Implement Shiny (sample)
 # Define UI
-#ui <- fluidPage(
- # titlePanel("Globe4r in Shiny"),
-  #sidebarLayout(
-   # sidebarPanel(
-    #  sliderInput("magnitude", "Minimum Magnitude", min = 0, max = 6, value = 4.5)
-  #  ),
-  #  mainPanel(
-   #   globeOutput("earthquakeGlobe")
-  #  )
-#  )
-#)
+ui <- fluidPage(
+  titlePanel("Globe4r in Shiny"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("magnitude", "Minimum Magnitude", min = 0, max = 6, value = 4.5)
+    ),
+    mainPanel(
+      globeOutput("earthquakeGlobe")
+    )
+  )
+)
 
 # Define server logic
-#server <- function(input, output) {
- # output$earthquakeGlobe <- renderGlobe({
+server <- function(input, output) {
+  output$earthquakeGlobe <- renderGlobe({
     # Filter quakes based on the magnitude input
-  #  filtered_quakes <- quakes[quakes$mag > input$magnitude, ]
+    filtered_quakes <- quakes[quakes$mag > input$magnitude, ]
     
-   # create_globe() %>%
-    #  globe_pov(-21, 179) %>%
-     # globe_bars(
-      #  coords(lat, long, mag), 
-       # data = filtered_quakes,
-        #color = "red"
-    #  )
-  #})
-#}
+    create_globe() %>%
+      globe_pov(-21, 179) %>%
+      globe_bars(
+        coords(lat, long, mag), 
+        data = filtered_quakes,
+        color = "red"
+      )
+})
+}
 ```
 
 ```{r}
@@ -325,33 +325,74 @@ library(rnaturalearthdata)
 # Read the CSV file into a data frame
 my_data <- read.csv("data/pip_dataset.csv")
 country_lat_long <- read.csv("data/country_pin.csv")
+pip_final <- read.csv("data/cleaned_pip_final.csv")
+
+summary(pip_final)
 ```
 
 ```{r}
-# Load country shapes
-world <- ne_countries(scale = "medium", returnclass = "sf")
+library(shiny)
+library(dplyr)
+library(ggplot2)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(viridis)
 
-# Prepare your data
-# Assuming 'my_data' is already loaded and contains the necessary metrics
-# Filter data for the year 2006
-my_data_2006 <- my_data %>%
-  filter(year == 2006) %>%
-  group_by(country) %>%
-  summarise(avg_gini = mean(gini, na.rm = TRUE)) # Replace 'gini' with your metric, ensure the name matches your column
+# Load the data
+pip_final <- read.csv("data/cleaned_pip_final.csv")
 
-# Merge with spatial data
-world_data <- world %>%
-  left_join(my_data_2006, by = c("name" = "country"))
+# Define UI
+ui <- fluidPage(
+  titlePanel("Headcount Ratio at International Poverty Line"),
+  
+  # Dropdown menu for selecting year
+  selectInput(
+    "year",
+    "Select Year:",
+    choices = c(1996, 2002, 2005, 2008, 2012, 2014, 2015, 2016, 2017, 2018, 2019),
+    selected = 1996
+  ),
+  
+  # Plot output
+  plotOutput("mapPlot")
+)
 
-# Plot
-ggplot(data = world_data) +
-  geom_sf(aes(fill = avg_gini), color = "white", size = 0.1) +
-  scale_fill_viridis_c(option = "plasma", na.value = "grey", name = "Avg Gini Index") +
-  labs(title = "Average Gini Index by Country for the Year 2006", 
-       subtitle = "Data aggregated from individual records") +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+# Define server logic
+server <- function(input, output) {
+  
+  # Reactive expression to filter data based on selected year
+  filtered_data <- reactive({
+    pip_final %>%
+      filter(year == input$year, ppp_version == 2017) %>%
+      group_by(Country) %>%
+      slice(1) %>%
+      ungroup()
+  })
+  
+  # Reactive expression for preparing the world map
+  world_data <- reactive({
+    world <- ne_countries(scale = "medium", returnclass = "sf")
+    world %>%
+      left_join(filtered_data(), by = c("name" = "Country"))
+  })
+  
+  # Render the map plot
+  output$mapPlot <- renderPlot({
+    ggplot(data = world_data()) +
+      geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
+      scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio") +
+      labs(title = "Headcount Ratio at International Poverty Line") +
+      theme_minimal() +
+      theme(legend.position = "bottom")
+  })
+}
+
+# Run the application
+shinyApp(ui = ui, server = server)
+
 ```
+
 
 ```{r}
 # Load country shapes
@@ -379,6 +420,7 @@ ggplot(data = world_data) +
   theme(legend.position = "bottom")
 
 ```
+
 ```{r}
 
 # Load country shapes from Natural Earth
