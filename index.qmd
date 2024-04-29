@@ -448,11 +448,11 @@ plot_2018 <- ggplot(data = world_data_2018) +
 
 
 ```{r}
-#library(magick)
+library(magick)
 # Display the gif
-#image_read("Merged_document.gif") %>%
- # image_scale("500") %>%  # Resize the image to 500 pixels wide
-  #image_animate(fps = 10)  # Speed up the animation to 10 frames per second
+image_read("Merged_document.gif") %>%
+  image_scale("500") %>%  # Resize the image to 500 pixels wide
+  image_animate(fps = 5)  # Speed up the animation to 10 frames per second
 ```
 
 ```{r}
@@ -467,48 +467,6 @@ top_10_years <- sort(year_counts, decreasing = TRUE)[1:10]
 
 # Display the top 10 most occurring years
 print(top_10_years)
-
-# Join and select necessary columns
-#my_data_with_coords <- my_data %>%
-#  left_join(country_lat_long, by = "country") %>%
-  #rename(country_lat = latitude, country_long = longitude) %>%
- # select(names(my_data), country_lat, country_long)
-
-# Manually creating the data based on the provided row
-#data_2000 <- data.frame(
- # country = "Angola",
-#  year = 2000,
-  #reporting_level = "national",
- # welfare_type = "consumption",
-#  ppp_version = 2011,
-  #survey_year = 2000.21,
- # survey_comparability = 0,
-#  headcount_international_povline = 5963769,
- # country_lat = -21,   # Fixed latitude for Angola
-#  country_long = 179  # Fixed longitude for Angola
-#)
-
-# Scaling the headcount_international_povline for visualization
-# This scaling factor is arbitrary and may need adjustment based on your full dataset
-#data_2000$altitude_scaled <- data_2000$headcount_international_povline / 1e6  # Scaling down for visualization
-
-# Visualization with globe4r
-#create_globe() %>% 
-#  globe_pov(-11.2027, 17.8739) %>%  # Centering on Angola
-#  globe_bars(
-  #  coords(
-    #  lat = country_lat,
-     # long = country_long,
-    #  altitude = altitude_scaled,  # Using the scaled headcount value
-   #   color = altitude_scaled,  # Coloring based on the scaled value
-  #    label = country  # Label with the country name
- #   ), 
-#    data = data_2000
-#  ) %>% 
-  #scale_bars_color() %>%
- # scale_bars_altitude()
-
-#data_2000
 
 ```
 
