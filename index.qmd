@@ -39,6 +39,7 @@ library(dplyr)
 library(scales)  
 library(tidyr)
 install.packages("gganimate")
+#install.packages("gganimate")
 install.packages("globe4r")
 install.packages("remotes")
 library(gganimate)
@@ -281,43 +282,9 @@ Less inequality is often suggested by higher values in the context of metrics su
 \[2\] Used Generative AI to know the solutions of the errors link: <https://chat.openai.com/>
 
 \[3\] Used some techniques an codes from class lectures ppt file, Link: <https://datavizaz.org/>\
->>>>>>> 43ab70d112a204beff77587ca92de9f36bfe2929
-
 
 ## Question 2
 
-```{r}
-
-## Implement Shiny (sample)
-# Define UI
-ui <- fluidPage(
-  titlePanel("Globe4r in Shiny"),
-  sidebarLayout(
-    sidebarPanel(
-      sliderInput("magnitude", "Minimum Magnitude", min = 0, max = 6, value = 4.5)
-    ),
-    mainPanel(
-      globeOutput("earthquakeGlobe")
-    )
-  )
-)
-
-# Define server logic
-server <- function(input, output) {
-  output$earthquakeGlobe <- renderGlobe({
-    # Filter quakes based on the magnitude input
-    filtered_quakes <- quakes[quakes$mag > input$magnitude, ]
-    
-    create_globe() %>%
-      globe_pov(-21, 179) %>%
-      globe_bars(
-        coords(lat, long, mag), 
-        data = filtered_quakes,
-        color = "red"
-      )
-})
-}
-```
 
 ```{r}
 # running the UI
@@ -333,179 +300,243 @@ country_lat_long <- read.csv("data/country_pin.csv")
 
 pip_final <- read.csv("data/cleaned_pip_final.csv")
 
-summary(pip_final)
 ```
 
-```{r}
-library(shiny)
-library(dplyr)
-library(ggplot2)
-library(sf)
-library(rnaturalearth)
-library(rnaturalearthdata)
-library(viridis)
 
-# Load the data
+```{r}
+
+# Read the dataset
 pip_final <- read.csv("data/cleaned_pip_final.csv")
 
-# Define UI
-ui <- fluidPage(
-  titlePanel("Headcount Ratio at International Poverty Line"),
-  
-  # Dropdown menu for selecting year
-  selectInput(
-    "year",
-    "Select Year:",
-    choices = c(1996, 2002, 2005, 2008, 2012, 2014, 2015, 2016, 2017, 2018, 2019),
-    selected = 1996
-  ),
-  
-  # Plot output
-  plotOutput("mapPlot")
-)
+# Filter the dataset to include only rows where year is 1996 and ppp_version is 2017
+filtered_data <- pip_final %>%
+  filter(year == 1996, ppp_version == 2017)
 
-# Define server logic
-server <- function(input, output) {
-  
-  # Reactive expression to filter data based on selected year
-  filtered_data <- reactive({
-    pip_final %>%
-      filter(year == input$year, ppp_version == 2017) %>%
-      group_by(Country) %>%
-      slice(1) %>%
-      ungroup()
-  })
-  
-  # Reactive expression for preparing the world map
-  world_data <- reactive({
-    world <- ne_countries(scale = "medium", returnclass = "sf")
-    world %>%
-      left_join(filtered_data(), by = c("name" = "Country"))
-  })
-  
-  # Render the map plot
-  output$mapPlot <- renderPlot({
-    ggplot(data = world_data()) +
-      geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
-      scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio") +
-      labs(title = "Headcount Ratio at International Poverty Line") +
-      theme_minimal() +
-      theme(legend.position = "bottom")
-  })
-}
+# Select one unique row per country
+# Assuming you want to keep the first occurrence
+unique_countries_data <- filtered_data %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
 
-# Run the application
-shinyApp(ui = ui, server = server)
+#head(unique_countries_data, 100)
 
-```
-
-
-```{r}
-# Load country shapes
+# Get world map data
 world <- ne_countries(scale = "medium", returnclass = "sf")
 
-# Prepare your data
-# Assuming 'my_data' is already loaded and contains the necessary metrics
-# Filter data for the year 2000 and for headcount_ratio_international_povline
-my_data_2000 <- my_data %>%
-  filter(year == 2006) %>%
-  group_by(country) %>%
-  summarise(headcount_int_povline = mean(headcount_ratio_international_povline, na.rm = TRUE))
-
-# Merge with spatial data
+# Merge your data with the world map
 world_data <- world %>%
-  left_join(my_data_2000, by = c("name" = "country"))
+  left_join(unique_countries_data, by = c("name" = "Country"))
 
-# Plot
+# Plotting the heatmap with labels
 ggplot(data = world_data) +
-  geom_sf(aes(fill = headcount_int_povline), color = "white", size = 0.1) +
-  scale_fill_viridis_c(option = "plasma", na.value = "grey", name = "Headcount Ratio Intl. Pov. Line") +
-  labs(title = "Headcount Ratio at International Poverty Line by Country for the Year 2000", 
-       subtitle = "Data aggregated from individual records") +
+  geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
+  geom_sf_text(aes(label = gini), size = 3, color = "black", check_overlap = TRUE) +  # Add labels from the "gini" column
+  scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio") +
+  labs(title = "Headcount Ratio at International Poverty Line") +
   theme_minimal() +
   theme(legend.position = "bottom")
 
 ```
 
-```{r}
 
-# Load country shapes from Natural Earth
+```{r}
+library(ggplot2)
+library(dplyr)
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+# Read the dataset
+pip_final <- read.csv("data/cleaned_pip_final.csv")
+
+# Filter the dataset to include only rows where ppp_version is 2017
+filtered_data <- pip_final %>%
+  filter(ppp_version == 2017)
+
+# Year 2010
+unique_countries_data_2010 <- filtered_data %>%
+  filter(year == 2010) %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
 world <- ne_countries(scale = "medium", returnclass = "sf")
 
-# Assuming 'my_data' is already loaded and contains the necessary metrics
-# Filter data for the year 2000 and for income_gap_ratio_international_povline
-my_data_2000 <- my_data %>%
-  filter(year == 2006) %>%
-  group_by(country) %>%
-  summarise(income_gap_int_povline = mean(income_gap_ratio_international_povline, na.rm = TRUE))
+world_data_2010 <- world %>%
+  left_join(unique_countries_data_2010, by = c("name" = "Country"))
 
-# Merge with spatial data
-world_data <- world %>%
-  left_join(my_data_2000, by = c("name" = "country"))
-
-# Plot
-ggplot(data = world_data) +
-  geom_sf(aes(fill = income_gap_int_povline), color = "white", size = 0.1) +
-  scale_fill_viridis_c(option = "plasma", na.value = "grey", name = "Income Gap Ratio Intl. Pov. Line") +
-  labs(title = "Income Gap Ratio at International Poverty Line by Country for the Year 2000", 
-       subtitle = "Data aggregated from individual records") +
+plot_2010 <- ggplot(data = world_data_2010) +
+  geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
+  scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio") +
+  labs(title = "Headcount Ratio at International Poverty Line (2010)") +
   theme_minimal() +
   theme(legend.position = "bottom")
 
+#ggsave("poverty_map_2010.jpg", plot_2010, width = 8, height = 6, dpi = 300)
+
+# Year 2012
+unique_countries_data_2012 <- filtered_data %>%
+  filter(year == 2012) %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
+world_data_2012 <- world %>%
+  left_join(unique_countries_data_2012, by = c("name" = "Country"))
+
+plot_2012 <- ggplot(data = world_data_2012) +
+  geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
+  scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio") +
+  labs(title = "Headcount Ratio at International Poverty Line (2012)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+#ggsave("poverty_map_2012.jpg", plot_2012, width = 8, height = 6, dpi = 300)
+
+# Year 2015
+unique_countries_data_2015 <- filtered_data %>%
+  filter(year == 2015) %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
+world_data_2015 <- world %>%
+  left_join(unique_countries_data_2015, by = c("name" = "Country"))
+
+plot_2015 <- ggplot(data = world_data_2015) +
+  geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
+  scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio") +
+  labs(title = "Headcount Ratio at International Poverty Line (2015)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+#ggsave("poverty_map_2015.jpg", plot_2015, width = 8, height = 6, dpi = 300)
+
+# Year 2016
+unique_countries_data_2016 <- filtered_data %>%
+  filter(year == 2016) %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
+world_data_2016 <- world %>%
+  left_join(unique_countries_data_2016, by = c("name" = "Country"))
+
+plot_2016 <- ggplot(data = world_data_2016) +
+  geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
+  scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio") +
+  labs(title = "Headcount Ratio at International Poverty Line (2016)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+#ggsave("poverty_map_2016.jpg", plot_2016, width = 8, height = 6, dpi = 300)
+
+# Year 2018
+unique_countries_data_2018 <- filtered_data %>%
+  filter(year == 2018) %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
+world_data_2018 <- world %>%
+  left_join(unique_countries_data_2018, by = c("name" = "Country"))
+
+plot_2018 <- ggplot(data = world_data_2018) +
+  geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
+  scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio") +
+  labs(title = "Headcount Ratio at International Poverty Line (2018)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+#ggsave("poverty_map_2018.jpg", plot_2018, width = 8, height = 6, dpi = 300)
+```
+
+
+```{r}
+library(magick)
+# Display the gif
+image_read("Merged_document.gif") %>%
+  image_scale("500") %>%  # Resize the image to 500 pixels wide
+  image_animate(fps = 5)  # Speed up the animation to 10 frames per second
 ```
 
 ```{r}
+# Read the dataset
+pip_final <- read.csv("data/cleaned_pip_final.csv")
 
-# Join and select necessary columns
-#my_data_with_coords <- my_data %>%
-#  left_join(country_lat_long, by = "country") %>%
-  #rename(country_lat = latitude, country_long = longitude) %>%
- # select(names(my_data), country_lat, country_long)
+# Count the occurrences of each unique year
+year_counts <- table(pip_final$year)
 
-# Manually creating the data based on the provided row
-#data_2000 <- data.frame(
- # country = "Angola",
-#  year = 2000,
-  #reporting_level = "national",
- # welfare_type = "consumption",
-#  ppp_version = 2011,
-  #survey_year = 2000.21,
- # survey_comparability = 0,
-#  headcount_international_povline = 5963769,
- # country_lat = -21,   # Fixed latitude for Angola
-#  country_long = 179  # Fixed longitude for Angola
-#)
+# Sort the counts in descending order and select the top 10
+top_10_years <- sort(year_counts, decreasing = TRUE)[1:10]
 
-# Scaling the headcount_international_povline for visualization
-# This scaling factor is arbitrary and may need adjustment based on your full dataset
-#data_2000$altitude_scaled <- data_2000$headcount_international_povline / 1e6  # Scaling down for visualization
-
-# Visualization with globe4r
-#create_globe() %>% 
-#  globe_pov(-11.2027, 17.8739) %>%  # Centering on Angola
-#  globe_bars(
-  #  coords(
-    #  lat = country_lat,
-     # long = country_long,
-    #  altitude = altitude_scaled,  # Using the scaled headcount value
-   #   color = altitude_scaled,  # Coloring based on the scaled value
-  #    label = country  # Label with the country name
- #   ), 
-#    data = data_2000
-#  ) %>% 
-  #scale_bars_color() %>%
- # scale_bars_altitude()
-
-#data_2000
+# Display the top 10 most occurring years
+print(top_10_years)
 
 ```
 
 ```{r}
-create_globe() %>% 
-  globe_pov(-21, 179) %>% # position camera
-  globe_bars(
-    coords(country_lat, country_long), 
-    data = data_2000
+library(globe4r)
+library(dplyr)
+
+# Read the dataset
+pip_final <- read.csv("data/cleaned_pip_final.csv")
+
+head(pip_final)
+
+# Filter the dataset to include only rows where ppp_version is 2017
+pip_final_2018 <- pip_final %>%
+  filter(ppp_version == 2017, year == 2018) %>%
+  select(Country.Code, Country, year, Latitude, Longitude, gini,headcount_ratio_international_povline)
+
+# Remove duplicate country rows
+pip_final_unique <- pip_final_2018 %>%
+  distinct(Country, .keep_all = TRUE)
+
+# Scale the "headcount_ratio_international_povline" and "gini" columns
+pip_final_scaled <- pip_final_unique %>%
+  mutate(headcount_ratio_international_povline_scaled = 
+           (headcount_ratio_international_povline - min(headcount_ratio_international_povline)) /
+           (max(headcount_ratio_international_povline) - min(headcount_ratio_international_povline)),
+         gini_scaled = 
+           (gini - min(gini)) /
+           (max(gini) - min(gini)))
+
+pip_final_scaled <- pip_final_scaled %>%
+  mutate(
+    Latitude = round(as.numeric(Latitude), 2),
+    Longitude = round(as.numeric(Longitude), 2)
   )
+
+# Add text labels to the globe
+globe <- create_globe(height = "100vh") %>%
+  labels_data(data = pip_final_scaled) %>%  # Provide your dataset here
+  labels_lat(lat = "Latitude") %>%  # Specify the column containing latitude information
+  labels_lon(lon = "Longitude") %>%  # Specify the column containing longitude information
+  labels_text(text = "Country") %>%  # Specify the column containing text information
+  labels_altitude(altitude = 30)  # Specify the altitude for the text labels
+
+
+# Create the globe choropleth plot
+globe <- globe %>%
+  globe_choropleth(
+    coords(
+      country = Country.Code,  # Using ISO2 country codes
+      altitude = headcount_ratio_international_povline_scaled,
+      cap_color = headcount_ratio_international_povline_scaled  # Color caps based on scaled poverty headcount
+    ), 
+    data = pip_final_scaled
+  ) %>%
+  polygons_side_color(color = constant("#ffffaa60")) %>%
+  scale_choropleth_cap_color() %>%  # Adjust color scaling if needed
+  scale_choropleth_altitude(0.04, 0.2) %>% 
+  globe_img_url(image_url("blue")) # Adjust the altitude scale to match the range of your data
+
+# Rotate the globe automatically
+globe <- globe_rotate(globe, speed = 0.5L, rotate = TRUE)
+
+# Print the globe
+print(globe)
+
 ```
 
