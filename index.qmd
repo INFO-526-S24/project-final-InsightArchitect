@@ -290,6 +290,9 @@ library(sf)
 library(dplyr)
 library(rnaturalearth)
 library(rnaturalearthdata)
+library(magick)
+library(globe4r)
+
 # Read the CSV file into a data frame
 my_data <- read.csv("data/pip_dataset.csv")
 country_lat_long <- read.csv("data/country_pin.csv")
@@ -299,7 +302,6 @@ pip_final <- read.csv("data/cleaned_pip_final.csv")
 
 
 ```{r}
-
 # Read the dataset
 pip_final <- read.csv("data/cleaned_pip_final.csv")
 
@@ -314,8 +316,6 @@ unique_countries_data <- filtered_data %>%
   slice(1) %>%
   ungroup()
 
-#head(unique_countries_data, 100)
-
 # Get world map data
 world <- ne_countries(scale = "medium", returnclass = "sf")
 
@@ -323,24 +323,26 @@ world <- ne_countries(scale = "medium", returnclass = "sf")
 world_data <- world %>%
   left_join(unique_countries_data, by = c("name" = "Country"))
 
+# Scale the "gini" column from 1 to 10 integer values
+world_data$gini_scaled <- cut(world_data$gini, breaks = 10, labels = FALSE)
+
 # Plotting the heatmap with labels
 ggplot(data = world_data) +
   geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
-  geom_sf_text(aes(label = gini), size = 3, color = "black", check_overlap = TRUE) +  # Add labels from the "gini" column
-  scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio") +
-  labs(title = "Headcount Ratio at International Poverty Line") +
+  geom_sf_text(aes(label = as.character(gini_scaled)), size = 5, color = "black", check_overlap = TRUE) +  # Add labels from the "gini" column
+  scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio", na.value = "grey90") +  # Use viridis color palette
+  labs(title = "Headcount Ratio at International Poverty Line", fill = "Headcount Ratio", color = "Gini Index") +
   theme_minimal() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "right",  # Move legend to the right
+        legend.title = element_text(size = 12, face = "bold"),  # Adjust legend title appearance
+        legend.text = element_text(size = 10),  # Adjust legend text appearance
+        plot.title = element_text(size = 16, face = "bold"),  # Adjust plot title appearance
+        panel.background = element_rect(fill = "lightblue"))  # Set background color
 
 ```
 
 
 ```{r}
-library(ggplot2)
-library(dplyr)
-library(rnaturalearth)
-library(rnaturalearthdata)
-
 # Read the dataset
 pip_final <- read.csv("data/cleaned_pip_final.csv")
 
@@ -448,7 +450,6 @@ plot_2018 <- ggplot(data = world_data_2018) +
 
 
 ```{r}
-library(magick)
 # Display the gif
 image_read("Merged_document.gif") %>%
   image_scale("500") %>%  # Resize the image to 500 pixels wide
@@ -471,9 +472,6 @@ print(top_10_years)
 ```
 
 ```{r}
-library(globe4r)
-library(dplyr)
-
 # Read the dataset
 pip_final <- read.csv("data/cleaned_pip_final.csv")
 
