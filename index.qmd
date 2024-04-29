@@ -19,11 +19,11 @@ execute:
 
 ## Abstract
 
-<<<<<<< HEAD
-Add project abstract here.
+This project by Insight Architect harnesses a comprehensive data-set on global poverty trends from Our World in Data to provide actionable insights into the dynamics of poverty across different regions and timelines. Utilizing advanced data visualization tools the shiny app in R, the project aims to enhance the understanding of poverty patterns and the effectiveness of various interventions.he dataset, encompassing 4,877 rows and 108 columns, is rich in metrics such as the headcount ratio at the international poverty line, Gini coefficients, and other inequality indices, which are crucial for analyzing poverty trends and wealth distribution among different income groups.
 
+the project will address pivotal questions regarding the reduction of extreme poverty, the distribution of wealth, and the impact of welfare regimes and economic growth on income inequality. By focusing on these areas, the research intends to uncover the nuances of poverty alleviation efforts and economic policies across various global regions over the past three decades.
 ------------------------------------------------------------------------
-=======
+
 ## Introduction
 
 ```{r}
@@ -31,12 +31,14 @@ Add project abstract here.
 #| message: false
 #| echo: false
 #| warning: false
+
 library(tidyverse,
         png)
 library(ggplot2)
 library(dplyr)
 library(scales)  
 library(tidyr)
+install.packages("gganimate")
 #install.packages("gganimate")
 install.packages("globe4r")
 install.packages("remotes")
@@ -49,11 +51,15 @@ library(gganimate)
 #| message: false
 #| warning: false
 #| echo: false
+#| 
 pip_row_data <- read.csv('data/pip_dataset.csv')
 ex_pro_data <- read.csv('data/globalextremepovertyrate_world-bank2020.csv')
 ```
 
 ## Justification of approach
+Stacked bar charts are effective for showing the total amount as well as the composition of that total. By presenting data on people living in and out of extreme poverty as parts of a whole for each year, this visualization clearly demonstrates how total populations and their poverty statuses have evolved over nearly two centuries
+
+This visualization strategy leverages the strengths of stacked bar charts for handling compositional data over time, making it an ideal choice for presenting complex historical data(broad range of years (from 1820 to 2017)) on poverty in a format that is both informative and visually compelling.
 
 ## Questions 01: Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?
 
@@ -276,8 +282,6 @@ Less inequality is often suggested by higher values in the context of metrics su
 \[2\] Used Generative AI to know the solutions of the errors link: <https://chat.openai.com/>
 
 \[3\] Used some techniques an codes from class lectures ppt file, Link: <https://datavizaz.org/>\
->>>>>>> 43ab70d112a204beff77587ca92de9f36bfe2929
-
 
 ## Question 2
 
@@ -296,6 +300,7 @@ library(globe4r)
 # Read the CSV file into a data frame
 my_data <- read.csv("data/pip_dataset.csv")
 country_lat_long <- read.csv("data/country_pin.csv")
+
 pip_final <- read.csv("data/cleaned_pip_final.csv")
 
 ```
