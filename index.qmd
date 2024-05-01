@@ -21,8 +21,7 @@ execute:
 
 This project by Insight Architect harnesses a comprehensive data-set on global poverty trends from Our World in Data to provide actionable insights into the dynamics of poverty across different regions and timelines. Utilizing advanced data visualization tools the shiny app in R, the project aims to enhance the understanding of poverty patterns and the effectiveness of various interventions.he dataset, encompassing 4,877 rows and 108 columns, is rich in metrics such as the headcount ratio at the international poverty line, Gini coefficients, and other inequality indices, which are crucial for analyzing poverty trends and wealth distribution among different income groups.
 
-the project will address pivotal questions regarding the reduction of extreme poverty, the distribution of wealth, and the impact of welfare regimes and economic growth on income inequality. By focusing on these areas, the research intends to uncover the nuances of poverty alleviation efforts and economic policies across various global regions over the past three decades.
-------------------------------------------------------------------------
+## the project will address pivotal questions regarding the reduction of extreme poverty, the distribution of wealth, and the impact of welfare regimes and economic growth on income inequality. By focusing on these areas, the research intends to uncover the nuances of poverty alleviation efforts and economic policies across various global regions over the past three decades.
 
 ## Introduction
 
@@ -32,8 +31,8 @@ the project will address pivotal questions regarding the reduction of extreme po
 #| echo: false
 #| warning: false
 
-library(tidyverse,
-        png)
+library(tidyverse)
+library(png)
 library(ggplot2)
 library(dplyr)
 library(scales)  
@@ -56,6 +55,7 @@ ex_pro_data <- read.csv('data/globalextremepovertyrate_world-bank2020.csv')
 ```
 
 ## Justification of approach
+
 Stacked bar charts are effective for showing the total amount as well as the composition of that total. By presenting data on people living in and out of extreme poverty as parts of a whole for each year, this visualization clearly demonstrates how total populations and their poverty statuses have evolved over nearly two centuries
 
 This visualization strategy leverages the strengths of stacked bar charts for handling compositional data over time, making it an ideal choice for presenting complex historical data(broad range of years (from 1820 to 2017)) on poverty in a format that is both informative and visually compelling.
@@ -187,82 +187,66 @@ library(viridis)
 
 # Transforming the data into a long format suitable for ridge plots
 pip_data_long <- pip_row_data %>%
+  filter(year != c(1973,1967,1963)) %>%
   pivot_longer(
-    cols = c("gini", 
-             "palma_ratio", 
-             "s80_s20_ratio", 
-             "p90_p10_ratio", 
-             "p90_p50_ratio", 
-             "p50_p10_ratio", 
-             "mld"),
+    cols = c("gini", "palma_ratio", "s80_s20_ratio", "p90_p10_ratio", "p90_p50_ratio", "p50_p10_ratio", "mld"),
     names_to = "Inequality_Metric",
     values_to = "Metric_Value"
   ) %>%
-  mutate(Inequality_Metric = recode(Inequality_Metric,
-                                    "gini" = "National Income Inequality",
-                                    "palma_ratio" = "Wealth Disparity Ratio",
-                                    "s80_s20_ratio" = "Richest-poorest Income Ratio",
-                                    "p90_p10_ratio" = "Richest-Poorest Gap Ratio",
-                                    "p90_p50_ratio" = "Top-Middle Gap Ratio",
-                                    "p50_p10_ratio" = "Middle-Poorest Gap Ratio",
-                                    "mld" = "Inequality Level Measure"))
+  mutate(
+    Inequality_Metric = recode(Inequality_Metric,
+      "gini" = "National Income Inequality",
+      "palma_ratio" = "Wealth Disparity Ratio",
+      "s80_s20_ratio" = "Richest-poorest Income Ratio",
+      "p90_p10_ratio" = "Richest-Poorest Gap Ratio",
+      "p90_p50_ratio" = "Top-Middle Gap Ratio",
+      "p50_p10_ratio" = "Middle-Poorest Gap Ratio",
+      "mld" = "Inequality Level Measure"),
+    Year = year  
+  ) %>%
+  filter(!is.na(Metric_Value), !is.na(Year))  
+
+# Ensure there is no NA in important columns
+pip_data_long <- pip_data_long %>% filter(!is.na(Metric_Value))
+
 
 
 # Plotting the ridge plot with a gradient effect using geom_density_ridges_gradient
 ridge_plot <- ggplot(pip_data_long, 
-                     aes(x = Metric_Value, 
-                         y = Inequality_Metric, 
-                         fill = ..x..)) +
-  geom_density_ridges_gradient(
-    scale = 10,
-    rel_min_height = 0.01,
-    gradient_lwd = 1.
-  ) +
-  scale_fill_viridis_c(
-    name = "Intencity", 
-    option = "C"
-  ) +
-  labs(
-    title = "Distribution of Wealth Inequality Across Different Income Groups",
-    subtitle = "3D Illustration : Seven Different Metrics", 
-    x = "Metric Value of Distribution",
-    y = "Inequality Metric of Wealth Disparity",
-    fill = "Intencity"
-  ) +
+                     aes(x = Metric_Value, y = Inequality_Metric, fill = ..x.., group = interaction(Inequality_Metric, Year))) +
+  geom_density_ridges_gradient(scale = 10, 
+                               rel_min_height = 0.01, 
+                               gradient_lwd = 1.) +
+  scale_fill_viridis_c(option = "C") +
+  labs(title = "Distribution of Wealth Inequality Across Different Years",
+       subtitle = "{frame_time}",
+       x = "Metric Value of Distribution",
+       y = "Inequality Metric of Wealth Disparity",
+       fill = "Intensity") +
   theme_ridges(font_size = 12, 
                grid = TRUE) +
-  theme(
-    plot.title = element_text(size = 16, 
-                              face = "bold", 
-                              hjust = 0.5),
-    plot.subtitle  = element_text(size = 16, 
-                                  hjust = 0.5),
-    axis.title.x = element_text(size = 12, 
-                                face = "bold", 
-                                hjust = 0.5), 
-    axis.title.y = element_text(size = 12, 
-                                face = "bold", 
-                                hjust = 0.5),
-    legend.position = "right"
-  ) +
-  scale_x_continuous(
-    limits = c(-2, 
-               10),  
-    breaks = seq(0, 
-                 10, 
-                 1)
-  )
+  theme(plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(size = 16, hjust = 0.5),
+        axis.title.x = element_text(size = 12, face = "bold", hjust = 0.5), 
+        axis.title.y = element_text(size = 12, face = "bold", hjust = 0.5),
+        legend.position = "right") +
+  scale_x_continuous(limits = c(-2, 10), 
+                     breaks = seq(0, 10, 1)) +
+  transition_time(year) + 
+  ease_aes('linear')
 
-# Save the plot
-ggsave("images/3D_ridge_plot.png", 
-       ridge_plot, 
-       width = 12, 
-       height = 7, 
-       bg = "white")
+#Generate the animation
+#animated_plot <- animate(ridge_plot, 
+ #                        width = 800, 
+  #                       height = 600, 
+   #                      renderer = gifski_renderer(),
+  #                       fps = 1,         
+#                         duration = 10)
+#anim_save("animated_ridge_plot.gif", animation = animated_plot)
 
 ```
 
-<img src="images/3D_ridge_plot.png" alt="Distribution of Wealth Inequality Across Different Income Groups" width="100%"/>
+![](animated_ridge_plot.gif)
 
 #### Visualization Descriptions:
 
@@ -284,7 +268,6 @@ Less inequality is often suggested by higher values in the context of metrics su
 
 ## Question 2
 
-
 ```{r}
 # running the UI
 #shinyApp(ui = ui, server = server)
@@ -294,7 +277,7 @@ library(dplyr)
 library(rnaturalearth)
 library(rnaturalearthdata)
 library(magick)
-library(globe4r)
+#library(globe4r)
 
 # Read the CSV file into a data frame
 my_data <- read.csv("data/pip_dataset.csv")
@@ -303,7 +286,6 @@ country_lat_long <- read.csv("data/country_pin.csv")
 pip_final <- read.csv("data/cleaned_pip_final.csv")
 
 ```
-
 
 ```{r}
 # Read the dataset
@@ -344,7 +326,6 @@ ggplot(data = world_data) +
         panel.background = element_rect(fill = "lightblue"))  # Set background color
 
 ```
-
 
 ```{r}
 # Read the dataset
@@ -452,7 +433,6 @@ plot_2018 <- ggplot(data = world_data_2018) +
 #ggsave("poverty_map_2018.jpg", plot_2018, width = 8, height = 6, dpi = 300)
 ```
 
-
 ```{r}
 # Display the gif
 image_read("Merged_document.gif") %>%
@@ -536,4 +516,3 @@ globe <- globe_rotate(globe, speed = 0.5L, rotate = TRUE)
 print(globe)
 
 ```
-
