@@ -236,13 +236,13 @@ ridge_plot <- ggplot(pip_data_long,
   ease_aes('linear')
 
 #Generate the animation
-#animated_plot <- animate(ridge_plot, 
- #                        width = 800, 
-  #                       height = 600, 
-   #                      renderer = gifski_renderer(),
-  #                       fps = 1,         
-#                         duration = 10)
-#anim_save("animated_ridge_plot.gif", animation = animated_plot)
+animated_plot <- animate(ridge_plot, 
+                         width = 800, 
+                         height = 600, 
+                         renderer = gifski_renderer(),
+                         fps = 1,         
+                         duration = 10)
+anim_save("images/animated_ridge_plot.gif", animation = animated_plot)
 
 ```
 
