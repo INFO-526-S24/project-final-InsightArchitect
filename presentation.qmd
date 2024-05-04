@@ -95,7 +95,7 @@ model |> glance()
 
 # 
 ::: panel-tabset
-#### Plot 01: Stacked Bar Chart of Population by Poverty Status {.smaller auto-animate="true"}
+#### Plot 01 {.smaller auto-animate="true"}
 
 ```{r}
 
