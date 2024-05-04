@@ -236,17 +236,17 @@ ridge_plot <- ggplot(pip_data_long,
   ease_aes('linear')
 
 #Generate the animation
-animated_plot <- animate(ridge_plot, 
-                         width = 800, 
-                         height = 600, 
-                         renderer = gifski_renderer(),
-                         fps = 1,         
-                         duration = 10)
-anim_save("images/animated_ridge_plot.gif", animation = animated_plot)
+#animated_plot <- animate(ridge_plot, 
+#                         width = 800, 
+#                         height = 600, 
+#                         renderer = gifski_renderer(),
+#                         fps = 1,         
+#                         duration = 10)
+#anim_save("images/animated_ridge_plot.gif", animation = animated_plot)
 
 ```
 
-<img src="images/animated_ridge_plot.gif" alt="Stacked Bar Chart of Population by Poverty Status" width="100%"/>
+<img src="images/animated_ridge_plot.gif" alt="Distribution of Wealth Inequality Across Different Years" width="100%"/>
 
 #### Visualization Descriptions:
 

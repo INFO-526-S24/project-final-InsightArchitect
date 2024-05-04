@@ -1,0 +1,184 @@
+[
+  {
+    "objectID": "proposal.html",
+    "href": "proposal.html",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "",
+    "text": "In the global mission to tackle poverty, having thorough and trustworthy data is absolutely essential. Our proposal centers around a dataset sourced from Our World in Data, focusing on global poverty trends. With a vast array of indicators spanning income, education, inequality, and welfare policies, this dataset serves as a crucial resource for researchers and policymakers alike. It enables a deeper understanding of the dynamics of poverty across various regions and time-frames, offering insights into the effectiveness of interventions and the distribution of wealth among different income groups."
+  },
+  {
+    "objectID": "proposal.html#introduction",
+    "href": "proposal.html#introduction",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "",
+    "text": "In the global mission to tackle poverty, having thorough and trustworthy data is absolutely essential. Our proposal centers around a dataset sourced from Our World in Data, focusing on global poverty trends. With a vast array of indicators spanning income, education, inequality, and welfare policies, this dataset serves as a crucial resource for researchers and policymakers alike. It enables a deeper understanding of the dynamics of poverty across various regions and time-frames, offering insights into the effectiveness of interventions and the distribution of wealth among different income groups."
+  },
+  {
+    "objectID": "proposal.html#why-we-are-choosing-this-dataset",
+    "href": "proposal.html#why-we-are-choosing-this-dataset",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "Why we are choosing this dataset?",
+    "text": "Why we are choosing this dataset?\nThis dataset offers extensive breadth and depth, providing a wealth of poverty-related metrics and variables. With its vast scope, there are abundant opportunities for analysis and exploration, making it an attractive choice for research and intervention purposes. Understanding poverty dynamics is crucial for informing evidence-based interventions aimed at reducing global poverty and fostering inclusive growth."
+  },
+  {
+    "objectID": "proposal.html#description-of-an-idea",
+    "href": "proposal.html#description-of-an-idea",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "Description of an Idea",
+    "text": "Description of an Idea\nBuilding Interactive Dashboards in R. Creating dashboards in R offers a dynamic way to visualize data, utilizing libraries like Shiny and Plot for interactivity. These dashboards enable users to explore trends and patterns efficiently, integrating advanced analyses for informed decision-making."
+  },
+  {
+    "objectID": "proposal.html#dataset-description",
+    "href": "proposal.html#dataset-description",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "Dataset Description",
+    "text": "Dataset Description\n\nDimension:\nThis pip_dataset.csv dataset contains 4,877 rows and 108 columns.\n\n\nProvenance:\nThe main dataset actually focusing on global poverty and inequality for research and development purpose. The Data source link is attached here:\nhttps://ourworldindata.org/search?q=Poverty\n\n\nCode book Insights:\nAs this dataset has about 108 columns but we will work on few columns, that is why we only provided the important data descriptions. Here is the Code book Insights:\n\n\n\n\n\n\n\n\n\nIndex\nColumn\nData Type\nDescription\n\n\n\n\n\n\n\ncountry\nstring\nThe name of the country to which the row relates.\n\n\n\n\n\nyear\ninteger\nYear is the floor of Survey year (i.e. Survey year always rounded down).\n\n\n\n\n\nreporting_level\nstring\nThe reporting level of the survey. It can be national, urban or rural.\n\n\n\n\n\nheadcount_ratio_international_povline\ndouble\n% of population living in households with an income or expenditure per person below the International Poverty Line: $1.90 a day\n\n\n\n\n\ngini\ndouble\nThe Gini coefficient measures inequality on a scale between 0 and 1, where higher values indicate greater inequality.\n\n\n\n\n\nmean\ndouble\nThe mean level of income or expenditure per day.\n\n\n\n\n\npalma_ratio\ndouble\nThe Palma ratio is a measure of inequality: it is the share of total income (or expenditure) of the top 10% divided by the share of the bottom 40%.\n\n\n\n\n\ns80_s20_ratio\ndouble\nThe share of total income (or expenditure) of the top 20% divided by the share of the bottom 20%."
+  },
+  {
+    "objectID": "proposal.html#questions-01-who-is-conquering-extreme-poverty-in-various-global-regions-across-time-how-does-the-distribution-of-wealth-differ-among-various-income-groups",
+    "href": "proposal.html#questions-01-who-is-conquering-extreme-poverty-in-various-global-regions-across-time-how-does-the-distribution-of-wealth-differ-among-various-income-groups",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "Questions 01: Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?",
+    "text": "Questions 01: Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?\n\nThe Significance of the Question\nUnderstanding the decline or persistence of extreme poverty—living on less than $2.15 daily—across regions, reflects our global and local successes or failures in economic development, welfare policies, and equality measures. It’s about gauging the effectiveness of our collective efforts to uplift the most vulnerable.\nThe exploration of wealth distribution across societies facilitates the identification of the extent of inequality and its concentration across various income categories. This understanding is crucial for formulating targeted approaches to address inequality and foster economic equity, ensuring that the advantages of growth are distributed more equitably among the entire population.\n\n\nAnalysis Plan\n\nPlot 01 : Stacked Area Chart to know Poverty Trends:\nA stacked area chart is an inventive method that may be used. This kind of graphic can show the headcount_ratio_international_povline over time for different areas as components of a whole. The data from each region is layered on top of one another, making it possible to see clearly how each region’s proportion of the world’s total headcount of extreme poverty has changed over time.\nDependency Columns:\nFor Plot 01 the dependent columns are country, year and headcount_ratio_international_povline.\nVisualization Descriptions:\nThe cumulative percentage of the world’s population living in extreme poverty would be represented by the y-axis, while time (years) would be represented by the x-axis. To facilitate easy differentiation, each region in the stack would be represented by a distinct color or pattern.With the help of this representation, we will be able to observe not only the general downward trend in extreme poverty over time, but also the contributions of various regions to these changes. For example, a region’s area diminishing over time would be indicative of effective measures to reduce poverty in that region. With the use of the chart, policy measures can be focused and focused on reducing poverty by recognizing both global patterns and regional contributions to these trends.\n\n\nPlot 02 : Ridge Plot for Wealth Distribution Analysis:\nA ‘Ridge Plot’ is a great tool to compare the distribution of a continuous variable between groups; in this case, the distribution of wealth as determined by s80_s20_ratio, gini, and palma_ratio among different income groups. “Ridge plots” are just a set of vertically arranged, slightly overlapped density charts for every group. It is simpler to compare the distributions and see trends or outlines with this setup in place.\nDependency Columns:\nFor Plot 02 dependent columns are gini, palma_ratio and s80_s20_ratio\nVisualization Descriptions:\nEach ridge (or line) in the figure would indicate the distribution of one of the inequality metrics.\nEach ridge would be labeled with the income group it represents, and the metric value would be represented by the x-axis. It would be simpler to determine which income groups face the greatest inequality if we could see the distribution and central tendency of inequality metrics within each income group. We may determine whether higher income groups likely to have more or less inequality in comparison to lower income groups by analyzing the shapes and peaks of the ridges. A higher peak in the ridge for the top 20% of incomes than for the lowest 20%, for instance, would point to a larger concentration of wealth among the highest earners. The ridge plot can be used to guide policy toward more equitable economic distribution by illuminating the distribution of wealth and assisting in the understanding of not just the degree of inequality within each income group but also how these levels compare across groups."
+  },
+  {
+    "objectID": "proposal.html#question-02-how-do-welfare-regimes-and-economic-growth-rates-influence-income-inequality-and-poverty-dynamics-across-different-countries-and-continents-over-the-last-three-decades-influenced-by-varying-welfare-types-and-international-poverty-lines-and-what-implications-do-these-interactions-have-for-future-global-poverty-reduction-strategies",
+    "href": "proposal.html#question-02-how-do-welfare-regimes-and-economic-growth-rates-influence-income-inequality-and-poverty-dynamics-across-different-countries-and-continents-over-the-last-three-decades-influenced-by-varying-welfare-types-and-international-poverty-lines-and-what-implications-do-these-interactions-have-for-future-global-poverty-reduction-strategies",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "Question 02: How do welfare regimes and economic growth rates influence income inequality and poverty dynamics across different countries and continents over the last three decades, influenced by varying welfare types and international poverty lines, and what implications do these interactions have for future global poverty reduction strategies?",
+    "text": "Question 02: How do welfare regimes and economic growth rates influence income inequality and poverty dynamics across different countries and continents over the last three decades, influenced by varying welfare types and international poverty lines, and what implications do these interactions have for future global poverty reduction strategies?\n\nThe Significance of the Question:\nWelfare Regimes and Economic Growth: This question focuses on the impact of different welfare types and economic growth on income inequality and poverty. It explores how these factors interact within different national and regional contexts.\nGeographical and Temporal Scales: The question retains its emphasis on exploring changes across different countries and continents over the past thirty years, providing a long-term perspective on trends and patterns.\nInfluence of Welfare Types and International Poverty Lines: By including welfare types and considering the role of international poverty lines (as standards for measuring poverty), this question aims to examine how different thresholds and welfare systems impact poverty measurements and perceptions.\nImplications for Poverty Reduction: It seeks to understand the effectiveness of various welfare and economic strategies in reducing poverty, aiming to inform future policy decisions.\n\n\nDependency Columns:\nThese columns include country, year: These attributes are foundational for any analysis that involves temporal and geographical comparisons. welfare_type: Differentiates the types of welfare systems, which can have varying impacts on economic well-being and inequality. ppp_version: Ensures that income and poverty metrics are comparable across different economic conditions globally. Gini index, Palma ratio, S80/S20 ratio, P90/P10 ratio, P90/P50 ratio, P50/P10 ratio: These are critical for analyzing the extent and changes in income inequality.\n\n\nAnalysis Plan:\nThe proposed analysis setup provides a comprehensive framework for exploring the complex interplay between poverty, inequality, and economic dynamics at both global and temporal scales. By leveraging interactive visualizations and advanced data querying capabilities, users can gain deep insights into the factors driving poverty and inequality trends, as well as assess the effectiveness of different welfare policies and international poverty interventions.\nFor the Visualization part of the analysis, the plan includes:\nA dynamic 3D globe that visually represents poverty, inequality, and economic indicators across countries and over time, providing a global perspective on the data.\nVisualization for Interpretation and Presentation:\nGeographical Visualization: Use tools like Globe4r or rl package to create interactive maps that highlight income inequality and welfare types by location.\nInteractive Dashboards: Develop a Shiny app or use similar tools to create interactive visualizations that allow users to explore different dimensions of the data, such as toggling between different welfare regimes or time periods.\nDynamic Time-Series Visualizations: Implement line graphs that evolve over time to show trends in inequality indices for different countries or continents.\n\n\n\nWorkflow - Weekly Plan of Attack\n&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD | Task Name | Status | Assignee | Due | Priority | Summary | |————————————|———|—————————-|———-|———-|————————–| | Dataset Description and Q1 | Done | Ayesha | 04/01/24 | High | To review the questions. | | Into, Motivation and Idea Analysis | ongoing | Anusha | | High | | | Timeline and workflow | Done | Shreemithra | 04/01/24 | Medium | Reviewed | | Analysis plan for Q2 | Ongoing | Kaarthik,Eeshaan and Amaan | 04/05/24 | High | | | Peer review | Done | Everyone | 04/06/24 | High | | | About.qmd file updating | Pending | Amaan and Ayesha | 04/10/24 | Low | | ======= +————————————+———-+—————————-+———-+———-+————————–+ | Task Name | Status | Assignee | Due | Priority | Summary | +====================================+==========+============================+==========+==========+==========================+ | Dataset Description and Q1 | Done | Ayesha | 04/01/24 | High | To review the questions. | +————————————+———-+—————————-+———-+———-+————————–+ | Into, Motivation and Idea Analysis | Done | Anusha | | High | Reviewed by All | +————————————+———-+—————————-+———-+———-+————————–+ | Timeline and workflow | Done | Shreemithra | 04/01/24 | Medium | Reviewed | +————————————+———-+—————————-+———-+———-+————————–+ | Analysis plan for Q2 | Done | Kaarthik,Eeshaan and Amaan | 04/05/24 | High | Reviewed by All | +————————————+———-+—————————-+———-+———-+————————–+ | Peer review | Done | Everyone | 04/06/24 | High | | +————————————+———-+—————————-+———-+———-+————————–+ | About.qmd file updating | Done | Amaan and Ayesha | 04/10/24 | Low | | +————————————+———-+—————————-+———-+———-+————————–+ | Q2 - Analytical | Done | Eeshaan | 04/14/24 | High | Reviewed and pushed | +————————————+———-+—————————-+———-+———-+————————–+ | | | | | | | +————————————+———-+—————————-+———-+———-+————————–+ &gt;&gt;&gt;&gt;&gt;&gt;&gt; 43ab70d112a204beff77587ca92de9f36bfe2929"
+  },
+  {
+    "objectID": "proposal.html#references",
+    "href": "proposal.html#references",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "References",
+    "text": "References\n[1] Data source link: https://ourworldindata.org/search?q=Poverty\n[2] Github Link: https://github.com/owid/poverty-data/tree/main/datasets"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "",
+    "text": "This project by Insight Architect harnesses a comprehensive data-set on global poverty trends from Our World in Data to provide actionable insights into the dynamics of poverty across different regions and timelines. Utilizing advanced data visualization tools the shiny app in R, the project aims to enhance the understanding of poverty patterns and the effectiveness of various interventions.he dataset, encompassing 4,877 rows and 108 columns, is rich in metrics such as the headcount ratio at the international poverty line, Gini coefficients, and other inequality indices, which are crucial for analyzing poverty trends and wealth distribution among different income groups."
+  },
+  {
+    "objectID": "index.html#abstract",
+    "href": "index.html#abstract",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "",
+    "text": "This project by Insight Architect harnesses a comprehensive data-set on global poverty trends from Our World in Data to provide actionable insights into the dynamics of poverty across different regions and timelines. Utilizing advanced data visualization tools the shiny app in R, the project aims to enhance the understanding of poverty patterns and the effectiveness of various interventions.he dataset, encompassing 4,877 rows and 108 columns, is rich in metrics such as the headcount ratio at the international poverty line, Gini coefficients, and other inequality indices, which are crucial for analyzing poverty trends and wealth distribution among different income groups."
+  },
+  {
+    "objectID": "index.html#the-project-will-address-pivotal-questions-regarding-the-reduction-of-extreme-poverty-the-distribution-of-wealth-and-the-impact-of-welfare-regimes-and-economic-growth-on-income-inequality.-by-focusing-on-these-areas-the-research-intends-to-uncover-the-nuances-of-poverty-alleviation-efforts-and-economic-policies-across-various-global-regions-over-the-past-three-decades.",
+    "href": "index.html#the-project-will-address-pivotal-questions-regarding-the-reduction-of-extreme-poverty-the-distribution-of-wealth-and-the-impact-of-welfare-regimes-and-economic-growth-on-income-inequality.-by-focusing-on-these-areas-the-research-intends-to-uncover-the-nuances-of-poverty-alleviation-efforts-and-economic-policies-across-various-global-regions-over-the-past-three-decades.",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "the project will address pivotal questions regarding the reduction of extreme poverty, the distribution of wealth, and the impact of welfare regimes and economic growth on income inequality. By focusing on these areas, the research intends to uncover the nuances of poverty alleviation efforts and economic policies across various global regions over the past three decades.",
+    "text": "the project will address pivotal questions regarding the reduction of extreme poverty, the distribution of wealth, and the impact of welfare regimes and economic growth on income inequality. By focusing on these areas, the research intends to uncover the nuances of poverty alleviation efforts and economic policies across various global regions over the past three decades."
+  },
+  {
+    "objectID": "index.html#introduction",
+    "href": "index.html#introduction",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "Introduction",
+    "text": "Introduction"
+  },
+  {
+    "objectID": "index.html#justification-of-approach",
+    "href": "index.html#justification-of-approach",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "Justification of approach",
+    "text": "Justification of approach\nStacked bar charts are effective for showing the total amount as well as the composition of that total. By presenting data on people living in and out of extreme poverty as parts of a whole for each year, this visualization clearly demonstrates how total populations and their poverty statuses have evolved over nearly two centuries\nThis visualization strategy leverages the strengths of stacked bar charts for handling compositional data over time, making it an ideal choice for presenting complex historical data(broad range of years (from 1820 to 2017)) on poverty in a format that is both informative and visually compelling."
+  },
+  {
+    "objectID": "index.html#questions-01-who-is-conquering-extreme-poverty-in-various-global-regions-across-time-how-does-the-distribution-of-wealth-differ-among-various-income-groups",
+    "href": "index.html#questions-01-who-is-conquering-extreme-poverty-in-various-global-regions-across-time-how-does-the-distribution-of-wealth-differ-among-various-income-groups",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "Questions 01: Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?",
+    "text": "Questions 01: Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?\n\nPlot 01 : Stacked Bar Chart to know Poverty Trends over the year in the World\n\nDependency Columns:\nFor Plot 01 dependent columns are \"Number.of.people.living.in.extreme.poverty\", \"Number.of.people.not.living.in.extreme.poverty\" & \"year\"\n\nVisualization Descriptions:\nThe global population’s historical data, from 1820 to 2017, is visualized as a bar chart that shows those living in and out of extreme poverty. It displays two segments: those living in extreme poverty are indicated in the top segment (shown in red), while the people not living in extreme poverty is represented in the bottom segment (shown in blue). The blue segment shows a clear increase over time, indicating a decrease in extreme poverty rates and an increase in the population living above the poverty line. On the other hand, there is a good tendency toward the reduction of poverty as the red segment diminishes, which is particularly evident after 1980. The population counts in billions are provided by the text labels on each bar segment. The referenced data source, Ravallion (2016), has been updated with additional information including World Bank (2019) data.\n\n\n\nPlot 02 : Distribution of Wealth Inequality Across Different Income Groups\n\nDependency Columns:\nFor Plot 02 dependent columns are \"gini\", \"palma_ratio\", \"s80_s20_ratio\", \"p90_p10_ratio\", \"p90_p50_ratio\", \"p50_p10_ratio\" and \"mld\"\n\n\n\nVisualization Descriptions:\nLess inequality is often suggested by higher values in the context of metrics such as the Gini coefficient, Palma ratio, or S80/S20 ratio, whereas more inequality is often suggested by lower values.\nDarker hues: approaching the color purple, would symbolize a more equitable distribution, where income is dispersed more equally among the populace.\nBrighter hues: which resemble yellow more closely, would be indicative of greater inequality and wealth concentration in a smaller number of hands. As an illustration, a country’s level of inequality would be shown by a Gini coefficient that is closer to 0 (darker colors) or closer to 1 (brighter colors). In the same way, lower values for the Palma and S80/S20 ratios would indicate a narrower gap between the wealthiest and poorest groups in society."
+  },
+  {
+    "objectID": "index.html#discussion",
+    "href": "index.html#discussion",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "Discussion",
+    "text": "Discussion"
+  },
+  {
+    "objectID": "index.html#references",
+    "href": "index.html#references",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "References",
+    "text": "References\n[1] Source Data link : https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015\n[2] Used Generative AI to know the solutions of the errors link: https://chat.openai.com/\n[3] Used some techniques an codes from class lectures ppt file, Link: https://datavizaz.org/"
+  },
+  {
+    "objectID": "index.html#question-2",
+    "href": "index.html#question-2",
+    "title": "Global Poverty Trends: A Comprehensive Dataset for Research and Development",
+    "section": "Question 2",
+    "text": "Question 2"
+  },
+  {
+    "objectID": "presentation.html#quarto",
+    "href": "presentation.html#quarto",
+    "title": "Project title",
+    "section": "Quarto",
+    "text": "Quarto\n\nThe presentation is created using the Quarto CLI\n## sets the start of a new slide"
+  },
+  {
+    "objectID": "presentation.html#layouts",
+    "href": "presentation.html#layouts",
+    "title": "Project title",
+    "section": "Layouts",
+    "text": "Layouts\nYou can use plain text\n\n\n\nor bullet points1\n\n\nor in two columns\n\n\n\nlike\nthis\n\nAnd add footnotes"
+  },
+  {
+    "objectID": "presentation.html#code",
+    "href": "presentation.html#code",
+    "title": "Project title",
+    "section": "Code",
+    "text": "Code\n\n\n# A tibble: 2 × 5\n  term        estimate std.error statistic       p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;\n1 (Intercept)   25.3      3.08        8.22 0.00000000358\n2 speed         -0.116    0.0642     -1.81 0.0806       \n\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    0.0983        0.0682  5.82      3.27  0.0806     1  -101.  207.  212.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;"
+  },
+  {
+    "objectID": "presentation.html#plots",
+    "href": "presentation.html#plots",
+    "title": "Project title",
+    "section": "Plots",
+    "text": "Plots"
+  },
+  {
+    "objectID": "presentation.html#plot-and-text",
+    "href": "presentation.html#plot-and-text",
+    "title": "Project title",
+    "section": "Plot and text",
+    "text": "Plot and text\n\n\n\nSome text\ngoes here"
+  },
+  {
+    "objectID": "presentation.html#tables",
+    "href": "presentation.html#tables",
+    "title": "Project title",
+    "section": "Tables",
+    "text": "Tables\nIf you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n2007\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n2007\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n2007\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n2007\n\n\nAdelie\nTorgersen\n39.3\n20.6\n190\n3650\nmale\n2007"
+  },
+  {
+    "objectID": "presentation.html#images",
+    "href": "presentation.html#images",
+    "title": "Project title",
+    "section": "Images",
+    "text": "Images\n\nImage credit: Danielle Navarro, Percolate."
+  },
+  {
+    "objectID": "presentation.html#math-expressions",
+    "href": "presentation.html#math-expressions",
+    "title": "Project title",
+    "section": "Math Expressions",
+    "text": "Math Expressions\nYou can write LaTeX math expressions inside a pair of dollar signs, e.g. $\\alpha+\\beta$ renders \\(\\alpha + \\beta\\). You can use the display style with double dollar signs:\n$$\\bar{X}=\\frac{1}{n}\\sum_{i=1}^nX_i$$\n\\[\n\\bar{X}=\\frac{1}{n}\\sum_{i=1}^nX_i\n\\]\nLimitations:\n\nThe source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting $$ must appear in the very beginning of a line, followed immediately by a non-space character, and the ending $$ must be at the end of a line, led by a non-space character;\nThere should not be spaces after the opening $ or before the closing $."
+  },
+  {
+    "objectID": "presentation.html#feeling-adventurous",
+    "href": "presentation.html#feeling-adventurous",
+    "title": "Project title",
+    "section": "Feeling adventurous?",
+    "text": "Feeling adventurous?\n\nYou are welcomed to use the default styling of the slides. In fact, that’s what I expect majority of you will do. You will differentiate yourself with the content of your presentation.\nBut some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs."
+  }
+]
