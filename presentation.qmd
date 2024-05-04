@@ -105,18 +105,28 @@ knitr::include_graphics("images/animated_stacked_bar_chart02.gif")
 
 #### Insights
 
--   
+-   Stacked Bar Chart of Population by Poverty Status
 :::
 
-## Plot 02 {.smaller auto-animate="true"}
+#
 
--   Distribution of Wealth Inequality Across Different Years
+::: panel-tabset
+#### Plot 02 {.smaller auto-animate="true"}
+
 
 ```{r}
 
 knitr::include_graphics("images/animated_ridge_plot.gif")
 
 ```
+
+#### Insights
+
+-   Distribution of Wealth Inequality Across Different Years
+
+:::
+ 
+
 
 ## Plot and text
 
