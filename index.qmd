@@ -333,5 +333,193 @@ ggplot(data = world_data) +
         panel.background = element_rect(fill = "lightblue"))  # Set background color
 
 ```
+```{r}
+# Read the dataset
+pip_final <- read.csv("data/cleaned_pip_final.csv")
 
+# Filter the dataset to include only rows where ppp_version is 2017
+filtered_data <- pip_final %>%
+  filter(ppp_version == 2017)
+
+# Year 2010
+unique_countries_data_2010 <- filtered_data %>%
+  filter(year == 2010) %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+world_data_2010 <- world %>%
+  left_join(unique_countries_data_2010, by = c("name" = "Country"))
+
+plot_2010 <- ggplot(data = world_data_2010) +
+  geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
+  scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio") +
+  labs(title = "Headcount Ratio at International Poverty Line (2010)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+#ggsave("poverty_map_2010.jpg", plot_2010, width = 8, height = 6, dpi = 300)
+
+# Year 2012
+unique_countries_data_2012 <- filtered_data %>%
+  filter(year == 2012) %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
+world_data_2012 <- world %>%
+  left_join(unique_countries_data_2012, by = c("name" = "Country"))
+
+plot_2012 <- ggplot(data = world_data_2012) +
+  geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
+  scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio") +
+  labs(title = "Headcount Ratio at International Poverty Line (2012)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+#ggsave("poverty_map_2012.jpg", plot_2012, width = 8, height = 6, dpi = 300)
+
+# Year 2015
+unique_countries_data_2015 <- filtered_data %>%
+  filter(year == 2015) %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
+world_data_2015 <- world %>%
+  left_join(unique_countries_data_2015, by = c("name" = "Country"))
+
+plot_2015 <- ggplot(data = world_data_2015) +
+  geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
+  scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio") +
+  labs(title = "Headcount Ratio at International Poverty Line (2015)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+#ggsave("poverty_map_2015.jpg", plot_2015, width = 8, height = 6, dpi = 300)
+
+# Year 2016
+unique_countries_data_2016 <- filtered_data %>%
+  filter(year == 2016) %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
+world_data_2016 <- world %>%
+  left_join(unique_countries_data_2016, by = c("name" = "Country"))
+
+plot_2016 <- ggplot(data = world_data_2016) +
+  geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
+  scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio") +
+  labs(title = "Headcount Ratio at International Poverty Line (2016)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+#ggsave("poverty_map_2016.jpg", plot_2016, width = 8, height = 6, dpi = 300)
+
+# Year 2018
+unique_countries_data_2018 <- filtered_data %>%
+  filter(year == 2018) %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
+world_data_2018 <- world %>%
+  left_join(unique_countries_data_2018, by = c("name" = "Country"))
+
+plot_2018 <- ggplot(data = world_data_2018) +
+  geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
+  scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio") +
+  labs(title = "Headcount Ratio at International Poverty Line (2018)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+#ggsave("poverty_map_2018.jpg", plot_2018, width = 8, height = 6, dpi = 300)
+```
+
+```{r}
+# Display the gif
+image_read("Merged_document.gif") %>%
+  image_scale("500") %>%  # Resize the image to 500 pixels wide
+  image_animate(fps = 5)  # Speed up the animation to 10 frames per second
+```
+
+```{r}
+# Read the dataset
+pip_final <- read.csv("data/cleaned_pip_final.csv")
+
+# Count the occurrences of each unique year
+year_counts <- table(pip_final$year)
+
+# Sort the counts in descending order and select the top 10
+top_10_years <- sort(year_counts, decreasing = TRUE)[1:10]
+
+# Display the top 10 most occurring years
+print(top_10_years)
+
+```
+
+```{r}
+# Read the dataset
+pip_final <- read.csv("data/cleaned_pip_final.csv")
+
+head(pip_final)
+
+# Filter the dataset to include only rows where ppp_version is 2017
+pip_final_2018 <- pip_final %>%
+  filter(ppp_version == 2017, year == 2018) %>%
+  select(Country.Code, Country, year, Latitude, Longitude, gini,headcount_ratio_international_povline)
+
+# Remove duplicate country rows
+pip_final_unique <- pip_final_2018 %>%
+  distinct(Country, .keep_all = TRUE)
+
+# Scale the "headcount_ratio_international_povline" and "gini" columns
+pip_final_scaled <- pip_final_unique %>%
+  mutate(headcount_ratio_international_povline_scaled = 
+           (headcount_ratio_international_povline - min(headcount_ratio_international_povline)) /
+           (max(headcount_ratio_international_povline) - min(headcount_ratio_international_povline)),
+         gini_scaled = 
+           (gini - min(gini)) /
+           (max(gini) - min(gini)))
+
+pip_final_scaled <- pip_final_scaled %>%
+  mutate(
+    Latitude = round(as.numeric(Latitude), 2),
+    Longitude = round(as.numeric(Longitude), 2)
+  )
+
+# Add text labels to the globe
+globe <- create_globe(height = "100vh") %>%
+  labels_data(data = pip_final_scaled) %>%  # Provide your dataset here
+  labels_lat(lat = "Latitude") %>%  # Specify the column containing latitude information
+  labels_lon(lon = "Longitude") %>%  # Specify the column containing longitude information
+  labels_text(text = "Country") %>%  # Specify the column containing text information
+  labels_altitude(altitude = 30)  # Specify the altitude for the text labels
+
+
+# Create the globe choropleth plot
+globe <- globe %>%
+  globe_choropleth(
+    coords(
+      country = Country.Code,  # Using ISO2 country codes
+      altitude = headcount_ratio_international_povline_scaled,
+      cap_color = headcount_ratio_international_povline_scaled  # Color caps based on scaled poverty headcount
+    ), 
+    data = pip_final_scaled
+  ) %>%
+  polygons_side_color(color = constant("#ffffaa60")) %>%
+  scale_choropleth_cap_color() %>%  # Adjust color scaling if needed
+  scale_choropleth_altitude(0.04, 0.2) %>% 
+  globe_img_url(image_url("blue")) # Adjust the altitude scale to match the range of your data
+
+# Rotate the globe automatically
+globe <- globe_rotate(globe, speed = 0.5L, rotate = TRUE)
+
+# Print the globe
+print(globe)
+
+```
 
