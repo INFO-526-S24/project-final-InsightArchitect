@@ -1,7 +1,7 @@
 ---
-title: "Project title"
+title: "Global Poverty Trends: A Comprehensive Dataset for Research and Development"
 subtitle: "INFO 526 - Fall 2023 - Project Final"
-author: "Author names"
+author: "InsightArchitect - Ayesha, Shreemithra, Anusha, Eeshaan, Kaarthik, Amaan"
 title-slide-attributes:
   data-background-image: images/watercolour_sys02_img34_teacup-ocean.jpg
   data-background-size: stretch
@@ -93,14 +93,13 @@ model |> glance()
 
 ```
 
-## Plots
+## Plot 01
 
-```{r}
-penguins |>
-  mutate(species = ifelse(species == "Adelie", "Adelie", "Other")) |>
-  ggplot(aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
-  geom_point()
-```
+<img src="images/animated_stacked_bar_chart02.gif" alt="Stacked Bar Chart of Population by Poverty Status" width="100%"/>
+
+## Plot 02
+
+<img src="images/animated_ridge_plot.gif" alt="Distribution of Wealth Inequality Across Different Years" width="100%"/>
 
 ## Plot and text
 
