@@ -1,0 +1,292 @@
+---
+title: "Global Poverty Trends: A Comprehensive Dataset for Research and Development"
+subtitle: "INFO 526 - Fall 2023 - Project Final"
+author: "InsightArchitect - Ayesha, Shreemithra, Anusha, Eeshaan, Kaarthik, Amaan"
+title-slide-attributes:
+  data-background-image: images/watercolour_sys02_img34_teacup-ocean.jpg
+  data-background-size: stretch
+  data-background-opacity: "0.7"
+  data-slide-number: none
+format:
+  revealjs:
+    theme:  ['data/customtheming.scss']
+  
+editor: visual
+execute:
+  echo: false
+---
+
+```{r}
+#| label: load-packages
+#| include: false
+
+# Load packages here
+pacman::p_load(tidymodels,
+               tidyverse,
+               broom,
+               palmerpenguins)
+
+```
+
+```{r}
+#| label: setup
+#| include: false
+
+# Plot theme
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 11))
+
+# For better figure resolution
+knitr::opts_chunk$set(
+  fig.retina = 3, 
+  dpi = 300, 
+  fig.width = 6, 
+  fig.asp = 0.618 
+  )
+```
+
+```{r}
+#| label: load-data
+#| include: false
+# Load data here
+data(mtcars)
+mtcars$speed <- mtcars$hp / mtcars$wt
+
+data("penguins")
+```
+
+
+# Using Quarto for presentations
+
+## Quarto
+
+-   The presentation is created using the Quarto CLI
+
+-   `##` sets the start of a new slide
+
+## Layouts
+
+You can use plain text
+
+::: columns
+::: {.column width="40%"}
+-   or bullet points[^1]
+:::
+
+::: {.column width="60%"}
+or in two columns
+:::
+:::
+
+[^1]: And add footnotes
+
+-   like
+
+-   this
+
+## Code
+
+
+```{r, echo=FALSE}
+model <- lm(mpg ~ speed, data = mtcars) 
+
+model |> tidy()
+
+model |> glance()
+
+```
+
+
+# Questions 01: 
+Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?
+
+# 
+::: panel-tabset
+#### Plot 01 {.smaller auto-animate="true"}
+
+
+```{r}
+
+knitr::include_graphics("images/animated_stacked_bar_chart02.gif")
+
+```
+
+
+#### Insights
+
+-   Stacked Bar Chart of Population by Poverty Status
+:::
+
+#
+
+::: panel-tabset
+#### Plot 02 {.smaller auto-animate="true"}
+
+
+
+```{r}
+
+knitr::include_graphics("images/animated_ridge_plot.gif")
+
+```
+
+
+#### Insights
+
+-   Distribution of Wealth Inequality Across Different Years
+
+:::
+ 
+
+# Question 02: 
+How do welfare regimes and economic growth rates influence income inequality and poverty dynamics across different countries and continents over the last three decades, influenced by varying welfare types and international poverty lines, and what implications do these interactions have for future global poverty reduction strategies?
+
+#
+
+::: panel-tabset
+#### Plot 03 
+
+
+
+```{r}
+# Read the dataset
+#install.packages("dplyr")
+#install.packages("readr")
+#install.packages("sf")
+#install.packages("rnaturalearth")
+#install.packages("leaflet")
+#install.packages("viridis")
+library(dplyr)
+library(readr)
+library(sf)
+library(rnaturalearth)
+library(leaflet)
+library(viridis)
+
+# Reading the dataset
+pip_final <- read.csv("data/cleaned_pip_final.csv")
+
+# Filter and process the data
+filtered_data <- pip_final %>%
+  filter(year == 1996, ppp_version == 2017) %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
+# Get world map data
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Merge your data with the world map
+world_data <- world %>%
+  left_join(filtered_data, by = c("name" = "Country"))
+
+# Scale the "gini" column
+world_data$gini_scaled <- cut(world_data$gini, breaks = 10, labels = FALSE)
+
+# Create the interactive map
+# Initialize the Leaflet map
+leaflet_map <- leaflet(world_data) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%  # Add base map layer
+  addPolygons(
+    fillColor = ~colorNumeric("viridis", headcount_ratio_international_povline)(headcount_ratio_international_povline),
+    weight = 1,
+    color = "white",
+    fillOpacity = 0.7,
+    highlightOptions = highlightOptions(
+      weight = 3,
+      color = "black",
+      fillOpacity = 0.9,
+      bringToFront = TRUE),
+    label = ~paste("Country:", name, "<br>", 
+                   "Headcount Ratio:", headcount_ratio_international_povline, "<br>", 
+                   "Gini Scaled:", gini_scaled)
+  ) %>%
+  addLegend(
+    "bottomright",
+    pal = colorNumeric("viridis", world_data$headcount_ratio_international_povline),
+    values = ~headcount_ratio_international_povline,
+    title = "Headcount Ratio",
+    opacity = 0.7
+  )
+
+# Render the map
+leaflet_map
+```
+
+
+#### Insights
+
+-   Headcount Ratio at International Poverty Line
+
+:::
+ 
+
+## Plot and text
+
+::: columns
+::: {.column width="50%"}
+-   Some text
+
+-   goes here
+:::
+
+::: {.column width="50%"}
+
+```{r, warning=FALSE, fig.width=5.5}
+penguins |>
+  ggplot(aes(x = bill_length_mm, y = species, color = species)) +
+  geom_boxplot(linewidth = 0.75,
+               outlier.size = 2.5) +
+  theme_minimal(base_size = 15) +
+  theme(legend.key.size = unit(0.8, "cm"))
+```
+
+:::
+:::
+
+# A new section...
+
+## Tables
+
+If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
+
+
+```{r}
+penguins |> 
+  head() |>
+  kableExtra::kable() |>
+  kableExtra::kable_styling()
+```
+
+
+## Images
+
+![Image credit: Danielle Navarro, Percolate.](images/watercolour_sys02_img34_teacup-ocean.png){fig-align="center" width="500"}
+
+## Math Expressions {.smaller}
+
+You can write LaTeX math expressions inside a pair of dollar signs, e.g. \$\\alpha+\\beta\$ renders $\alpha + \beta$. You can use the display style with double dollar signs:
+
+```         
+$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
+```
+
+$$
+\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i
+$$
+
+Limitations:
+
+1.  The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
+
+2.  There should not be spaces after the opening `$` or before the closing `$`.
+
+# Wrap up
+
+## Referen
+
+\[1\] Source Data link : [*https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015*](https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015)
+
+\[2\] Used Generative AI to know the solutions of the errors link: <https://chat.openai.com/>
+
+\[3\] Used some techniques an codes from class lectures ppt file, Link: <https://datavizaz.org/>\
+
