@@ -108,7 +108,7 @@ knitr::include_graphics("images/animated_stacked_bar_chart02.gif")
 - Distribution of Wealth Inequality Across Different Years
 ```{r}
 
-knitr::include_graphics("images/animated_ridge_plot.gif.gif")
+knitr::include_graphics("images/animated_ridge_plot.gif")
 
 ```
 
