@@ -17,195 +17,42 @@ execute:
 ---
 
 ```{r}
-#| label: load-pkgs
-#| message: false
-#| echo: false
-#| warning: false
+#| label: load-packages
+#| include: false
 
-library(tidyverse)
-library(png)
-library(ggplot2)
-library(dplyr)
-library(scales)  
-library(tidyr)
-#install.packages("gganimate")
-#install.packages("globe4r")
-#install.packages("remotes")
-library(gganimate)
+# Load packages here
+pacman::p_load(tidymodels,
+               tidyverse,
+               broom,
+               palmerpenguins)
 
-```
-
-
-```{r}
-#| label: load-dataset
-#| message: false
-#| warning: false
-#| echo: false
-#| 
-pip_row_data <- read.csv('data/pip_dataset.csv')
-ex_pro_data <- read.csv('data/globalextremepovertyrate_world-bank2020.csv')
-```
-```{r}
-#| label: stacked-bar-chart
-#| message: false
-#| warning: false
-#| echo: false
-
-# Filter the data to include only specified years
-years_to_include <- c(1820, 
-                      1850, 
-                      1870, 
-                      1890, 
-                      1910, 
-                      1929, 
-                      1950, 
-                      1960, 
-                      1970, 
-                      1980:2017)
-ex_pro_data_filtered <- ex_pro_data %>%
-  filter(Year %in% years_to_include) %>%
-  mutate(Year = factor(Year, 
-                       levels = years_to_include))  
-
-# Transform data for plotting in a long format suitable for ggplot2
-ex_pro_data_long <- pivot_longer(
-  ex_pro_data_filtered,
-  cols = c( "Number.of.people.living.in.extreme.poverty", 
-            "Number.of.people.not.living.in.extreme.poverty"),
-  names_to = "Status",
-  values_to = "Count"
-) %>%
-    mutate(Count = Count / 1e9,  
-         Status = recode(Status,
-                         "Number.of.people.living.in.extreme.poverty" = "Population Live In Extreme Poverty",
-                         "Number.of.people.not.living.in.extreme.poverty" = "Population Live Not in Extreme Poverty"))
-
-# Stacked Bar Chart with counts on bars
-stacked_absolute_bar_chart <- ggplot(ex_pro_data_long, 
-                                     aes(x = Year, 
-                                         y = Count, 
-                                         fill = Status)) +
-  geom_bar(stat = "identity") +
-  geom_text(
-    aes(label = scales::comma(Count, 
-                              accuracy = 0.1), 
-        group = Status),
-    position = position_stack(vjust = 0.5),  
-    color = "black",  
-    size = 4  
-  ) +
-  labs(title = "Polulation Living in Extreme Poverty Level Around the World",
-       subtitle = "Year: (1820-2017)",
-        caption ="Data source: Ravallion (2016) updated with World Bank (2019) \nLink: OurWorldInData.org/poverty",
-       x = "Year", 
-       y = "Number of Population (Billions)",
-       fill = "Status") +
-  theme_minimal() +
-  theme(legend.position = "bottom",
-         plot.title = element_text(size = 20, 
-                              face = "bold", 
-                              hjust = 0.5),
-         plot.subtitle = element_text(size = 18, 
-                                 face = "bold", 
-                                 hjust = 0.5),
-         plot.caption = element_text(size = 10, 
-                                 hjust = 1))  
-
-
-
-# Animated Plot
-animated_plot <- stacked_absolute_bar_chart +
-  transition_layers(
-    layer_length = 1,    
-    transition_length = 2,  
-    keep_layers = TRUE  
-  ) +
-  enter_fade() +         
-  enter_drift(x_mod = 1, y_mod = -1) +  
-  exit_fade() +          
-  ease_aes('linear')    
-
-# Render the animation
-#anim_save("images/animated_stacked_bar_chart02.gif", 
-#          animated_plot, 
-#          width = 1100, 
-#          height = 600, 
-#         fps = 10, 
-#          duration = 15)
 ```
 
 ```{r}
-#| label: ThreeD Illustration
-#| message: false
-#| warning: false
-#| echo: false
+#| label: setup
+#| include: false
 
-library(ggplot2)
-library(ggridges) 
-library(dplyr)
-library(viridis)  
+# Plot theme
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 11))
 
-# Transforming the data into a long format suitable for ridge plots
-pip_data_long <- pip_row_data %>%
-  filter(year != c(1973,1967,1963)) %>%
-  pivot_longer(
-    cols = c("gini", "palma_ratio", "s80_s20_ratio", "p90_p10_ratio", "p90_p50_ratio", "p50_p10_ratio", "mld"),
-    names_to = "Inequality_Metric",
-    values_to = "Metric_Value"
-  ) %>%
-  mutate(
-    Inequality_Metric = recode(Inequality_Metric,
-      "gini" = "National Income Inequality",
-      "palma_ratio" = "Wealth Disparity Ratio",
-      "s80_s20_ratio" = "Richest-poorest Income Ratio",
-      "p90_p10_ratio" = "Richest-Poorest Gap Ratio",
-      "p90_p50_ratio" = "Top-Middle Gap Ratio",
-      "p50_p10_ratio" = "Middle-Poorest Gap Ratio",
-      "mld" = "Inequality Level Measure"),
-    Year = year  
-  ) %>%
-  filter(!is.na(Metric_Value), !is.na(Year))  
-
-# Ensure there is no NA in important columns
-pip_data_long <- pip_data_long %>% filter(!is.na(Metric_Value))
-
-
-
-# Plotting the ridge plot with a gradient effect using geom_density_ridges_gradient
-ridge_plot <- ggplot(pip_data_long, 
-                     aes(x = Metric_Value, y = Inequality_Metric, fill = ..x.., group = interaction(Inequality_Metric, Year))) +
-  geom_density_ridges_gradient(scale = 10, 
-                               rel_min_height = 0.01, 
-                               gradient_lwd = 1.) +
-  scale_fill_viridis_c(option = "C") +
-  labs(title = "Distribution of Wealth Inequality Across Different Years",
-       subtitle = "{frame_time}",
-       x = "Metric Value of Distribution",
-       y = "Inequality Metric of Wealth Disparity",
-       fill = "Intensity") +
-  theme_ridges(font_size = 12, 
-               grid = TRUE) +
-  theme(plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
-        plot.subtitle = element_text(size = 16, hjust = 0.5),
-        axis.title.x = element_text(size = 12, face = "bold", hjust = 0.5), 
-        axis.title.y = element_text(size = 12, face = "bold", hjust = 0.5),
-        legend.position = "right") +
-  scale_x_continuous(limits = c(-2, 10), 
-                     breaks = seq(0, 10, 1)) +
-  transition_time(year) + 
-  ease_aes('linear')
-
-#Generate the animation
-animated_plot <- animate(ridge_plot, 
-                         width = 800, 
-                         height = 600, 
-                         renderer = gifski_renderer(),
-                         fps = 1,         
-                         duration = 10)
-#anim_save("images/animated_ridge_plot.gif", animation = animated_plot)
-
+# For better figure resolution
+knitr::opts_chunk$set(
+  fig.retina = 3, 
+  dpi = 300, 
+  fig.width = 6, 
+  fig.asp = 0.618 
+  )
 ```
 
+```{r}
+#| label: load-data
+#| include: false
+# Load data here
+data(mtcars)
+mtcars$speed <- mtcars$hp / mtcars$wt
+
+data("penguins")
+```
 
 # Using Quarto for presentations
 
@@ -217,10 +64,34 @@ animated_plot <- animate(ridge_plot,
 
 ## Layouts
 
+You can use plain text
 
+::: columns
+::: {.column width="40%"}
+-   or bullet points[^1]
+:::
+
+::: {.column width="60%"}
+or in two columns
+:::
+:::
+
+[^1]: And add footnotes
+
+-   like
+
+-   this
 
 ## Code
 
+```{r, echo=FALSE}
+model <- lm(mpg ~ speed, data = mtcars) 
+
+model |> tidy()
+
+model |> glance()
+
+```
 
 ## Plot 01
 
@@ -232,7 +103,24 @@ animated_plot <- animate(ridge_plot,
 
 ## Plot and text
 
+::: columns
+::: {.column width="50%"}
+-   Some text
 
+-   goes here
+:::
+
+::: {.column width="50%"}
+```{r, warning=FALSE, fig.width=5.5}
+penguins |>
+  ggplot(aes(x = bill_length_mm, y = species, color = species)) +
+  geom_boxplot(linewidth = 0.75,
+               outlier.size = 2.5) +
+  theme_minimal(base_size = 15) +
+  theme(legend.key.size = unit(0.8, "cm"))
+```
+:::
+:::
 
 # A new section...
 
@@ -240,16 +128,28 @@ animated_plot <- animate(ridge_plot,
 
 If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
 
+```{r}
+penguins |> 
+  head() |>
+  kableExtra::kable() |>
+  kableExtra::kable_styling()
+```
 
 ## Images
 
-
+![Image credit: Danielle Navarro, Percolate.](images/watercolour_sys02_img34_teacup-ocean.png){fig-align="center" width="500"}
 
 ## Math Expressions {.smaller}
 
 You can write LaTeX math expressions inside a pair of dollar signs, e.g. \$\\alpha+\\beta\$ renders $\alpha + \beta$. You can use the display style with double dollar signs:
 
+```         
+$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
+```
 
+$$
+\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i
+$$
 
 Limitations:
 
@@ -259,7 +159,7 @@ Limitations:
 
 # Wrap up
 
-## References
+## Referen
 \[1\] Source Data link : [*https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015*](https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015)
 
 \[2\] Used Generative AI to know the solutions of the errors link: <https://chat.openai.com/>
