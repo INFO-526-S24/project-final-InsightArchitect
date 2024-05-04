@@ -258,13 +258,6 @@ Less inequality is often suggested by higher values in the context of metrics su
 
 ## Discussion
 
-## References
-
-\[1\] Source Data link : [*https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015*](https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015)
-
-\[2\] Used Generative AI to know the solutions of the errors link: <https://chat.openai.com/>
-
-\[3\] Used some techniques an codes from class lectures ppt file, Link: <https://datavizaz.org/>\
 
 ## Question 2
 
@@ -333,3 +326,10 @@ ggplot(data = world_data) +
         panel.background = element_rect(fill = "lightblue"))  # Set background color
 
 ```
+## References
+
+\[1\] Source Data link : [*https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015*](https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015)
+
+\[2\] Used Generative AI to know the solutions of the errors link: <https://chat.openai.com/>
+
+\[3\] Used some techniques an codes from class lectures ppt file, Link: <https://datavizaz.org/>\
