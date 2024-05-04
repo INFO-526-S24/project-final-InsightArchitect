@@ -159,8 +159,9 @@ Limitations:
 
 # Wrap up
 
-## Feeling adventurous?
+## References
+\[1\] Source Data link : [*https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015*](https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015)
 
--   You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
+\[2\] Used Generative AI to know the solutions of the errors link: <https://chat.openai.com/>
 
--   But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.
+\[3\] Used some techniques an codes from class lectures ppt file, Link: <https://datavizaz.org/>\

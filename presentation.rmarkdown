@@ -1,0 +1,175 @@
+---
+title: "Global Poverty Trends: A Comprehensive Dataset for Research and Development"
+subtitle: "INFO 526 - Fall 2023 - Project Final"
+author: "InsightArchitect - Ayesha, Shreemithra, Anusha, Eeshaan, Kaarthik, Amaan"
+title-slide-attributes:
+  data-background-image: images/watercolour_sys02_img34_teacup-ocean.jpg
+  data-background-size: stretch
+  data-background-opacity: "0.7"
+  data-slide-number: none
+format:
+  revealjs:
+    theme:  ['data/customtheming.scss']
+  
+editor: visual
+execute:
+  echo: false
+---
+
+```{r}
+#| label: load-packages
+#| include: false
+
+# Load packages here
+pacman::p_load(tidymodels,
+               tidyverse,
+               broom,
+               palmerpenguins)
+
+```
+
+```{r}
+#| label: setup
+#| include: false
+
+# Plot theme
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 11))
+
+# For better figure resolution
+knitr::opts_chunk$set(
+  fig.retina = 3, 
+  dpi = 300, 
+  fig.width = 6, 
+  fig.asp = 0.618 
+  )
+```
+
+```{r}
+#| label: load-data
+#| include: false
+# Load data here
+data(mtcars)
+mtcars$speed <- mtcars$hp / mtcars$wt
+
+data("penguins")
+```
+
+
+# Using Quarto for presentations
+
+## Quarto
+
+-   The presentation is created using the Quarto CLI
+
+-   `##` sets the start of a new slide
+
+## Layouts
+
+You can use plain text
+
+::: columns
+::: {.column width="40%"}
+-   or bullet points[^1]
+:::
+
+::: {.column width="60%"}
+or in two columns
+:::
+:::
+
+[^1]: And add footnotes
+
+-   like
+
+-   this
+
+## Code
+
+
+```{r, echo=FALSE}
+model <- lm(mpg ~ speed, data = mtcars) 
+
+model |> tidy()
+
+model |> glance()
+
+```
+
+
+## Plot 01
+
+<img src="images/animated_stacked_bar_chart02.gif" alt="Stacked Bar Chart of Population by Poverty Status" width="100%"/>
+
+## Plot 02
+
+<img src="images/animated_ridge_plot.gif" alt="Distribution of Wealth Inequality Across Different Years" width="100%"/>
+
+## Plot and text
+
+::: columns
+::: {.column width="50%"}
+-   Some text
+
+-   goes here
+:::
+
+::: {.column width="50%"}
+
+```{r, warning=FALSE, fig.width=5.5}
+penguins |>
+  ggplot(aes(x = bill_length_mm, y = species, color = species)) +
+  geom_boxplot(linewidth = 0.75,
+               outlier.size = 2.5) +
+  theme_minimal(base_size = 15) +
+  theme(legend.key.size = unit(0.8, "cm"))
+```
+
+:::
+:::
+
+# A new section...
+
+## Tables
+
+If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
+
+
+```{r}
+penguins |> 
+  head() |>
+  kableExtra::kable() |>
+  kableExtra::kable_styling()
+```
+
+
+## Images
+
+![Image credit: Danielle Navarro, Percolate.](images/watercolour_sys02_img34_teacup-ocean.png){fig-align="center" width="500"}
+
+## Math Expressions {.smaller}
+
+You can write LaTeX math expressions inside a pair of dollar signs, e.g. \$\\alpha+\\beta\$ renders $\alpha + \beta$. You can use the display style with double dollar signs:
+
+```         
+$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
+```
+
+$$
+\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i
+$$
+
+Limitations:
+
+1.  The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
+
+2.  There should not be spaces after the opening `$` or before the closing `$`.
+
+# Wrap up
+
+## References
+\[1\] Source Data link : [*https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015*](https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015)
+
+\[2\] Used Generative AI to know the solutions of the errors link: <https://chat.openai.com/>
+
+\[3\] Used some techniques an codes from class lectures ppt file, Link: <https://datavizaz.org/>\
+
