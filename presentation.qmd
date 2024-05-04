@@ -111,12 +111,7 @@ stacked_absolute_bar_chart <- ggplot(ex_pro_data_long,
          plot.caption = element_text(size = 10, 
                                  hjust = 1))  
 
-# save the plots
-ggsave("images/stacked_absolute_bar_chart.png", 
-       stacked_absolute_bar_chart, 
-       width = 17, 
-       height = 8, 
-       bg="white")
+
 
 # Animated Plot
 animated_plot <- stacked_absolute_bar_chart +
@@ -201,12 +196,12 @@ ridge_plot <- ggplot(pip_data_long,
   ease_aes('linear')
 
 #Generate the animation
-#animated_plot <- animate(ridge_plot, 
-#                         width = 800, 
-#                         height = 600, 
-#                         renderer = gifski_renderer(),
-#                         fps = 1,         
-#                         duration = 10)
+animated_plot <- animate(ridge_plot, 
+                         width = 800, 
+                         height = 600, 
+                         renderer = gifski_renderer(),
+                         fps = 1,         
+                         duration = 10)
 #anim_save("images/animated_ridge_plot.gif", animation = animated_plot)
 
 ```
