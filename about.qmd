@@ -4,9 +4,9 @@ format: html
 editor: visual
 ---
 
-This project was developed by **\[Team Name\]** For [INFO 526 - Data Analysis & Visualization](https://datavizaz.org/) at the University of Arizona, taught by Dr. Greg Chism. The team is comprised of the following team members.
+This project was developed by **\[InsightArchitect\]** For [INFO 526 - Data Analysis & Visualization](https://datavizaz.org/) at the University of Arizona, taught by Dr. Greg Chism. The team is comprised of the following team members.
 
--   Team member 1: One sentence description of Team member 1 (e.g., year, major, etc.).
+-   Ayesha Khatun: First Year PhD Student, School of Information, Major: Natural Language Processing
 
 -   Team member 2: One sentence description of Team member 2 (e.g., year, major, etc.).
 
