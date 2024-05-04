@@ -93,7 +93,8 @@ model |> glance()
 
 ```
 
-# Questions 01: Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?
+# Questions 01: 
+#### Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?
 
 # 
 ::: panel-tabset
@@ -129,13 +130,10 @@ knitr::include_graphics("images/animated_ridge_plot.gif")
 :::
  
 
-# Question 02: How do welfare regimes and economic growth rates influence income inequality and poverty dynamics across different countries and continents over the last three decades, influenced by varying welfare types and international poverty lines, and what implications do these interactions have for future global poverty reduction strategies?
+# Question 02: 
+#### How do welfare regimes and economic growth rates influence income inequality and poverty dynamics across different countries and continents over the last three decades, influenced by varying welfare types and international poverty lines, and what implications do these interactions have for future global poverty reduction strategies?
 
 #
-
-::: panel-tabset
-#### Plot 03 
-
 
 ```{r}
 # Read the dataset
@@ -202,12 +200,7 @@ leaflet_map <- leaflet(world_data) %>%
 leaflet_map
 ```
 
-#### Insights
 
--   Headcount Ratio at International Poverty Line
-
-:::
- 
 
 ## Plot and text
 
