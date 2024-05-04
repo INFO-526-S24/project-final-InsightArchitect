@@ -93,14 +93,22 @@ model |> glance()
 
 ```
 
-## Plot 01 {.smaller auto-animate="true"}
 
-- Stacked Bar Chart of Population by Poverty Status
+::: panel-tabset
+
+#### Plot 01: Stacked Bar Chart of Population by Poverty Status {.smaller auto-animate="true"}
+
 ```{r}
 
 knitr::include_graphics("images/animated_stacked_bar_chart02.gif")
 
 ```
+
+#### Insights 
+
+-   
+
+:::
 
 
 ## Plot 02 {.smaller auto-animate="true"}
