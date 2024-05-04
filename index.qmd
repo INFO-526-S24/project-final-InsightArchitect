@@ -256,10 +256,75 @@ Less inequality is often suggested by higher values in the context of metrics su
 
 **Brighter hues:** which resemble yellow more closely, would be indicative of greater inequality and wealth concentration in a smaller number of hands. As an illustration, a country's level of inequality would be shown by a `Gini coefficient` that is closer to 0 (darker colors) or closer to 1 (brighter colors). In the same way, lower values for the `Palma` and `S80/S20 ratios` would indicate a narrower gap between the wealthiest and poorest groups in society.
 
-## Discussion
 
+## Question 2 : How do welfare regimes and economic growth rates influence income inequality and poverty dynamics across different countries and continents over the last three decades, influenced by varying welfare types and international poverty lines, and what implications do these interactions have for future global poverty reduction strategies?
 
-## Question 2
+### Plot 03 : Headcount Ratio at International Poverty Line
+
+```{r}
+# Read the dataset
+#install.packages("dplyr")
+#install.packages("readr")
+#install.packages("sf")
+#install.packages("rnaturalearth")
+#install.packages("leaflet")
+#install.packages("viridis")
+library(dplyr)
+library(readr)
+library(sf)
+library(rnaturalearth)
+library(leaflet)
+library(viridis)
+
+# Reading the dataset
+pip_final <- read.csv("data/cleaned_pip_final.csv")
+
+# Filter and process the data
+filtered_data <- pip_final %>%
+  filter(year == 1996, ppp_version == 2017) %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
+# Get world map data
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Merge your data with the world map
+world_data <- world %>%
+  left_join(filtered_data, by = c("name" = "Country"))
+
+# Scale the "gini" column
+world_data$gini_scaled <- cut(world_data$gini, breaks = 10, labels = FALSE)
+
+# Create the interactive map
+# Initialize the Leaflet map
+leaflet_map <- leaflet(world_data) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%  # Add base map layer
+  addPolygons(
+    fillColor = ~colorNumeric("viridis", headcount_ratio_international_povline)(headcount_ratio_international_povline),
+    weight = 1,
+    color = "white",
+    fillOpacity = 0.7,
+    highlightOptions = highlightOptions(
+      weight = 3,
+      color = "black",
+      fillOpacity = 0.9,
+      bringToFront = TRUE),
+    label = ~paste("Country:", name, "<br>", 
+                   "Headcount Ratio:", headcount_ratio_international_povline, "<br>", 
+                   "Gini Scaled:", gini_scaled)
+  ) %>%
+  addLegend(
+    "bottomright",
+    pal = colorNumeric("viridis", world_data$headcount_ratio_international_povline),
+    values = ~headcount_ratio_international_povline,
+    title = "Headcount Ratio",
+    opacity = 0.7
+  )
+
+# Render the map
+leaflet_map
+```
 
 ```{r}
 #| label: SecondQuestion
@@ -327,74 +392,39 @@ ggplot(data = world_data) +
 
 ```
 
-```{r}
-# Read the dataset
-#install.packages("dplyr")
-#install.packages("readr")
-#install.packages("sf")
-#install.packages("rnaturalearth")
-#install.packages("leaflet")
-#install.packages("viridis")
-library(dplyr)
-library(readr)
-library(sf)
-library(rnaturalearth)
-library(leaflet)
-library(viridis)
+## Discussion
 
-# Reading the dataset
-pip_final <- read.csv("data/cleaned_pip_final.csv")
+## Repo Organization
 
-# Filter and process the data
-filtered_data <- pip_final %>%
-  filter(year == 1996, ppp_version == 2017) %>%
-  group_by(Country) %>%
-  slice(1) %>%
-  ungroup()
 
-# Get world map data
-world <- ne_countries(scale = "medium", returnclass = "sf")
+The following folders comprise the project repository
 
-# Merge your data with the world map
-world_data <- world %>%
-  left_join(filtered_data, by = c("name" = "Country"))
+-   **.github/:** Files related to GitHub, including actions, workflows, and issue-specific templates, go in this directory.
 
-# Scale the "gini" column
-world_data$gini_scaled <- cut(world_data$gini, breaks = 10, labels = FALSE)
+-   **\_extra/:** Set aside for random files that don't easily fit into other project categories, this area serves as a repository for a range of supplemental papers.
 
-# Create the interactive map
-# Initialize the Leaflet map
-leaflet_map <- leaflet(world_data) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%  # Add base map layer
-  addPolygons(
-    fillColor = ~colorNumeric("viridis", headcount_ratio_international_povline)(headcount_ratio_international_povline),
-    weight = 1,
-    color = "white",
-    fillOpacity = 0.7,
-    highlightOptions = highlightOptions(
-      weight = 3,
-      color = "black",
-      fillOpacity = 0.9,
-      bringToFront = TRUE),
-    label = ~paste("Country:", name, "<br>", 
-                   "Headcount Ratio:", headcount_ratio_international_povline, "<br>", 
-                   "Gini Scaled:", gini_scaled)
-  ) %>%
-  addLegend(
-    "bottomright",
-    pal = colorNumeric("viridis", world_data$headcount_ratio_international_povline),
-    values = ~headcount_ratio_international_povline,
-    title = "Headcount Ratio",
-    opacity = 0.7
-  )
+-   **\_freeze/:** There are frozen environment files in this directory that contain detailed information on the dependencies and environment setup of the project.
 
-# Render the map
-leaflet_map
-```
+-   **data/:** Designated especially for the storage of I data files that are necessary for the operation of the project; these include input files, datasets, and other vital data resources.
+
+-   **images/:** This directory preserves visual components essential to project documentation and presentation by acting as a repository for all of the visual assets used throughout the project, such as charts, screenshots, and diagrams.
+
+-   **.gitignore:** By defining exclusions from version control, this file helps to expedite the versioning process by preventing Git from tracking certain files and folders.
+
+-   **README.md:** Acting as the principal repository for project data, this README provides pertinent information regarding project setup, usage guidelines, and a broad summary of the goals and scope of the project.
+
+-   **\_quarto.yml:** Serving as a key configuration file for Quarto, this file contains a variety of settings and parameters controlling how Quarto documents are created and displayed, allowing for customization and output control.
+
+-   **about.qmd:** This Quarto Markdown file adds to the project documentation by clarifying the goal of the project, offering more background information, contributor insights, and other important project elements.
+
+-   **index.qmd:** This is our project's primary documentation page. Comprehensive details of our project, including with all the code and graphics, may be found in this Quarto Markdown file.
+
 ## References
 
 \[1\] Source Data link : [*https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015*](https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015)
 
 \[2\] Used Generative AI to know the solutions of the errors link: <https://chat.openai.com/>
 
-\[3\] Used some techniques an codes from class lectures ppt file, Link: <https://datavizaz.org/>\
+\[3\] Used some techniques an codes from class lectures ppt file, Link: <https://datavizaz.org/>
+
+\[4\] Repo Organization idea from, Link: <https://github.com/INFO523-S24/project-final-datadetectives/blob/main/index.qmd/>
