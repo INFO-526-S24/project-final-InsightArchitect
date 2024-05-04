@@ -93,9 +93,8 @@ model |> glance()
 
 ```
 
-
+# 
 ::: panel-tabset
-
 #### Plot 01: Stacked Bar Chart of Population by Poverty Status {.smaller auto-animate="true"}
 
 ```{r}
@@ -104,16 +103,15 @@ knitr::include_graphics("images/animated_stacked_bar_chart02.gif")
 
 ```
 
-#### Insights 
+#### Insights
 
 -   
-
 :::
-
 
 ## Plot 02 {.smaller auto-animate="true"}
 
-- Distribution of Wealth Inequality Across Different Years
+-   Distribution of Wealth Inequality Across Different Years
+
 ```{r}
 
 knitr::include_graphics("images/animated_ridge_plot.gif")
@@ -179,6 +177,7 @@ Limitations:
 # Wrap up
 
 ## Referen
+
 \[1\] Source Data link : [*https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015*](https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015)
 
 \[2\] Used Generative AI to know the solutions of the errors link: <https://chat.openai.com/>
