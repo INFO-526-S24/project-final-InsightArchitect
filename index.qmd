@@ -326,6 +326,71 @@ ggplot(data = world_data) +
         panel.background = element_rect(fill = "lightblue"))  # Set background color
 
 ```
+
+```{r}
+# Read the dataset
+#install.packages("dplyr")
+#install.packages("readr")
+#install.packages("sf")
+#install.packages("rnaturalearth")
+#install.packages("leaflet")
+#install.packages("viridis")
+library(dplyr)
+library(readr)
+library(sf)
+library(rnaturalearth)
+library(leaflet)
+library(viridis)
+
+# Reading the dataset
+pip_final <- read.csv("data/cleaned_pip_final.csv")
+
+# Filter and process the data
+filtered_data <- pip_final %>%
+  filter(year == 1996, ppp_version == 2017) %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
+# Get world map data
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Merge your data with the world map
+world_data <- world %>%
+  left_join(filtered_data, by = c("name" = "Country"))
+
+# Scale the "gini" column
+world_data$gini_scaled <- cut(world_data$gini, breaks = 10, labels = FALSE)
+
+# Create the interactive map
+# Initialize the Leaflet map
+leaflet_map <- leaflet(world_data) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%  # Add base map layer
+  addPolygons(
+    fillColor = ~colorNumeric("viridis", headcount_ratio_international_povline)(headcount_ratio_international_povline),
+    weight = 1,
+    color = "white",
+    fillOpacity = 0.7,
+    highlightOptions = highlightOptions(
+      weight = 3,
+      color = "black",
+      fillOpacity = 0.9,
+      bringToFront = TRUE),
+    label = ~paste("Country:", name, "<br>", 
+                   "Headcount Ratio:", headcount_ratio_international_povline, "<br>", 
+                   "Gini Scaled:", gini_scaled)
+  ) %>%
+  addLegend(
+    "bottomright",
+    pal = colorNumeric("viridis", world_data$headcount_ratio_international_povline),
+    values = ~headcount_ratio_international_povline,
+    title = "Headcount Ratio",
+    opacity = 0.7
+  )
+
+# Render the map
+leaflet_map
+```
 ## References
 
 \[1\] Source Data link : [*https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015*](https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015)
