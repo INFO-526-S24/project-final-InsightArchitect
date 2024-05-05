@@ -1,7 +1,7 @@
 ---
 title: "Evolution of Global Poverty: Regional Contributions Over Time"
 subtitle: "INFO 526 - Project Final - InsightArchitect"
-author: "Ayesha, Shreemithra, Anusha, Eeshaan, Kaarthik, Amaan"
+author: "Ayesha, Shreemithra, Anusha, Eeshaan, Kaarthik,Amaan"
 title-slide-attributes:
   data-background-image: images/background_slide1.jpg
   data-background-size: stretch
@@ -36,7 +36,7 @@ execute:
 
 -   Covers over <strong>190 countries </strong>Enabling the study of poverty within varied economic, political, and cultural contexts
 
-    ![](images/clipboard-136065831.png){width="205"}
+    ![](images/clipboard-136065831.png){width="289"}
 
 ## Research Questions {.smaller}
 
@@ -52,16 +52,16 @@ execute:
 
 -   what implications do these interactions have for future global poverty reduction strategies?
 
-## Visualization of Poverty Trends
+## Visualization of Poverty Trends  {.smaller}
 
 ::: panel-tabset
-## Plot 1  {.smaller}
+## Plot 1
 
-![](images/animated_stacked_bar_chart02.gif)
+![](images/animated_stacked_bar_chart02.gif){fig-align="center" width="611"}
 
-## Abstract {.smaller}
+## Abstract  {.smaller}
 
--   The global population's historical data, from 1820 to 2017, is visualized as a bar chart that shows those living in and out of extreme poverty.
+-   The global population’s historical data, from 1820 to 2017, is visualized as a bar chart that shows those living in and out of extreme poverty.
 
 -   It displays two segments: those living in extreme poverty are indicated in the top segment `(shown in red)`, while the people not living in extreme poverty is represented in the bottom segment `(shown in blue`).
 
@@ -70,27 +70,21 @@ execute:
 -   The population counts in billions are provided by the text labels on each bar segment. The referenced data source, Ravallion (2016), has been updated with additional information including World Bank (2019) data.
 :::
 
-## Distribution of Wealth Inequality Across Different Years {.smaller auto-animate="true"}
+## Distribution of Wealth Inequality {.smaller auto-animate="true"}
 
-<div>
+::: panel-tabset
+## Plot 2
 
-## Plot 2  {.smaller}
+![](images/animated_ridge_plot.gif){fig-align="center" width="604"}
 
-![](images/animated_ridge_plot.gif)
-
-## Abstract {.smaller}
+## Abstract
 
 -   **Darker hues:** approaching the color purple, would symbolize a more equitable distribution, where income is dispersed more equally among the populace.
 
 -   **Brighter hues:** which resemble yellow more closely, would be indicative of greater inequality and wealth concentration in a smaller number of hands. As an illustration, a country's level of inequality would be shown by a `Gini coefficient` that is closer to 0 (darker colors) or closer to 1 (brighter colors).
 
 -   In the same way, lower values for the `Palma` and `S80/S20 ratios` would indicate a narrower gap between the wealthiest and poorest groups in society.
-
-</div>
-
-# A new section...
-
-## 
+:::
 
 ## Images
 

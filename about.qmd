@@ -8,7 +8,7 @@ This project was developed by **\[InsightArchitect\]** For [INFO 526 - Data Anal
 
 -   Ayesha Khatun: First Year PhD Student, School of Information, Major: Natural Language Processing
 
--   Team member 2: One sentence description of Team member 2 (e.g., year, major, etc.).
+-   Shreemithra Naveen: First Year Masters student, Majors : Data Science
 
 -   Team member 3: One sentence description of Team member 3 (e.g., year, major, etc.).
 

@@ -1,5 +1,5 @@
 ---
-title: "Global Poverty Trends: A Comprehensive Dataset for Research and Development"
+title: "Evolution of Global Poverty: Regional Contributions Over Time"
 subtitle: "INFO 526 - Project Final"
 author: 
   - name: "InsightArchitect - Ayesha, Shreemithra, Anusha, Eeshaan, Kaarthik, Amaan"
@@ -256,7 +256,6 @@ Less inequality is often suggested by higher values in the context of metrics su
 
 **Brighter hues:** which resemble yellow more closely, would be indicative of greater inequality and wealth concentration in a smaller number of hands. As an illustration, a country's level of inequality would be shown by a `Gini coefficient` that is closer to 0 (darker colors) or closer to 1 (brighter colors). In the same way, lower values for the `Palma` and `S80/S20 ratios` would indicate a narrower gap between the wealthiest and poorest groups in society.
 
-
 ## Question 2 : How do welfare regimes and economic growth rates influence income inequality and poverty dynamics across different countries and continents over the last three decades, influenced by varying welfare types and international poverty lines, and what implications do these interactions have for future global poverty reduction strategies?
 
 ### Plot 03 : Headcount Ratio at International Poverty Line
@@ -395,7 +394,6 @@ ggplot(data = world_data) +
 ## Discussion
 
 ## Repo Organization
-
 
 The following folders comprise the project repository
 
