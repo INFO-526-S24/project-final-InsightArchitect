@@ -10,6 +10,6 @@ This project was developed by **\[InsightArchitect\]** For [INFO 526 - Data Anal
 
 -   Shreemithra Naveen: First Year Masters student, Majors : Data Science
 
--   Team member 3: One sentence description of Team member 3 (e.g., year, major, etc.).
+-   Anusha Nagaraja: Second Year Masters student, Majors : Information Science
 
 -   Team member 4: One sentence description of Team member 4 (e.g., year, major, etc.).
