@@ -12,4 +12,5 @@ This project was developed by **\[InsightArchitect\]** For [INFO 526 - Data Anal
 
 -   Anusha Nagaraja: Second Year Masters student, Majors : Information Science
 
--   Team member 4: One sentence description of Team member 4 (e.g., year, major, etc.).
+-   Kaarthik sai patibandla: Second Year Masters student, Majors : Data Science
+
