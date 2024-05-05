@@ -19,11 +19,11 @@ execute:
 
 ## Abstract
 
-This project by Insight Architect harnesses a comprehensive data-set on global poverty trends from Our World in Data to provide actionable insights into the dynamics of poverty across different regions and timelines. Utilizing advanced data visualization tools the shiny app in R, the project aims to enhance the understanding of poverty patterns and the effectiveness of various interventions.he dataset, encompassing 4,877 rows and 108 columns, is rich in metrics such as the headcount ratio at the international poverty line, Gini coefficients, and other inequality indices, which are crucial for analyzing poverty trends and wealth distribution among different income groups.
-
-The project will address pivotal questions regarding the reduction of extreme poverty, the distribution of wealth, and the impact of welfare regimes and economic growth on income inequality. By focusing on these areas, the research intends to uncover the nuances of poverty alleviation efforts and economic policies across various global regions over the past three decades.
+This report investigates two critical inquiries related to global poverty dynamics and income inequality. The first question explores the conquest of extreme poverty across various global regions over time and examines the distribution of wealth among income groups. The second question delves into the influence of welfare regimes and economic growth rates on income inequality and poverty dynamics, considering different welfare types and international poverty lines. The approaches include interactive visualizations and advanced data analysis techniques to provide comprehensive insights into these complex issues.
 
 ## Introduction
+
+The global battle against poverty demands a solid foundation of reliable and comprehensive data. This project, spearheaded by Insight Architect, delves into a wealth of information on global poverty trends sourced from Our World in Data. With a vast array of indicators spanning income, education, inequality, and welfare policies, this dataset serves as a cornerstone for researchers and policymakers alike. By employing advanced data visualization tools within a shiny app in R, the project aims to shed light on the intricate dynamics of poverty across different regions and timelines. With 4,877 rows and 108 columns, the dataset offers a treasure trove of metrics including the headcount ratio at the international poverty line and Gini coefficients. These metrics are essential for dissecting poverty trends and understanding the distribution of wealth among various income groups. Throughout this research, pivotal questions surrounding the reduction of extreme poverty, wealth distribution, and the impact of welfare regimes and economic growth on income inequality will be explored. By unraveling these complexities, the project seeks to provide deeper insights into poverty alleviation efforts and economic policies implemented across global regions over the past three decades.
 
 ```{r}
 #| label: load-pkgs
@@ -54,13 +54,11 @@ pip_row_data <- read.csv('data/pip_dataset.csv')
 ex_pro_data <- read.csv('data/globalextremepovertyrate_world-bank2020.csv')
 ```
 
-## Justification of approach
-
-Stacked bar charts are effective for showing the total amount as well as the composition of that total. By presenting data on people living in and out of extreme poverty as parts of a whole for each year, this visualization clearly demonstrates how total populations and their poverty statuses have evolved over nearly two centuries
-
-This visualization strategy leverages the strengths of stacked bar charts for handling compositional data over time, making it an ideal choice for presenting complex historical data(broad range of years (from 1820 to 2017)) on poverty in a format that is both informative and visually compelling.
-
 ## Questions 01: Who is Conquering Extreme Poverty in Various Global Regions Across Time? How does the distribution of wealth differ among various income groups?
+
+### Approach
+
+Stacked bar charts excel in illustrating both the total quantity and its breakdown. By portraying individuals residing in extreme poverty alongside those outside it as components of a whole for each year, this visualization method vividly showcases the evolution of total populations and their poverty statuses spanning nearly two centuries. Leveraging the robust capabilities of stacked bar charts in handling compositional data over time, this visualization approach emerges as an optimal selection for presenting intricate historical data on poverty. Covering a wide range of years from 1820 to 2017, it delivers information in a format that is not only informative but also visually engaging.
 
 ### Plot 01 : Stacked Bar Chart to know Poverty Trends over the year in the World
 
@@ -255,6 +253,12 @@ Less inequality is often suggested by higher values in the context of metrics su
 **Darker hues:** approaching the color purple, would symbolize a more equitable distribution, where income is dispersed more equally among the populace.
 
 **Brighter hues:** which resemble yellow more closely, would be indicative of greater inequality and wealth concentration in a smaller number of hands. As an illustration, a country's level of inequality would be shown by a `Gini coefficient` that is closer to 0 (darker colors) or closer to 1 (brighter colors). In the same way, lower values for the `Palma` and `S80/S20 ratios` would indicate a narrower gap between the wealthiest and poorest groups in society.
+
+### Discussion 
+
+The visualizations presented in this analysis offer valuable insights into the dynamics of poverty and wealth distribution across different global regions over time. By examining the stacked bar chart portraying poverty trends from 1820 to 2017, it becomes evident that significant strides have been made in reducing extreme poverty globally. The chart effectively illustrates the shift in the population living in extreme poverty versus those living above the poverty line, highlighting a consistent decline in extreme poverty rates, particularly after 1980. This suggests a positive trend in poverty alleviation efforts and economic development initiatives worldwide.
+
+Moreover, the distribution of wealth inequality across different income groups, as depicted in the ridge plot, provides further context to understand poverty dynamics. The visualization showcases various inequality metrics over time, including the Gini coefficient, Palma ratio, and other indicators. The gradient effect employed in the plot enhances the visualization by depicting the intensity of wealth disparity across different years. Darker hues signify a more equitable distribution of wealth, while brighter hues indicate greater inequality. This nuanced depiction allows for a comprehensive analysis of wealth distribution trends and their implications for poverty reduction strategies.
 
 ## Question 2 : How do welfare regimes and economic growth rates influence income inequality and poverty dynamics across different countries and continents over the last three decades, influenced by varying welfare types and international poverty lines, and what implications do these interactions have for future global poverty reduction strategies?
 
