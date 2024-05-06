@@ -269,6 +269,7 @@ The approach outlined through the R Shiny dashboards and visualizations aims to 
 
 By offering interactive maps, line graphs, heatmaps, and 3D scatter plots, the dashboards enable users to dynamically explore trends and patterns over time and across countries. Users can select specific countries, years, and poverty thresholds to focus on, facilitating tailored analyses based on their interests and research objectives.
 
+
 ### Plot 03 : Headcount Ratio at International Poverty Line
 
 ```{r}
