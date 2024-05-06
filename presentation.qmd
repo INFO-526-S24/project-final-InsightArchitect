@@ -46,7 +46,7 @@ execute:
 
 -   Who is Conquering Extreme Poverty in Various Global Regions Across Time?
 
--   How does the distribution of wealth differ among various income groups
+-   How does the distribution of wealth differ among various income groups?
 
 ## Visualization of Poverty Trends {.smaller}
 

@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "<img src='/images/Logo.png' alt='IA_Logo' style='width: 4em; height: 4em; border-radius: 30%;'> <b>Evolution of Global Poverty</b>"
+  title: "<img src='/images/IA_Logo.png' alt='IA_Logo' style='width: 4em; height: 4em; border-radius: 30%;'> <b>Evolution of Global Poverty</b>"
   navbar:
     right:
       - icon: github
