@@ -15,7 +15,7 @@ jobs:
           c("_extra/*", "images/*", "_freeze/*",
             "data/*.csv", "data/*.csv", "data/*.xls", "data/*.xlsx", "data/*.RDS", "data/README.md", "data/*.qmd",
             "README.md", "project-final.Rproj",
-            "index.qmd", "presentation.qmd", "proposal.qmd", "about.qmd", "_quarto.yml", "data/*.scss"
+            "index.qmd", "presentation.qmd", "Dashboard.qmd","proposal.qmd", "about.qmd", "_quarto.yml", "data/*.scss"
             )
           )
         })

@@ -17,14 +17,12 @@ editor_options:
 ```{r}
 #| label: load-packages
 #| message: false
-
 library(ggplot2)
 library(sf)
 library(dplyr)
 library(rnaturalearth)
 library(rnaturalearthdata)
 library(magick)
-library(globe4r)
 library(readr)
 library(sf)
 library(leaflet)
