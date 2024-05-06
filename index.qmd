@@ -856,14 +856,13 @@ server <- function(input, output) {
 
 The collection of R shiny codes above provided is designed to set up several interactive dashboards using the Shiny framework, enhanced by Plotly and other visualization libraries to present dynamic data visualizations. collectively, they provide a comprehensive overview of global socio-economic issues such as poverty, income inequality, and economic disparities, across different time periods and countries.
 
-
 ### Discussion
 
 The strategy proposed for examining global poverty and income inequality, accompanied by the series of dashboards and map plot discussed earlier, offers a thorough framework for comprehending and illustrating socio-economic trends worldwide. A significant aspect of this approach lies in its emphasis on customization and interactivity. By allowing users to dynamically select countries and timeframes, the dashboards cater to diverse analytical needs, facilitating precise data exploration and presentation. This flexibility not only enhances user engagement but also fosters a deeper comprehension of the data, thereby enabling more informed decision-making processes.
 
 Moreover, the inclusion of various visualization types within the dashboards, such as heatmaps, line graphs, 3D scatter plots, and globe visualizations, contributes to visual diversity and versatility in data representation. Each visualization type serves distinct analytical purposes, accommodating different preferences and analytical requirements. For example, heatmaps effectively convey density and temporal trends, while globe visualizations offer a global perspective, aiding in the identification of geographical patterns in socio-economic data. Leveraging technologies like Shiny and Plotly ensures that the dashboards are not only interactive but also visually appealing and functional.
 
-### Conclusion 
+### Conclusion
 
 In summary, the comprehensive approach outlined for analyzing global poverty and income inequality, coupled with the series of interactive dashboards and geographical map plot, represents a significant step forward in understanding and addressing socio-economic disparities worldwide. Through user customization, interactivity, and visual diversity, these tools empower users to explore the data trends and patterns, facilitating informed decision-making and policy formulation. The integration of technologies like Shiny and Plotly ensures both functionality and accessibility, while the inclusion of geographical analysis adds a crucial dimension to understanding regional disparities.
 
