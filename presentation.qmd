@@ -107,7 +107,7 @@ execute:
 
 ## Description
 
--   Inequality Headcount using "gini", "mean", "median"
+-   Inequality Headcount using `gini`, `mean`, `median`
 
 -   gini: How much the welfare is distributed among the nation
 
@@ -133,13 +133,13 @@ execute:
 
 ## Description
 
--   Choropleth and line graphs to show Poverty gap, Plama ratio, Headcount Gap
+-   Choropleth and line graphs to show Poverty gap, Palma ratio, Headcount Gap
 
 -   Poverty Line: How many people are under poverty line - Heatmap
 
--   Plama Ratio: How much income is distributed between top 10% to bottom 40%
+-   Palma Ratio: How much income is distributed between top 10% to bottom 40%
 
--    Head count ratio for income: How much percent of the nation make the given amount
+-   Head count ratio for income: How much percent of the nation population makes the given amount
 :::
 
 # Wrap up {.smaller}
