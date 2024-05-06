@@ -6,10 +6,12 @@ title-slide-attributes:
   data-background-image: images/background_slide1.jpg
   data-background-size: stretch
   data-background-opacity: "0.3"
-  data-slide-number: slide
+  data-slide-number: none
 format:
   revealjs:
     theme:  ['data/customtheming.scss']
+    transition: concave
+    background-transition: fade
   
 editor: visual
 execute:
@@ -46,12 +48,6 @@ execute:
 
 -   How does the distribution of wealth differ among various income groups
 
-<strong>Question 2</strong> : Impacts of Welfare Regimes on Poverty
-
--   How do welfare regimes and economic growth rates influence income inequality and poverty dynamics across different countries and continents over the last three decades, influenced by varying welfare types and international poverty lines?
-
--   what implications do these interactions have for future global poverty reduction strategies?
-
 ## Visualization of Poverty Trends {.smaller}
 
 ::: panel-tabset
@@ -59,7 +55,7 @@ execute:
 
 ![](images/animated_stacked_bar_chart02.gif){fig-align="center" width="611"}
 
-## Abstract {.smaller}
+## Description {.smaller}
 
 -   The global population’s historical data, from 1820 to 2017, is visualized as a bar chart that shows those living in and out of extreme poverty.
 
@@ -77,7 +73,7 @@ execute:
 
 ![](images/animated_ridge_plot.gif){fig-align="center" width="604"}
 
-## Abstract
+## Description
 
 -   **Darker hues:** approaching the color purple, would symbolize a more equitable distribution, where income is dispersed more equally among the populace.
 
@@ -86,32 +82,84 @@ execute:
 -   In the same way, lower values for the `Palma` and `S80/S20 ratios` would indicate a narrower gap between the wealthiest and poorest groups in society.
 :::
 
-## Images
+## Research Question 2 
 
-![Image credit: Danielle Navarro, Percolate.](images/watercolour_sys02_img34_teacup-ocean.png){fig-align="center" width="500"}
+<strong>Question 2</strong> : Impacts of Welfare Regimes on Poverty
 
-## Math Expressions {.smaller}
+-   How do welfare regimes and economic growth rates influence income inequality and poverty dynamics across different countries and continents over the last three decades, influenced by varying welfare types and international poverty lines?
 
-You can write LaTeX math expressions inside a pair of dollar signs, e.g. \$\\alpha+\\beta\$ renders $\alpha + \beta$. You can use the display style with double dollar signs:
+-   what implications do these interactions have for future global poverty reduction strategies?
 
-```         
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
-```
+## Dashboard Plots
 
-$$ \bar{X}=\frac{1}{n}\sum_{i=1}^nX_i $$
+::: panel-tabset
+## Plot 1
 
-Limitations:
+![](images/DB1.png){fig-align="center"}
 
-1.  The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
+## Plot 2
 
-2.  There should not be spaces after the opening `$` or before the closing `$`.
+![](images/DB2.png)
 
-# Wrap up
+## Plot 3
 
-## Referen
+![](images/DB3.png){fig-align="center"}
+
+## Description
+
+\-
+:::
+
+## Dashboard plots  
+
+::: panel-tabset
+## Plot 1
+
+![](images/DB4.png){fig-align="center"}
+
+## Plot 2
+
+![](images/DB3-3.png){fig-align="center"}
+
+## Plot 3
+
+![](images/DB4-3.png){fig-align="center"}
+
+## Description
+
+\-
+:::
+
+# Wrap up  {.smaller}
+
+<strong>Summary of Findings</strong>
+
+-   Our analysis reveals significant impacts of welfare regimes and economic growth on poverty dynamics and income inequality globally.
+
+-   The role of diverse welfare systems in shaping economic outcomes was prominently evident across different regions and decades.
+
+<strong>Future Research Directions</strong>
+
+-   Future studies could explore the relationship between specific types of welfare policies and poverty reduction.
+
+-   The insights from this study advocate for tailored welfare and economic policies that consider regional socio-economic dynamics.
+
+## Reference
 
 \[1\] Source Data link : [*https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015*](https://ourworldindata.org/grapher/world-population-in-extreme-poverty-absolute?time=earliest..2015)
 
-\[2\] Used Generative AI to know the solutions of the errors link: <https://chat.openai.com/>
+\[2\] Used Generative AI to know the solutions of the errors, background images, logo and some parts of the complicated code: <https://chat.openai.com/>
 
 \[3\] Used some techniques an codes from class lectures ppt file, Link: <https://datavizaz.org/>
+
+\[4\] Used as reference for shiny app and animations: <https://globe4r.john-coene.com/license>
+
+\[5\] Gifs: <https://giphy.com/gifs/oxfam-milieu-oxfamnovib-hqsrTg12PzsweACunK>
+
+## Thank you 
+
+::: {style="width:100%;height:0;padding-bottom:93%;position:relative;"}
+<iframe src="https://giphy.com/embed/hqsrTg12PzsweACunK" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen>
+
+</iframe>
+:::
