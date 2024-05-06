@@ -1,0 +1,12 @@
+name: ShinyAnalysis
+title: ShinyAnalysis
+username: 1fab4d-zeuszapper
+account: 1fab4d-zeuszapper
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11942044
+bundleId: 8580971
+url: https://1fab4d-zeuszapper.shinyapps.io/ShinyAnalysis/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
