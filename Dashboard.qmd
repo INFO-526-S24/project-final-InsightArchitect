@@ -4,7 +4,6 @@ format:
   dashboard:
     nav-buttons: [github]
     github: 
-logo: images/logo.png
 theme: [sandstone, theme/custom.scss]
 fig-width: 10
 fig-asp: 0.3
