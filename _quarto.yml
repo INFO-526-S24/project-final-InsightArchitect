@@ -2,11 +2,11 @@ project:
   type: website
 
 website:
-  title: Project Title
+  title: "<img src='/images/Logo.png' alt='IA_Logo' style='width: 4em; height: 4em; border-radius: 30%;'> <b>Evolution of Global Poverty</b>"
   navbar:
     right:
       - icon: github
-        href: https://github.com/INFO-526-S24/project-final # Needs to be changed to your project repo
+        href: https://github.com/INFO-526-S24/project-final-InsightArchitect
     left:
       - text: Project
         href: index.qmd

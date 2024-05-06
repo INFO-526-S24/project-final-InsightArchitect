@@ -330,12 +330,13 @@ leaflet_map
 ```
 
 #### Visualization Descriptions:
-Interactive world map that overlays socio-economic data for the year 1996, specifically focusing on the headcount ratio at the international poverty line and the Gini coefficient for different countries. 
+
+Interactive world map that overlays socio-economic data for the year 1996, specifically focusing on the headcount ratio at the international poverty line and the Gini coefficient for different countries.
 
 After reading and filtering the data for the year 1996 using PPP version 2017, it merges this information with spatial data from rnaturalearth to map the countries accordingly. It then categorizes the Gini index into ten groups for visual clarity. The interactive map is built using leaflet, applying a viridis color scale to represent the headcount ratio, which visualizes the proportion of the population living below the poverty line. Interactive elements include enhanced highlighting on hover and detailed tooltips for each country, providing an insightful visualization of global economic disparities. The map is finally rendered, allowing for interactive exploration of the data directly within RStudio or a web interface.
 
-
 ### Plot 04 : Dashboard Display 1
+
 ```{r}
 #| label: dashboard 1
 #| message: false
@@ -742,9 +743,9 @@ server <- function(input, output) {
 #| label: dashboard 5
 #| message: false
 #| warning: false
-#| echo: false
+#| eval: false
 library(shiny)
-library(globe4r)
+#library(globe4r)
 library(dplyr)
 
 # Read the dataset only once outside the server function to improve performance
@@ -761,7 +762,7 @@ for (file_path in image_files) {
   display_image(file_path)
 }
 
-# Define UI
+#Define UI
 ui <- fluidPage(
   titlePanel("Global Poverty Analysis"),
   sidebarLayout(
@@ -845,13 +846,9 @@ server <- function(input, output) {
 
 ```
 
-
 #### Visualization Descriptions:
 
 The collection of R shiny codes above provided is designed to set up several interactive dashboards using the Shiny framework, enhanced by Plotly and other visualization libraries to present dynamic data visualizations. collectively, they provide a comprehensive overview of global socio-economic issues such as poverty, income inequality, and economic disparities, across different time periods and countries.
-
-
-## Discussion
 
 ## Repo Organization
 
