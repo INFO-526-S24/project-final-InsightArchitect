@@ -270,80 +270,7 @@ The approach outlined through the R Shiny dashboards and visualizations aims to 
 By offering interactive maps, line graphs, heatmaps, and 3D scatter plots, the dashboards enable users to dynamically explore trends and patterns over time and across countries. Users can select specific countries, years, and poverty thresholds to focus on, facilitating tailored analyses based on their interests and research objectives.
 
 
-### Plot 03 : Headcount Ratio at International Poverty Line
-
-```{r}
-# Read the dataset
-#install.packages("dplyr")
-#install.packages("readr")
-#install.packages("sf")
-#install.packages("rnaturalearth")
-#install.packages("leaflet")
-#install.packages("viridis")
-library(dplyr)
-library(readr)
-library(sf)
-library(rnaturalearth)
-library(leaflet)
-library(viridis)
-
-# Reading the dataset
-pip_final <- read.csv("data/cleaned_pip_final.csv")
-
-# Filter and process the data
-filtered_data <- pip_final %>%
-  filter(year == 1996, ppp_version == 2017) %>%
-  group_by(Country) %>%
-  slice(1) %>%
-  ungroup()
-
-# Get world map data
-world <- ne_countries(scale = "medium", returnclass = "sf")
-
-# Merge your data with the world map
-world_data <- world %>%
-  left_join(filtered_data, by = c("name" = "Country"))
-
-# Scale the "gini" column
-world_data$gini_scaled <- cut(world_data$gini, breaks = 10, labels = FALSE)
-
-# Create the interactive map
-# Initialize the Leaflet map
-leaflet_map <- leaflet(world_data) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%  # Add base map layer
-  addPolygons(
-    fillColor = ~colorNumeric("viridis", headcount_ratio_international_povline)(headcount_ratio_international_povline),
-    weight = 1,
-    color = "white",
-    fillOpacity = 0.7,
-    highlightOptions = highlightOptions(
-      weight = 3,
-      color = "black",
-      fillOpacity = 0.9,
-      bringToFront = TRUE),
-    label = ~paste("Country:", name, "<br>", 
-                   "Headcount Ratio:", headcount_ratio_international_povline, "<br>", 
-                   "Gini Scaled:", gini_scaled)
-  ) %>%
-  addLegend(
-    "bottomright",
-    pal = colorNumeric("viridis", world_data$headcount_ratio_international_povline),
-    values = ~headcount_ratio_international_povline,
-    title = "Headcount Ratio",
-    opacity = 0.7
-  )
-
-# Render the map
-leaflet_map
-```
-
-#### Visualization Descriptions:
-
-Interactive world map that overlays socio-economic data for the year 1996, specifically focusing on the headcount ratio at the international poverty line and the Gini coefficient for different countries.
-
-After reading and filtering the data for the year 1996 using PPP version 2017, it merges this information with spatial data from rnaturalearth to map the countries accordingly. It then categorizes the Gini index into ten groups for visual clarity. The interactive map is built using leaflet, applying a viridis color scale to represent the headcount ratio, which visualizes the proportion of the population living below the poverty line. Interactive elements include enhanced highlighting on hover and detailed tooltips for each country, providing an insightful visualization of global economic disparities. The map is finally rendered, allowing for interactive exploration of the data directly within RStudio or a web interface.
-
-### Plot 04 : Dashboard Display 1
+### Plot 03 : Dashboard Display 1
 
 ```{r}
 #| label: dashboard 1
@@ -415,7 +342,7 @@ server <- function(input, output) {
 
 ```
 
-### Plot 04 : Dashboard Display 2
+### Plot 03 : Dashboard Display 2
 
 ```{r}
 #| label: dashboard 2
@@ -528,7 +455,7 @@ server <- function(input, output) {
 
 ```
 
-### Plot 04 : Dashboard Display 3
+### Plot 03 : Dashboard Display 3
 
 ```{r}
 #| label: dashboard 3
@@ -629,7 +556,7 @@ server <- function(input, output) {
 
 ```
 
-### Plot 04 : Dashboard Display 4
+### Plot 03 : Dashboard Display 4
 
 ```{r}
 #| label: dashboard 3.2
@@ -745,7 +672,7 @@ server <- function(input, output) {
 
 ```
 
-### Plot 04 : Dashboard Display 5
+### Plot 03 : Dashboard Display 5
 
 ```{r}
 #| label: dashboard 5
