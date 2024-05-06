@@ -751,7 +751,7 @@ server <- function(input, output) {
 #| warning: false
 #| echo: false
 library(shiny)
-library(globe4r)
+#library(globe4r)
 library(dplyr)
 
 # Read the dataset only once outside the server function to improve performance
