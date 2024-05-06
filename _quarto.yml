@@ -16,6 +16,8 @@ website:
         href: presentation.qmd
       - text: About
         href: about.qmd
+      - text: Dashboard
+        href: Dashboard.qmd
 
 format:
   html:

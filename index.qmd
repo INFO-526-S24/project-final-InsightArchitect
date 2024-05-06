@@ -254,7 +254,7 @@ Less inequality is often suggested by higher values in the context of metrics su
 
 **Brighter hues:** which resemble yellow more closely, would be indicative of greater inequality and wealth concentration in a smaller number of hands. As an illustration, a country's level of inequality would be shown by a `Gini coefficient` that is closer to 0 (darker colors) or closer to 1 (brighter colors). In the same way, lower values for the `Palma` and `S80/S20 ratios` would indicate a narrower gap between the wealthiest and poorest groups in society.
 
-### Discussion 
+### Discussion
 
 The visualizations presented in this analysis offer valuable insights into the dynamics of poverty and wealth distribution across different global regions over time. By examining the stacked bar chart portraying poverty trends from 1820 to 2017, it becomes evident that significant strides have been made in reducing extreme poverty globally. The chart effectively illustrates the shift in the population living in extreme poverty versus those living above the poverty line, highlighting a consistent decline in extreme poverty rates, particularly after 1980. This suggests a positive trend in poverty alleviation efforts and economic development initiatives worldwide.
 
@@ -330,68 +330,404 @@ leaflet_map
 ```
 
 ```{r}
-#| label: SecondQuestion
+#| label: dashboard 1
 #| message: false
 #| warning: false
 #| echo: false
-# running the UI
-#shinyApp(ui = ui, server = server)
-library(ggplot2)
-library(sf)
+library(shiny)
+library(plotly)
 library(dplyr)
-library(rnaturalearth)
-library(rnaturalearthdata)
-library(magick)
-#library(globe4r)
+library(readr)
+library(png)
 
-# Read the CSV file into a data frame
-my_data <- read.csv("data/pip_dataset.csv")
-country_lat_long <- read.csv("data/country_pin.csv")
+# Load the image
+img <- png::readPNG("images/DB1.png")
 
-pip_final <- read.csv("data/cleaned_pip_final.csv")
+# Increase the size of the plot
+plot(0, 0, type = "n", xlim = c(0, 2), ylim = c(0, 2), xlab = "", ylab = "", axes = FALSE)
+
+# Display the image
+rasterImage(img, 0, 0, 2, 2)  # Adjust the last two arguments (width and height) to control the size of the image
+
+
+# Load data
+your_data <- read_csv('data/pip_dataset.csv')
+
+# Define UI
+ui <- fluidPage(
+  titlePanel("Income Inequality Dashboard"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("country", "Select Country:", choices = unique(your_data$country)),
+      sliderInput("year_range", "Select Year Range:",
+                  min = min(your_data$year), max = max(your_data$year),
+                  value = c(min(your_data$year), max(your_data$year)),
+                  step = 1)
+    ),
+    mainPanel(
+      plotlyOutput("filtered_heatmap_plot"),
+    )
+  )
+)
+
+# Define server logic
+server <- function(input, output) {
+  # Filter data based on user-selected country and year range
+  filtered_data <- reactive({
+    your_data %>%
+      filter(country == input$country & year >= input$year_range[1] & year <= input$year_range[2])
+  })
+  
+  # Render filtered heatmap
+  output$filtered_heatmap_plot <- renderPlotly({
+    heatmap <- plot_ly(data = filtered_data(), x = ~year, y = ~country, z = ~gini, type = "heatmap", colorscale = "Viridis") %>%
+      layout(
+        title = paste("Filtered Income Inequality Heatmap for", input$country),
+        xaxis = list(title = "Year"),
+        yaxis = list(title = "Country"),
+        colorbar = list(title = "Gini Index"),
+        dragmode = 'zoom'
+      )
+    
+    heatmap
+  })
+
+}
+
+# Run the application
+#shinyApp(ui = ui, server = server)
 
 ```
 
+# added palma ratio, s80/20, p90/10
+
+# dashboard 2
+
 ```{r}
+#| label: dashboard 2
 #| message: false
 #| warning: false
 #| echo: false
+library(shiny)
+library(ggplot2)
+library(dplyr)
+library(plotly)
+
+# Function to display PNG image
+display_image <- function(file_path) {
+  img <- png::readPNG(file_path)
+  plot(0, 0, type = "n", xlim = c(0, 1), ylim = c(0, 1), xlab = "", ylab = "",axes = FALSE)
+  rasterImage(img, 0, 0, 1, 1)
+}
+image_files <- c("images/DB2.png", "images/DB2-2.png")
+for (file_path in image_files) {
+  display_image(file_path)
+}
+
+# Assuming data is loaded here
+data <- read.csv("data/cleaned_pip_final.csv")
+
+ui <- fluidPage(
+  titlePanel("Global Poverty and Inequality Dashboard"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("countryInput", "Select Country:",
+                  choices = unique(data$Country)),
+      sliderInput("yearInput", "Select Year Range:",
+                  min = min(data$year), max = max(data$year),
+                  value = c(min(data$year), max(data$year)))
+    ),
+    mainPanel(
+      tabsetPanel(type = "tabs",
+                  tabPanel("Gini Coefficient Trend", plotlyOutput("giniPlot")),
+                  tabPanel("Palma Ratio", plotlyOutput("palmaPlot")),
+                  tabPanel("P90/P10 Ratio", plotlyOutput("p90p10Plot")),
+                  tabPanel("S80/S20 Ratio", plotlyOutput("s80s20Plot"))
+      )
+    )
+  )
+)
+
+server <- function(input, output) {
+  filteredData <- reactive({
+    data %>%
+      filter(Country == input$countryInput, year >= input$yearInput[1], year <= input$yearInput[2])
+  })
+  
+  
+  output$giniPlot <- renderPlotly({
+    p <- ggplot(filteredData(), aes(x = year, y = gini, color = welfare_type, shape = welfare_type)) +
+      geom_point(size = 3) +
+      geom_line(aes(group = welfare_type), size = 1) +
+      labs(title = "Trend of Gini Coefficient Over Time",
+           x = "Year",
+           y = "Gini Coefficient",
+           color = "Welfare Type",
+           shape = "Welfare Type") +
+      theme_minimal() +
+      theme(legend.position = "bottom")
+    
+    ggplotly(p)
+  })
+  
+  output$palmaPlot <- renderPlotly({
+    p <- ggplot(filteredData(), aes(x = year, y = palma_ratio, color = welfare_type, shape = welfare_type)) +
+      geom_point(size = 3) +
+      geom_line(aes(group = welfare_type), size = 1) +
+      labs(title = "Trend of Palma Ratio Over Time",
+           x = "Year",
+           y = "Palma Ratio",
+           color = "Welfare Type",
+           shape = "Welfare Type") +
+      theme_minimal() +
+      theme(legend.position = "bottom")
+    
+    ggplotly(p)
+  })
+
+  output$p90p10Plot <- renderPlotly({
+    # 3D scatter plot for P90/P10 Ratio
+    plot_ly(filteredData(), x = ~year, y = ~p90_p10_ratio, z = ~welfare_type, type = "scatter3d", mode = "markers",
+            marker = list(size = 5, color = ~p90_p10_ratio, colorscale = 'Viridis', showscale = TRUE),
+            layout = list(title = "P90/P10 Ratio Over Time",
+                          showlegend = TRUE,
+                          scene = list(xaxis = list(title = "Year"),
+                                       yaxis = list(title = "P90/P10 Ratio"),
+                                       zaxis = list(title = "Welfare Type"),
+                                       aspectmode = 'cube')))
+  })
+
+  output$s80s20Plot <- renderPlotly({
+    # 3D scatter plot for S80/S20 Ratio
+    plot_ly(filteredData(), x = ~year, y = ~s80_s20_ratio, z = ~welfare_type, type = "scatter3d", mode = "markers",
+            marker = list(size = 5, color = ~s80_s20_ratio, colorscale = 'Viridis', showscale = TRUE),
+            layout = list(title = "S80/S20 Ratio Over Time",
+                          showlegend = TRUE,
+                          scene = list(xaxis = list(title = "Year"),
+                                       yaxis = list(title = "S80/S20 Ratio"),
+                                       zaxis = list(title = "Welfare Type"),
+                                       aspectmode = 'cube')))
+  })
+}
+
+#shinyApp(ui = ui, server = server)
+
+```
+
+# 3rd dashboard for heatmap, line grpah for mean , meadian and line graph of headcount_100,1000,2000,3000,4000
+
+```{r}
+#| label: dashboard 3
+#| message: false
+#| warning: false
+#| echo: false
+library(shiny)
+library(plotly)
+library(dplyr)
+library(viridis)
+
 # Read the dataset
-pip_final <- read.csv("data/cleaned_pip_final.csv")
+data <- read.csv("data/cleaned_pip_final.csv")
 
-# Filter the dataset to include only rows where year is 1996 and ppp_version is 2017
-filtered_data <- pip_final %>%
-  filter(year == 1996, ppp_version == 2017)
+# Function to display PNG image
+display_image <- function(file_path) {
+  img <- png::readPNG(file_path)
+  plot(0, 0, type = "n", xlim = c(0, 1), ylim = c(0, 1), xlab = "", ylab = "",axes = FALSE)
+  rasterImage(img, 0, 0, 1, 1)
+}
+image_files <- c("images/DB3.png", "images/DB3-2.png", "images/DB3-3.png")
+for (file_path in image_files) {
+  display_image(file_path)
+}
 
-# Select one unique row per country
-# Assuming you want to keep the first occurrence
-unique_countries_data <- filtered_data %>%
-  group_by(Country) %>%
-  slice(1) %>%
-  ungroup()
+# Define UI
+ui <- fluidPage(
+  titlePanel("Dynamic Data Visualizations"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("selectCountry", "Select Country:", choices = unique(data$Country)),
+      sliderInput("selectYear", "Select Year:",
+                  min = min(data$year), max = max(data$year),
+                  value = c(min(data$year), max(data$year)), step = 5, sep = ""),
+      selectInput("selectChart", "Select Chart Type:",
+                  choices = c("Heatmap", "Line Graph", "Headcount Ratios"))
+    ),
+    mainPanel(
+      plotlyOutput("plot")
+    )
+  )
+)
 
-# Get world map data
-world <- ne_countries(scale = "medium", returnclass = "sf")
+# Define server logic
+server <- function(input, output) {
+  filteredData <- reactive({
+    complete_data <- expand.grid(Country = unique(data$Country), year = seq(min(data$year), max(data$year)))
+    merged_data <- merge(data, complete_data, by = c("Country", "year"), all = TRUE)
+    merged_data[is.na(merged_data)] <- 0  # Fill NA values with 0
+    merged_data %>%
+      filter(Country %in% input$selectCountry, year >= input$selectYear[1], year <= input$selectYear[2])
+  })
+  
+  output$plot <- renderPlotly({
+    df <- filteredData()  # Capture the reactive data frame for use in plotting
+    if(input$selectChart == "Heatmap") {
+      p <- ggplot(df, aes(x = year, y = Country, fill = headcount_ratio_international_povline)) +
+        geom_tile() +
+        labs(title = "Heatmap of Poverty Levels", x = "Year", y = "Country") +
+        scale_fill_viridis_c(option = "plasma", na.value = "lightgray")
+      ggplotly(p)
+    } else if(input$selectChart == "Line Graph") {
+      plot_ly(df, x = ~year) %>%
+        add_lines(y = ~mean, name = "Mean", line = list(color = 'blue'), mode = 'lines+markers', marker = list(symbol = "circle")) %>%
+        add_lines(y = ~median, name = "Median", line = list(color = 'red'), mode = 'lines+markers', marker = list(symbol = "square")) %>%
+        layout(title = "Trend of Mean and Median Incomes")
+    } else if(input$selectChart == "Headcount Ratios") {
+      p <- plot_ly(df, x = ~year) %>%
+        add_lines(y = ~headcount_ratio_100, name = "$1/day", line = list(shape = 'linear', color = 'red'), marker = list(symbol = "circle")) %>%
+        add_lines(y = ~headcount_ratio_1000, name = "$10/day", line = list(shape = 'spline', color = 'blue'), marker = list(symbol = "square")) %>%
+        add_lines(y = ~headcount_ratio_2000, name = "$20/day", line = list(shape = 'vhv', color = 'green'), marker = list(symbol = "diamond")) %>%
+        add_lines(y = ~headcount_ratio_3000, name = "$30/day", line = list(shape = 'vh', color = 'purple'), marker = list(symbol = "cross")) %>%
+        add_lines(y = ~headcount_ratio_4000, name = "$40/day", line = list(shape = 'hv', color = 'orange'), marker = list(symbol = "triangle-up")) %>%
+        layout(title = "Headcount Ratios Over Time", yaxis = list(title = "Percentage"), xaxis = list(title = "Year"),
+               updatemenus = list(list(type = "buttons",
+                                       buttons = list(list(method = "restyle",
+                                                           args = list("visible", list(TRUE, FALSE, FALSE, FALSE, FALSE)),
+                                                           label = "$1/day"),
+                                                       list(method = "restyle",
+                                                           args = list("visible", list(FALSE, TRUE, FALSE, FALSE, FALSE)),
+                                                           label = "$10/day"),
+                                                       list(method = "restyle",
+                                                           args = list("visible", list(FALSE, FALSE, TRUE, FALSE, FALSE)),
+                                                           label = "$20/day"),
+                                                       list(method = "restyle",
+                                                           args = list("visible", list(FALSE, FALSE, FALSE, TRUE, FALSE)),
+                                                           label = "$30/day"),
+                                                       list(method = "restyle",
+                                                           args = list("visible", list(FALSE, FALSE, FALSE, FALSE, TRUE)),
+                                                           label = "$40/day")))))
+      p
+    }
+  })
+}
 
-# Merge your data with the world map
-world_data <- world %>%
-  left_join(unique_countries_data, by = c("name" = "Country"))
+# Run the application 
+#shinyApp(ui = ui, server = server)
 
-# Scale the "gini" column from 1 to 10 integer values
-world_data$gini_scaled <- cut(world_data$gini, breaks = 10, labels = FALSE)
+```
 
-# Plotting the heatmap with labels
-ggplot(data = world_data) +
-  geom_sf(aes(fill = headcount_ratio_international_povline), color = "white") +
-  geom_sf_text(aes(label = as.character(gini_scaled)), size = 5, color = "black", check_overlap = TRUE) +  # Add labels from the "gini" column
-  scale_fill_viridis_c(option = "C", direction = -1, name = "Headcount Ratio", na.value = "grey90") +  # Use viridis color palette
-  labs(title = "Headcount Ratio at International Poverty Line", fill = "Headcount Ratio", color = "Gini Index") +
-  theme_minimal() +
-  theme(legend.position = "right",  # Move legend to the right
-        legend.title = element_text(size = 12, face = "bold"),  # Adjust legend title appearance
-        legend.text = element_text(size = 10),  # Adjust legend text appearance
-        plot.title = element_text(size = 16, face = "bold"),  # Adjust plot title appearance
-        panel.background = element_rect(fill = "lightblue"))  # Set background color
+# 2nd part with income_gap_ratios_100,1000,2000,3000,4000 against total_shortfall_100,1000,2000,3000,4000
+
+```{r}
+#| label: dashboard 3.2
+#| message: false
+#| warning: false
+#| echo: false
+
+# Read your data
+data <- read_csv("data/cleaned_pip_final.csv")
+
+# Function to display PNG image
+display_image <- function(file_path) {
+  img <- png::readPNG(file_path)
+  plot(0, 0, type = "n", xlim = c(0, 1), ylim = c(0, 1), xlab = "", ylab = "",axes = FALSE)
+  rasterImage(img, 0, 0, 1, 1)
+}
+image_files <- c("images/BD4.png")
+for (file_path in image_files) {
+  display_image(file_path)
+}
+
+# Define UI
+ui <- fluidPage(
+  titlePanel("Poverty Metrics Visualization"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("selectCountry", "Select Country:", choices = unique(data$Country)),
+      sliderInput("selectYear", "Select Year Range:",
+                  min = min(data$year), max = max(data$year),
+                  value = c(min(data$year), max(data$year)))
+    ),
+    mainPanel(
+      tabsetPanel(type = "tabs",
+                  tabPanel("Poverty Line $1", plotlyOutput("plot1")),
+                  tabPanel("Poverty Line $10", plotlyOutput("plot10")),
+                  tabPanel("Poverty Line $20", plotlyOutput("plot20")),
+                  tabPanel("Poverty Line $30", plotlyOutput("plot30")),
+                  tabPanel("Poverty Line $40", plotlyOutput("plot40"))
+      )
+    )
+  )
+)
+
+# Define server logic
+server <- function(input, output) {
+  filteredData <- reactive({
+    data %>%
+      filter(Country == input$selectCountry, 
+             year >= input$selectYear[1], 
+             year <= input$selectYear[2])
+  })
+  
+  # Function to create each plot
+  output$plot1 <- renderPlotly({
+    df <- filteredData()
+    plot_ly(df, x = ~year, mode = "lines", stackgroup = "one") %>%
+      add_trace(y = ~income_gap_ratio_100, name = "Income Gap Ratio $1", fillcolor = 'rgba(255, 0, 0, 0.5)') %>%
+      add_trace(y = ~total_shortfall_100, name = "Total Shortfall $1", fillcolor = 'rgba(0, 0, 255, 0.5)') %>%
+      layout(title = "Metrics for Poverty Line $1/day",
+             xaxis = list(title = "Year"),
+             yaxis = list(title = "Value"),
+             showlegend = TRUE)
+  })
+  
+  output$plot10 <- renderPlotly({
+    df <- filteredData()
+    plot_ly(df, x = ~year, mode = "lines", stackgroup = "one") %>%
+      add_trace(y = ~income_gap_ratio_1000, name = "Income Gap Ratio $10", fillcolor = 'rgba(255, 0, 0, 0.5)') %>%
+      add_trace(y = ~total_shortfall_1000, name = "Total Shortfall $10", fillcolor = 'rgba(0, 0, 255, 0.5)') %>%
+      layout(title = "Metrics for Poverty Line $10/day",
+             xaxis = list(title = "Year"),
+             yaxis = list(title = "Value"),
+             showlegend = TRUE)
+  })
+
+  output$plot20 <- renderPlotly({
+    df <- filteredData()
+    plot_ly(df, x = ~year, mode = "lines", stackgroup = "one") %>%
+      add_trace(y = ~income_gap_ratio_2000, name = "Income Gap Ratio $20", fillcolor = 'rgba(255, 0, 0, 0.5)') %>%
+      add_trace(y = ~total_shortfall_2000, name = "Total Shortfall $20", fillcolor = 'rgba(0, 0, 255, 0.5)') %>%
+      layout(title = "Metrics for Poverty Line $20/day",
+             xaxis = list(title = "Year"),
+             yaxis = list(title = "Value"),
+             showlegend = TRUE)
+  })
+
+  output$plot30 <- renderPlotly({
+    df <- filteredData()
+    plot_ly(df, x = ~year, mode = "lines", stackgroup = "one") %>%
+      add_trace(y = ~income_gap_ratio_3000, name = "Income Gap Ratio $30", fillcolor = 'rgba(255, 0, 0, 0.5)') %>%
+      add_trace(y = ~total_shortfall_3000, name = "Total Shortfall $30", fillcolor = 'rgba(0, 0, 255, 0.5)') %>%
+      layout(title = "Metrics for Poverty Line $30/day",
+             xaxis = list(title = "Year"),
+             yaxis = list(title = "Value"),
+             showlegend = TRUE)
+  })
+
+  output$plot40 <- renderPlotly({
+    df <- filteredData()
+    plot_ly(df, x = ~year, mode = "lines", stackgroup = "one") %>%
+      add_trace(y = ~income_gap_ratio_4000, name = "Income Gap Ratio $40", fillcolor = 'rgba(255, 0, 0, 0.5)') %>%
+      add_trace(y = ~total_shortfall_4000, name = "Total Shortfall $40", fillcolor = 'rgba(0, 0, 255, 0.5)') %>%
+      layout(title = "Metrics for Poverty Line $40/day",
+             xaxis = list(title = "Year"),
+             yaxis = list(title = "Value"),
+             showlegend = TRUE)
+  })
+}
+
+# Run the application 
+#shinyApp(ui = ui, server = server)
+
 
 ```
 

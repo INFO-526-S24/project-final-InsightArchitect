@@ -52,14 +52,14 @@ execute:
 
 -   what implications do these interactions have for future global poverty reduction strategies?
 
-## Visualization of Poverty Trends  {.smaller}
+## Visualization of Poverty Trends {.smaller}
 
 ::: panel-tabset
 ## Plot 1
 
 ![](images/animated_stacked_bar_chart02.gif){fig-align="center" width="611"}
 
-## Abstract  {.smaller}
+## Abstract {.smaller}
 
 -   The global population’s historical data, from 1820 to 2017, is visualized as a bar chart that shows those living in and out of extreme poverty.
 

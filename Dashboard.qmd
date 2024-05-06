@@ -1,0 +1,174 @@
+---
+title: "Insight Architect"
+format: 
+  dashboard:
+    nav-buttons: [github]
+    github: 
+logo: images/logo.png
+theme: [sandstone, theme/custom.scss]
+fig-width: 10
+fig-asp: 0.3
+params:
+  month: "May"
+  year: "2024"
+editor_options: 
+  chunk_output_type: console
+css: theme/custom.css 
+---
+
+```{r}
+#| label: load-packages
+#| message: false
+
+library(ggplot2)
+library(sf)
+library(dplyr)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(magick)
+library(globe4r)
+library(readr)
+library(sf)
+library(leaflet)
+library(viridis)
+```
+
+```{r}
+#| label: load-data
+#| message: false
+
+my_data <- read.csv("data/pip_dataset.csv")
+country_lat_long <- read.csv("data/country_pin.csv")
+pip_final <- read.csv("data/cleaned_pip_final.csv")
+```
+
+```{r}
+#| label: prep-data
+# Filter the dataset to include only rows where year is 1996 and ppp_version is 2017
+filtered_data <- pip_final %>%
+  filter(year == 1996, ppp_version == 2017)
+
+# Select one unique row per country
+# Assuming you want to keep the first occurrence
+unique_countries_data <- filtered_data %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
+# Get world map data
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Merge your data with the world map
+world_data <- world %>%
+  left_join(unique_countries_data, by = c("name" = "Country"))
+
+# Scale the "gini" column from 1 to 10 integer values
+world_data$gini_scaled <- cut(world_data$gini, breaks = 10, labels = FALSE)
+
+# Filter the dataset to include only rows where ppp_version is 2017
+pip_final_2018 <- pip_final %>%
+  filter(ppp_version == 2017, year == 2018) %>%
+  select(Country.Code, Country, year, Latitude, Longitude, gini,headcount_ratio_international_povline, avg_shortfall_international_povline, income_gap_ratio_international_povline)
+
+# Remove duplicate country rows
+pip_final_unique <- pip_final_2018 %>%
+  distinct(Country, .keep_all = TRUE)
+
+# Scale the "headcount_ratio_international_povline" and "gini" columns
+pip_final_scaled <- pip_final_unique %>%
+  mutate(
+    headcount_ratio_international_povline_scaled = 
+           (headcount_ratio_international_povline - min(headcount_ratio_international_povline)) /
+           (max(headcount_ratio_international_povline) - min(headcount_ratio_international_povline)),
+    gini_scaled = 
+           (gini - min(gini)) /
+           (max(gini) - min(gini)),
+    avg_shortfall_international_povline_scaled =
+           (avg_shortfall_international_povline - min(avg_shortfall_international_povline)) /
+           (max(avg_shortfall_international_povline) - min(avg_shortfall_international_povline)),
+    income_gap_ratio_international_povline_scaled =
+           (income_gap_ratio_international_povline - min(income_gap_ratio_international_povline)) /
+           (max(income_gap_ratio_international_povline) - min(income_gap_ratio_international_povline))
+  )
+```
+
+
+
+# Map
+
+## Row {height="100%"}
+### Column {width="50%"}
+
+```{r}
+#| title: Globe1
+
+# Filter and process the data
+filtered_data <- pip_final %>%
+  filter(year == 1996, ppp_version == 2017) %>%
+  group_by(Country) %>%
+  slice(1) %>%
+  ungroup()
+
+# Get world map data
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Merge your data with the world map
+world_data <- world %>%
+  left_join(filtered_data, by = c("name" = "Country"))
+
+# Scale the "gini" column
+world_data$gini_scaled <- cut(world_data$gini, breaks = 10, labels = FALSE)
+
+# Create the interactive map
+# Initialize the Leaflet map
+leaflet_map <- leaflet(world_data) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%  # Add base map layer
+  addPolygons(
+    fillColor = ~colorNumeric("viridis", headcount_ratio_international_povline)(headcount_ratio_international_povline),
+    weight = 1,
+    color = "white",
+    fillOpacity = 0.7,
+    highlightOptions = highlightOptions(
+      weight = 3,
+      color = "black",
+      fillOpacity = 0.9,
+      bringToFront = TRUE),
+    label = ~paste("Country:", name, "<br>", 
+                   "Headcount Ratio:", headcount_ratio_international_povline, "<br>", 
+                   "Gini Scaled:", gini_scaled)
+  ) %>%
+  addLegend(
+    "bottomright",
+    pal = colorNumeric("viridis", world_data$headcount_ratio_international_povline),
+    values = ~headcount_ratio_international_povline,
+    title = "Headcount Ratio",
+    opacity = 0.7
+  )
+
+# Render the map
+leaflet_map
+
+```
+
+
+# Shiny
+
+## Row {height="100%"}
+### Column {width="100%"}
+
+```{=html}
+<iframe src="https://1fab4d-zeuszapper.shinyapps.io/combined_test/" style="width:100%; height:600px; border:none;"></iframe>
+
+
+```
+
+# Globe4r
+
+## Row {height="100%"}
+### Column {width="100%"}
+
+```{=html}
+<iframe src="https://1fab4d-zeuszapper.shinyapps.io/globe4r/" style="width:100%; height:600px; border:none;"></iframe>
+
+
+```
