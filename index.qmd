@@ -329,6 +329,13 @@ leaflet_map <- leaflet(world_data) %>%
 leaflet_map
 ```
 
+#### Visualization Descriptions:
+Interactive world map that overlays socio-economic data for the year 1996, specifically focusing on the headcount ratio at the international poverty line and the Gini coefficient for different countries. 
+
+After reading and filtering the data for the year 1996 using PPP version 2017, it merges this information with spatial data from rnaturalearth to map the countries accordingly. It then categorizes the Gini index into ten groups for visual clarity. The interactive map is built using leaflet, applying a viridis color scale to represent the headcount ratio, which visualizes the proportion of the population living below the poverty line. Interactive elements include enhanced highlighting on hover and detailed tooltips for each country, providing an insightful visualization of global economic disparities. The map is finally rendered, allowing for interactive exploration of the data directly within RStudio or a web interface.
+
+
+### Plot 04 : Dashboard Display 1
 ```{r}
 #| label: dashboard 1
 #| message: false
@@ -399,9 +406,7 @@ server <- function(input, output) {
 
 ```
 
-# added palma ratio, s80/20, p90/10
-
-# dashboard 2
+### Plot 04 : Dashboard Display 2
 
 ```{r}
 #| label: dashboard 2
@@ -514,7 +519,7 @@ server <- function(input, output) {
 
 ```
 
-# 3rd dashboard for heatmap, line grpah for mean , meadian and line graph of headcount_100,1000,2000,3000,4000
+### Plot 04 : Dashboard Display 3
 
 ```{r}
 #| label: dashboard 3
@@ -615,7 +620,7 @@ server <- function(input, output) {
 
 ```
 
-# 2nd part with income_gap_ratios_100,1000,2000,3000,4000 against total_shortfall_100,1000,2000,3000,4000
+### Plot 04 : Dashboard Display 4
 
 ```{r}
 #| label: dashboard 3.2
@@ -730,6 +735,121 @@ server <- function(input, output) {
 
 
 ```
+
+### Plot 04 : Dashboard Display 5
+
+```{r}
+#| label: dashboard 5
+#| message: false
+#| warning: false
+#| echo: false
+library(shiny)
+library(globe4r)
+library(dplyr)
+
+# Read the dataset only once outside the server function to improve performance
+pip_final <- read.csv("data/cleaned_pip_final.csv")
+
+# Function to display PNG image
+display_image <- function(file_path) {
+  img <- png::readPNG(file_path)
+  plot(0, 0, type = "n", xlim = c(0, 1), ylim = c(0, 1), xlab = "", ylab = "",axes = FALSE)
+  rasterImage(img, 0, 0, 1, 1)
+}
+image_files <- c("images/DB5.png", "images/DB5-2.png", "images/DB5-3.png", "images/DB5-4.png")
+for (file_path in image_files) {
+  display_image(file_path)
+}
+
+# Define UI
+ui <- fluidPage(
+  titlePanel("Global Poverty Analysis"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("yearInput", "Select Year:", choices = unique(pip_final$year)),
+      selectInput("pppInput", "Select PPP Version:", choices = unique(pip_final$ppp_version))
+    ),
+    mainPanel(
+      tabsetPanel(
+        tabPanel("Globe 1", globeOutput("globe1")),
+        tabPanel("Globe 2", globeOutput("globe2")),
+        tabPanel("Globe 3", globeOutput("globe3")),
+        tabPanel("Globe 4", globeOutput("globe4"))
+      )
+    )
+  )
+)
+
+# Define server logic
+server <- function(input, output) {
+  
+  # Filter data based on user input
+  filteredData <- reactive({
+    pip_final %>%
+      filter(year == input$yearInput, ppp_version == input$pppInput)
+  })
+
+  # Prepare the dataset for globe plotting for each metric
+  globeData <- function(data, metric_scaled) {
+    data %>%
+      mutate(
+        scaled_value = 
+          (metric_scaled - min(metric_scaled, na.rm = TRUE)) /
+          (max(metric_scaled, na.rm = TRUE) - min(metric_scaled, na.rm = TRUE)),
+        Latitude = round(as.numeric(Latitude), 2),
+        Longitude = round(as.numeric(Longitude), 2)
+      )
+  }
+
+  # Set up color palettes
+  colors_frostbite <- colorRampPalette(c("#d8f3ff", "#000046"))(100)
+  colors_electric_lime <- colorRampPalette(c("#a8e063", "#007f5f"))(100)
+  colors_lavender <- colorRampPalette(c("#e6e6fa", "#967bb6"))(100)
+  colors_maroon <- colorRampPalette(c("#c15050", "#800000"))(100)
+
+  # Render each globe using different metrics and colors
+  renderGlobeHelper <- function(outputId, colorPalette, metric) {
+    output[[outputId]] <- renderGlobe({
+      data <- globeData(filteredData(), filteredData()[[metric]])
+      create_globe(height = "100vh") %>%
+        labels_data(data = data) %>%
+        labels_lat(lat = "Latitude") %>%
+        labels_lon(lon = "Longitude") %>%
+        labels_text(text = "Country") %>%
+        labels_altitude(altitude = 30) %>%
+        globe_choropleth(
+          coords(
+            country = Country.Code,
+            altitude = scaled_value,
+            cap_color = scaled_value
+          ),
+          data = data
+        ) %>%
+        polygons_side_color(color = constant("#ffffaa60")) %>%
+        scale_choropleth_cap_color(colorPalette) %>%
+        scale_choropleth_altitude(0.04, 0.2) %>%
+        globe_img_url(image_url("blue")) %>%
+        globe_rotate(speed = 0.5, rotate = TRUE)
+    })
+  }
+
+  # Apply the helper function to each globe
+  renderGlobeHelper("globe1", colors_frostbite, "headcount_ratio_international_povline")
+  renderGlobeHelper("globe2", colors_electric_lime, "gini")
+  renderGlobeHelper("globe3", colors_lavender, "avg_shortfall_international_povline")
+  renderGlobeHelper("globe4", colors_maroon, "income_gap_ratio_international_povline")
+}
+
+# Run the application
+#shinyApp(ui = ui, server = server)
+
+```
+
+
+#### Visualization Descriptions:
+
+The collection of R shiny codes above provided is designed to set up several interactive dashboards using the Shiny framework, enhanced by Plotly and other visualization libraries to present dynamic data visualizations. collectively, they provide a comprehensive overview of global socio-economic issues such as poverty, income inequality, and economic disparities, across different time periods and countries.
+
 
 ## Discussion
 
